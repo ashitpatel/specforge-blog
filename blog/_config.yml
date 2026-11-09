@@ -1,0 +1,18 @@
+title: specforge
+tagline: Checkable guardrails for concurrent software
+description: >-
+  Notes on specforge, a tool that turns requirements or code into Alloy and
+  TLA+ models, checks them exhaustively, and guards every later change
+  against them — with worked examples and the evidence beside each claim.
+author: Ashit Patel
+url: https://ashitpatel.github.io
+baseurl: /specforge-blog
+permalink: /:title/
+theme: minima
+github_username: ashitpatel
+header_pages:
+  - about.md
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap

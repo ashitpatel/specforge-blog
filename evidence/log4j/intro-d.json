@@ -1,0 +1,139 @@
+{
+ "commit": "a1dfa853c9",
+ "needle": "InternalLoggerRegistry",
+ "touched_symbols": 40,
+ "flags": 31,
+ "note": "31 of 650 proposal(s) on the head tree involve a touched symbol",
+ "bug_flags": [
+  {
+   "place": 1,
+   "how": "writes its state",
+   "track": "pattern",
+   "rank": 289,
+   "track_rank": 2,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.loggerRefByNameByMessageFactory"
+   ],
+   "touched_by": [
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.computeIfAbsent",
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.getLoggers",
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.hasLogger"
+   ]
+  },
+  {
+   "place": 30,
+   "how": "in its functions",
+   "track": "pattern",
+   "rank": 235,
+   "track_rank": 36,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.writeLock"
+   ],
+   "touched_by": [
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.computeIfAbsent"
+   ]
+  }
+ ],
+ "bug_listed_in_head": [
+  {
+   "id": "sl-07ca844331",
+   "track": "pattern",
+   "rank": 289,
+   "track_rank": 2,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.loggerRefByNameByMessageFactory"
+   ]
+  },
+  {
+   "id": "sl-4fa510e578",
+   "track": "pattern",
+   "rank": 235,
+   "track_rank": 36,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.writeLock"
+   ]
+  }
+ ],
+ "first_10": [
+  {
+   "how": "writes its state",
+   "track": "pattern",
+   "track_rank": 2,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.InternalLoggerRegistry.loggerRefByNameByMessageFactory"
+   ]
+  },
+  {
+   "how": "writes its state",
+   "track": "scored",
+   "track_rank": 357,
+   "state": [
+    "org.apache.logging.log4j.spi.LoggerRegistry.loggerByMessageFactoryByName"
+   ]
+  },
+  {
+   "how": "in its functions",
+   "track": "pattern",
+   "track_rank": 9,
+   "state": [
+    "org.apache.logging.log4j.core.util.WatcherFactory.pluginManager"
+   ]
+  },
+  {
+   "how": "in its functions",
+   "track": "pattern",
+   "track_rank": 10,
+   "state": [
+    "monitor:org.apache.logging.log4j.core.LoggerContext"
+   ]
+  },
+  {
+   "how": "in its functions",
+   "track": "pattern",
+   "track_rank": 11,
+   "state": [
+    "monitor:org.apache.log4j.AppenderSkeleton"
+   ]
+  },
+  {
+   "how": "in its functions",
+   "track": "pattern",
+   "track_rank": 12,
+   "state": [
+    "monitor:org.apache.logging.log4j.core.async.AsyncLoggerDisruptor"
+   ]
+  },
+  {
+   "how": "in its functions",
+   "track": "pattern",
+   "track_rank": 13,
+   "state": [
+    "org.apache.log4j.Hierarchy.ht"
+   ]
+  },
+  {
+   "how": "in its functions",
+   "track": "pattern",
+   "track_rank": 14,
+   "state": [
+    "monitor:org.apache.logging.log4j.core.appender.rolling.RollingRandomAccessFileManager"
+   ]
+  },
+  {
+   "how": "in its functions",
+   "track": "pattern",
+   "track_rank": 15,
+   "state": [
+    "monitor:org.apache.logging.log4j.web.Log4jWebInitializerImpl"
+   ]
+  },
+  {
+   "how": "in its functions",
+   "track": "pattern",
+   "track_rank": 16,
+   "state": [
+    "monitor:org.apache.logging.log4j.core.appender.db.jdbc.JdbcDatabaseManager"
+   ]
+  }
+ ]
+}

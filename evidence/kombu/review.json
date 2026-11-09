@@ -1,0 +1,65 @@
+{
+ "base": "evidence/kombu/base",
+ "head": "evidence/kombu/head",
+ "touched": {
+  "symbols": [
+   "code.kombu.resource.Resource"
+  ],
+  "modules": [
+   "code.kombu"
+  ],
+  "deployment_files": []
+ },
+ "profile": "none",
+ "modules": [
+  {
+   "bundle": "code.kombu",
+   "specs": {
+    "code/kombu/.specverify/Resource.als": [
+     "changed pred Op_release"
+    ]
+   },
+   "checks": {
+    "code/kombu/.specverify/Resource.als": {
+     "outcome": "violated",
+     "violated": "NoDoubleHold",
+     "strength": "bounded: NoDoubleHold=for 3 int, 5 State, 2 Thread, 3 Elem, Witness=for 3 int, 5 State, 2 Thread, 3 Elem | profile: none | neighbours: no neighbours"
+    }
+   },
+   "base_checks": {
+    "code/kombu/.specverify/Resource.als": {
+     "outcome": "clean",
+     "violated": null,
+     "strength": "bounded: NoDoubleHold=for 3 int, 5 State, 2 Thread, 3 Elem, Witness=for 3 int, 5 State, 2 Thread, 3 Elem | profile: none | neighbours: no neighbours"
+    }
+   },
+   "restores": [],
+   "breaks": [
+    "NoDoubleHold"
+   ],
+   "interface": {}
+  }
+ ],
+ "stop_rule": [],
+ "client_rechecks": [],
+ "out_of_clone_clients": [],
+ "restores": [],
+ "breaks": [
+  "NoDoubleHold"
+ ],
+ "drift": [],
+ "unmodelled": [],
+ "deployment": {},
+ "touched_proposals": {
+  "proposals": [],
+  "note": "0 of 167 proposal(s) on the head tree involve a touched symbol"
+ },
+ "precondition_calls": {
+  "calls": [],
+  "note": "0 new call(s) into a method whose doc states a precondition; 22 such method(s) on the head tree"
+ },
+ "stale_models": {
+  "models": [],
+  "note": "0 touched function(s) write a model's state, or call a writer of it, without the model naming them; 1 model(s) checked"
+ }
+}

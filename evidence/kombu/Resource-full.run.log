@@ -1,0 +1,15 @@
+model: Resource-full.als
+outcome: violated
+violated: NoOverLimit
+bounds: {'Witness': 'for 3 int, 5 State, 2 Thread, 3 Elem', 'NoOverLimit': 'for 3 int, 5 State, 2 Thread, 3 Elem', 'NoDoubleHold': 'for 3 int, 5 State, 2 Thread, 3 Elem'}
+--- Witness: holds
+--- NoOverLimit: COUNTEREXAMPLE
+    order: State$0 < State$1 < State$2 < State$3 < State$4
+    State$0: _closed = {0}; _resource = {}; _dirty = {}
+    State$1: _closed = {0}; _resource = {Elem$1}; _dirty = {}
+    State$2: _closed = {0}; _resource = {Elem$0, Elem$1}; _dirty = {}
+    State$3: _closed = {0}; _resource = {Elem$0}; _dirty = {Elem$1}
+    State$4: _closed = {0}; _resource = {}; _dirty = {Elem$0, Elem$1}
+    Cfg$0: limit = {1}
+    Elem = {Elem$0, Elem$1}; Thread = {Thread$0, Thread$1}
+--- NoDoubleHold: holds

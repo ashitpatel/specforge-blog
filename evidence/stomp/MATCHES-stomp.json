@@ -1,0 +1,26 @@
+{
+ "stomp/pkt-a": {
+  "own": {
+   "fix": "de74be6356",
+   "is_concurrency": true,
+   "match": "exact",
+   "findings": [
+    0
+   ],
+   "reason": "Fix moves self.__receipts[receipt]=None inside the condition lock before notify() in __notify(receipt); previously notify fired before the receipt was recorded, so the waiter in send() could re-check, miss it and wait forever. Finding 0 names exactly this lost wake-up in send/__notify. Findings 1 (heartbeats[1]=0 timeout) and 2 (None __socket) are unrelated to the diff."
+  },
+  "open": []
+ },
+ "stomp/pkt-b": {
+  "own": {
+   "fix": "e0192a7e1f",
+   "is_concurrency": true,
+   "match": "partial",
+   "findings": [
+    0
+   ],
+   "reason": "Fix changes the HeartbeatListener loop exit test from self.running to heartbeat_terminate_event, closing a race where a reconnect flips running back to True before the old loop observes it. Finding 0 names the same window (reconnect before the old heartbeat loop exits) on the same loop, but asserts a different effect (no live loop) than the one the diff implies (old loop survives the stop). Finding 1 blames a stale terminate event, i.e. the mechanism the fix adopts, not the running flag; findings 2-4 are socket/keepalive issues outside the diff."
+  },
+  "open": []
+ }
+}

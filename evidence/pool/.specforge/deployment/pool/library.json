@@ -1,0 +1,99 @@
+{
+ "confirmation": null,
+ "kind": "greenfield",
+ "language": "java",
+ "profile": "library",
+ "service": "pool",
+ "values": {
+  "cache": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "critical_flows": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "db_engine": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "db_isolation": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "db_replica_reads": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "failure": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "gil_specialisation": {
+   "source": "Java: the JVM runs no Python interpreter and has no interpreter lock",
+   "status": "not-applicable",
+   "value": ""
+  },
+  "instances": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "java_runtime": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "messaging": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "placement": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "processes": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "python_runtime": {
+   "source": "Java: the JVM runs no Python interpreter and has no interpreter lock",
+   "status": "not-applicable",
+   "value": ""
+  },
+  "recovery": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "rollout": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "sessions": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "step_bounds": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  },
+  "threads": {
+   "source": "nothing read says",
+   "status": "unknown",
+   "value": ""
+  }
+ }
+}

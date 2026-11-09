@@ -1,0 +1,14 @@
+model: head
+outcome: violated
+violated: NoDoubleHold
+bounds: {'Witness': 'for 3 int, 5 State, 2 Thread, 3 Elem', 'NoDoubleHold': 'for 3 int, 5 State, 2 Thread, 3 Elem'}
+--- Witness: holds
+--- NoDoubleHold: COUNTEREXAMPLE
+    order: State$0 < State$1 < State$2 < State$3 < State$4
+    State$0: _closed = {0}; _resource = {}; _dirty = {}
+    State$1: _closed = {0}; _resource = {Elem$0}; _dirty = {}
+    State$2: _closed = {0}; _resource = {}; _dirty = {Elem$0}
+    State$3: _closed = {0}; _resource = {Elem$0}; _dirty = {Elem$0}
+    State$4: _closed = {0}; _resource = {Elem$0}; _dirty = {Elem$0}
+    Cfg$0: limit = {1}
+    Elem = {Elem$0}; Thread = {Thread$0, Thread$1}

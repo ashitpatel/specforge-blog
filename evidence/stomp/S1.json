@@ -1,0 +1,29 @@
+{
+  "claim": "S1",
+  "sub_claims": [
+    {
+      "id": "S1a",
+      "tree": "T1",
+      "verdict": "real",
+      "kind": "race",
+      "gil": "reachable",
+      "demonstrated": true,
+      "script": "~/projects/benchmarks/cleanroom/run19-adjudication/out/S1/demo_s1a.py",
+      "reason": "send() holds __send_wait_condition, sends, then loops `while receipt not in self.__receipts: wait()` (stomp/connect.py:425-434). The receiver's __notify('receipt') acquires, notify()s and releases the condition (connect.py:664-666) and only afterwards records `self.__receipts[receipt] = None` (connect.py:668-669), outside the lock and with no further notify. If the woken sender reacquires the lock and re-checks the dict in that window, it finds no receipt and waits again; nothing ever notifies it, so send() blocks forever unless some later receipt frame happens to arrive. With the GIL a switch is possible there: release() is a C call (Condition binds lock.release) and the receiver can be switched out when it returns, before line 668. Forced interleaving (holding the receiver right after release) hung the sender with the receipt recorded and 2 waits; with nothing forced and sys.setswitchinterval(1e-6), 10 of 3000 trials hung, each confirmed by an assertion (2 waits, receipt recorded)."
+    }
+  ],
+  "verdict": "real",
+  "kind": "race",
+  "gil": "reachable",
+  "demonstrated": true,
+  "script": "~/projects/benchmarks/cleanroom/run19-adjudication/out/S1/demo_s1a.py",
+  "reason": "S1a real: __notify('receipt') notifies and releases the condition (stomp/connect.py:664-666) before it records the receipt (connect.py:668-669), so a sender re-checking `receipt not in self.__receipts` (connect.py:433-434) in that window waits again and is never woken. Demonstrated forced and unforced (10/3000 hangs at switchinterval 1e-6) on CPython 3.14 with the GIL.",
+  "caveats": [
+    "Needs wait_on_receipt=True and a 'receipt' header on send(); send() then waits with no timeout.",
+    "The hang lasts only until another receipt frame arrives on the connection, since any later __notify('receipt') notifies again.",
+    "Import stand-ins: ssl.PROTOCOL_SSLv3 (absent on 3.14) aliased to PROTOCOL_TLS_CLIENT before import; T1/stomp put on sys.path because the package uses Python-2 implicit relative imports. Neither affects the code path.",
+    "The receiver thread is simulated by calling Connection.__notify('receipt', ...) from another thread, which is what __receiver_loop does (connect.py:726-727); the socket is a local socketpair.",
+    "Part A forces the interleaving by wrapping the condition's release() so the receiver pauses after it; Part B forces nothing but uses sys.setswitchinterval(1e-6) and a Condition subclass that counts wait() calls on the sender side.",
+    "Judged on CPython 3.14.6 with the GIL. Older CPythons also check for a thread switch after C calls, so the window exists there too; free-threaded builds widen it."
+  ]
+}

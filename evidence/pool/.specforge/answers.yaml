@@ -1,0 +1,34 @@
+decided_by: {client: user, by: request_user_input, at: "2026-11-09"}
+deployment:
+  profile: library
+  service: pool
+  dimensions: {
+    instances: "none - single-process library, no service instances",
+    processes: "none - one process uses the pool in memory",
+    threads: "hundreds of threads share one pool",
+    db_engine: "none - pool is engine-agnostic",
+    db_isolation: "none - pool does not manage transactions",
+    db_replica_reads: "none - pool does not route reads",
+    cache: "none",
+    sessions: "none",
+    messaging: "none",
+    failure: "host process may be killed and restarted; pool holds no durable state",
+    rollout: "none - library, no deploys",
+    java_runtime: "21",
+    critical_flows: "acquire, release, idle-reaper, shutdown",
+    step_bounds: "deferred: R3 and R5 waits are indefinite, no deadline to bound",
+    placement: "single in-process pool, no replicas or partitions",
+    recovery: "pool configuration persists; connections are re-established after restart"
+  }
+  confirm: true
+scenarios:
+  accepted:
+    - ac28be0d3e16
+    - 35136a486fe1
+    - 256d92180ff0
+    - 80b73a464881
+    - 5f44258b939d
+    - 6b7f3413f82f
+    - 6731c4d519ab
+    - 1797ba7c7024
+    - a792c8c3f0e3

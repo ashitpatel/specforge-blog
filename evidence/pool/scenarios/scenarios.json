@@ -1,0 +1,230 @@
+[
+ {
+  "id": "S1",
+  "action": "AcquireCreate",
+  "requirement_ids": [
+   "R1",
+   "R3"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "AcquireCreate(\"t1\")"
+  ],
+  "then": {
+   "used": "{<<1, 0>>}",
+   "held": "{<<1, \"t1\">>}",
+   "conns": "{1}"
+  },
+  "digest": "ac28be0d3e16"
+ },
+ {
+  "id": "S2",
+  "action": "AcquireTake",
+  "requirement_ids": [
+   "R2",
+   "R3",
+   "R1"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "AcquireCreate(\"t1\")",
+   "Release(\"t1\",1)",
+   "AcquireTake(\"t1\",1)"
+  ],
+  "then": {
+   "used": "{<<1, 0>>}",
+   "held": "{<<1, \"t1\">>}",
+   "conns": "{1}"
+  },
+  "digest": "35136a486fe1"
+ },
+ {
+  "id": "S3",
+  "action": "AcquireWait",
+  "requirement_ids": [
+   "R3",
+   "R1"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "AcquireCreate(\"t1\")",
+   "AcquireCreate(\"t1\")",
+   "AcquireWait(\"t1\")"
+  ],
+  "then": {
+   "waitQ": "<<\"t1\">>",
+   "used": "{<<1, 0>>, <<2, 0>>}",
+   "held": "{<<1, \"t1\">>, <<2, \"t1\">>}",
+   "conns": "{1, 2}"
+  },
+  "digest": "256d92180ff0"
+ },
+ {
+  "id": "S4",
+  "action": "FinishShutdown",
+  "requirement_ids": [
+   "R5"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "Shutdown",
+   "FinishShutdown"
+  ],
+  "then": {
+   "poolState": "\"down\""
+  },
+  "digest": "80b73a464881"
+ },
+ {
+  "id": "S5",
+  "action": "Release",
+  "requirement_ids": [
+   "R2",
+   "R1",
+   "R3"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "AcquireCreate(\"t1\")",
+   "Release(\"t1\",1)"
+  ],
+  "then": {
+   "used": "{<<1, 0>>}",
+   "conns": "{1}"
+  },
+  "digest": "5f44258b939d"
+ },
+ {
+  "id": "S6",
+  "action": "ReleaseInvalid",
+  "requirement_ids": [
+   "R2"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "ReleaseInvalid(\"t1\",1)"
+  ],
+  "then": {
+   "lastError": "<<1, \"t1\">>"
+  },
+  "digest": "6b7f3413f82f"
+ },
+ {
+  "id": "S7",
+  "action": "Restart",
+  "requirement_ids": [
+   "NFR3",
+   "R1",
+   "R3"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "AcquireCreate(\"t1\")",
+   "Restart"
+  ],
+  "then": {},
+  "digest": "6731c4d519ab"
+ },
+ {
+  "id": "S8",
+  "action": "Shutdown",
+  "requirement_ids": [
+   "R5"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "Shutdown"
+  ],
+  "then": {
+   "poolState": "\"draining\""
+  },
+  "digest": "1797ba7c7024"
+ },
+ {
+  "id": "S9",
+  "action": "Tick",
+  "requirement_ids": [
+   "R4"
+  ],
+  "given": {
+   "now": "0",
+   "waitQ": "<<>>",
+   "used": "{}",
+   "held": "{}",
+   "conns": "{}",
+   "lastError": "<<0, \"none\">>",
+   "poolState": "\"open\""
+  },
+  "when": [
+   "Tick"
+  ],
+  "then": {
+   "now": "1"
+  },
+  "digest": "a792c8c3f0e3"
+ }
+]

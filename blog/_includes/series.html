@@ -1,0 +1,11 @@
+{%- assign parts = site.posts | where: "series", "specforge" | sort: "date" -%}
+{%- if parts.size > 1 -%}
+<nav class="series" aria-label="Series">
+  <p><strong>The series</strong></p>
+  <ol>
+    {%- for part in parts %}
+    <li>{% if part.url == page.url %}{{ part.title }} (this post){% else %}<a href="{{ part.url | relative_url }}">{{ part.title }}</a>{% endif %}</li>
+    {%- endfor %}
+  </ol>
+</nav>
+{%- endif -%}

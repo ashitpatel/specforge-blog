@@ -1,0 +1,6 @@
+model: base
+outcome: clean
+violated: None
+bounds: {'Witness': 'for 3 int, 5 State, 2 Thread, 3 Elem', 'NoDoubleHold': 'for 3 int, 5 State, 2 Thread, 3 Elem'}
+--- Witness: holds
+--- NoDoubleHold: holds

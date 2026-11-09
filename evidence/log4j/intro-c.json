@@ -1,0 +1,61 @@
+{
+ "commit": "eefca5920c",
+ "needle": "InstantPatternThreadLocalCachedFormatter",
+ "touched_symbols": 305,
+ "flags": 3,
+ "note": "2 of 648 proposal(s) on the head tree involve a touched symbol; 1 new with this change",
+ "bug_flags": [
+  {
+   "place": 2,
+   "how": "writes its state",
+   "track": "scored",
+   "rank": 102,
+   "track_rank": 101,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.instant.InstantPatternThreadLocalCachedFormatter.lastEpochInstantAndBuffer"
+   ],
+   "touched_by": [
+    "org.apache.logging.log4j.core.util.internal.instant.InstantPatternThreadLocalCachedFormatter.formatTo"
+   ]
+  }
+ ],
+ "bug_listed_in_head": [
+  {
+   "id": "sl-e24d4d2ef7",
+   "track": "scored",
+   "rank": 102,
+   "track_rank": 101,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.instant.InstantPatternThreadLocalCachedFormatter.lastEpochInstantAndBuffer"
+   ]
+  }
+ ],
+ "first_10": [
+  {
+   "how": "writes its state",
+   "track": "structural",
+   "track_rank": 28,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.instant.InstantPatternDynamicFormatter.timestampedFormatterRef"
+   ]
+  },
+  {
+   "how": "writes its state",
+   "track": "scored",
+   "track_rank": 101,
+   "state": [
+    "org.apache.logging.log4j.core.util.internal.instant.InstantPatternThreadLocalCachedFormatter.lastEpochInstantAndBuffer"
+   ]
+  },
+  {
+   "how": "new with this change: no proposal before it covers its state",
+   "track": "structural",
+   "track_rank": 51,
+   "state": [
+    "org.apache.logging.log4j.perf.jmh.instant.InstantPatternFormatterBenchmark.calendar",
+    "org.apache.logging.log4j.perf.jmh.instant.InstantPatternFormatterBenchmark.charBuffer",
+    "org.apache.logging.log4j.perf.jmh.instant.InstantPatternFormatterBenchmark.stringBuilder"
+   ]
+  }
+ ]
+}
