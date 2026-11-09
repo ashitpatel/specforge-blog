@@ -8,6 +8,7 @@ author: Ashit Patel
 url: https://ashitpatel.github.io
 baseurl: /specforge-blog
 permalink: /:title/
+future: true
 theme: minima
 github_username: ashitpatel
 header_pages:
