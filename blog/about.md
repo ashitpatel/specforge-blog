@@ -18,4 +18,11 @@ This series walks through the idea and five worked examples:
 
 The evidence beside each claim lives in this repository under `evidence/`: specs, checker logs, review verdicts, and the benchmark records each story is built on. Where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so.
 
+## The two checkers, briefly
+
+- **TLA+** (Leslie Lamport) is a language for describing systems as states and the actions that move between them; its TLC model checker explores every reachable state at small scope, hunting interleaving bugs. Start at [Lamport's TLA+ page](https://lamport.azurewebsites.net/tla/tla.html) (free book *Specifying Systems* included) or the hands-on [Learn TLA+](https://learntla.com/).
+- **Alloy** (Daniel Jackson, MIT) is a language for declaring a system's relations and asserting what must always hold; its analyzer searches for a snapshot that breaks the claim. Start at [alloytools.org](https://alloytools.org/) (free Analyzer, tutorial, and the book *Software Abstractions*).
+
+Why these two as the guardrails: they split the problem along its natural seam — TLA+ sees behavior over time, Alloy sees shapes in a snapshot — both check exhaustively rather than sampling, both answer violations with concrete counterexamples, both are mature open tools, and both are compact enough for agents to author. Together they cover what testing can't: every interleaving, every shape, at small scope.
+
 The posts here were written by directing an AI agent: I set the direction and made the editorial calls, and the agent drafted them and checked the facts against the evidence. Corrections are welcome as issues.
