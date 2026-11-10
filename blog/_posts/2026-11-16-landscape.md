@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-16
 ---
 
-*Part 8 of 9 in a series on [specforge](https://github.com/ashitpatel/specforge). The previous seven posts built the case from the inside: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), and five worked examples. This one steps outside and places the tool among its neighbors — all characterizations as of November 2026, from the linked sources.*
+*Part 8 of 12 in a series on [specforge](https://github.com/ashitpatel/specforge). The previous seven posts built the case from the inside: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), and five worked examples. This one steps outside and places the tool among its neighbors — all characterizations as of November 2026, from the linked sources.*
 
 Everyone in this post agrees on the premise: AI now writes code faster than humans can check it, and "trust me, the AI wrote it" is not a verification strategy. They differ on what checking means. That difference is the landscape.
 
@@ -73,6 +73,10 @@ Mapping: same premise, different method family. Axiom does *deductive* verificat
 
 (A note for the careful: axiom.ai, a browser-automation product, is an unrelated company with a similar name. This section is about Axiom Math.)
 
+## Harness²: improve the agent
+
+[Google's Harness²](https://github.com/google-research/harness2) (October 2026, Apache 2.0, [paper](https://arxiv.org/abs/2610.14224)) freezes the model weights and rewrites the harness instead — prompts, guardrails, memory, skills, tools, subagents — per task, in a Propose–Probe–Compose loop that keeps what scores. Gains are large (+11.8pp on the LAB legal benchmark, +11.5 on WorkBuddy-Bench). The loop shape is kin to specforge's propose→confirm→record, and its "enforce instead of asking" middleware echoes specforge's mechanism-over-prompting. The fork: Harness² judges by task performance and rewrites its own guardrails; specforge judges by checker verdicts and cannot loosen its own bar — a verifier that edits its own gates is a rubber stamp. The two stack: optimize the agent with Harness², verify the work with specforge.
+
 ## Petra: guardrails over MCP
 
 [Petra](https://www.petracode.co.uk/) is worth watching for its delivery bet: verified code generation plus "solver proofs and state-space guardrails" served through an MCP server into Claude, Cursor, Copilot, and autonomous agents — the same shape as specforge's own MCP tools. Petra's emphasis is agent containment and reliability for mission-critical systems (including, per the literature, the first deductive verification of an agentic framework itself, PocketFlow in Dafny). The split: Petra guards the *agents*; specforge guards the *code* — temporal and structural properties of the software being built, whatever built it.
@@ -88,6 +92,7 @@ One picture for the whole landscape. The rows are what each neighbor contributes
 | | proves what? | from what? | ends in what? |
 |---|---|---|---|
 | Specula | concurrency bugs | code → TLA+ | reproduced bugs |
+| Harness² | agent performance | tasks + scores | better harnesses |
 | Vericoding | functional correctness | formal specs | proven code |
 | Axiom Math | functional correctness | specs → Lean | checked proofs |
 | Lightweight methods | scoped properties | engineer-written models | counterexamples |

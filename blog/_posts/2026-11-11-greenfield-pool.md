@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-11
 ---
 
-*Part 3 of 9 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 2]({% post_url 2026-11-10-how-it-works %}) toured the machinery. This post runs it from scratch. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*
+*Part 3 of 12 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 2]({% post_url 2026-11-10-how-it-works %}) toured the machinery. This post runs it from scratch. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*
 
 The input is all of it — five lines of prose:
 

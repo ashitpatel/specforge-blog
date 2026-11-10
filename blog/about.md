@@ -16,6 +16,9 @@ This series walks through the idea and five worked examples:
 7. The guard that fires — catching drift during a change, twice.
 8. The landscape — where specforge fits among its neighbors.
 9. Slices — what gets checked, what might not, and how to watch the gaps.
+10. Specula vs specforge — the same loop, different answers to its critics.
+11. Imandra vs specforge — ask the logician, or set the tripwire.
+12. Harness² vs specforge — improve the agent, or check the work.
 
 The evidence beside each claim lives in this repository under `evidence/`: specs, checker logs, review verdicts, and the benchmark records each story is built on. Where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so.
 

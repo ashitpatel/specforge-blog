@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-10
 ---
 
-*Part 2 of 9 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 1]({% post_url 2026-11-09-what-tests-cannot-see %}) named the gap: tests sample instances, while concurrency and structure bugs hide in interleavings and shapes no test constructs.*
+*Part 2 of 12 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 1]({% post_url 2026-11-09-what-tests-cannot-see %}) named the gap: tests sample instances, while concurrency and structure bugs hide in interleavings and shapes no test constructs.*
 
 ## Three doors in
 
