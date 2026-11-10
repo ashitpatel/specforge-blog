@@ -47,3 +47,5 @@ The full adjudication, including the import stand-ins and the simulation setup (
 Three properties make it the series' temporal centerpiece. It was **found blind** — no labels, no fix, the way a user would find it. It **matched the upstream fix exactly** — the model said what the maintainers later did. And it was **demonstrated on real code** — forced and unforced — with the trigger conditions nailed down.
 
 [Part 6]({% post_url 2026-11-14-structural-kombu %}) turns to the other checker: an Alloy counterexample — a different race, in kombu's resource pool — that you read as a snapshot instead of a trace.
+
+{% include series.html %}

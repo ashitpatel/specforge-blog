@@ -39,3 +39,5 @@ Three caveats, all from the record itself:
 3. **The bug's own fix played no part.** The guard saw only the introducing commit and its parent — the verdict predates the incident, not the other way round.
 
 That second caveat points at the next post. The guard catches what a change brings in. [Part 5]({% post_url 2026-11-13-temporal-stomp %}) is about what was already there: a race sitting in a messaging library since 2013, found by a tester who knew nothing about it.
+
+{% include series.html %}

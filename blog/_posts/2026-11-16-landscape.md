@@ -103,3 +103,5 @@ One picture for the whole landscape. The rows are what each neighbor contributes
 The last row is this series' claim to a seat: the only entry that starts from plain prose or from existing code alike, demonstrates its findings on real code, and then stands guard over every later change. The neighbors each do something it doesn't; it does something none of them do.
 
 That is the series. Tests sample instances; these models exhaust shapes and interleavings; findings reproduce on real code or they don't ship; the models stand guard afterwards — and now you know where that stands among the people solving the same problem. Corrections welcome as issues; a series about falsification takes its own medicine.
+
+{% include series.html %}

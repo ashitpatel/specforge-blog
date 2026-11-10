@@ -59,3 +59,5 @@ Two labels, kept visible:
 - **The tool's own guard has never fired.** A post-commit hook runs the same review on the specforge repository itself: 259 guarded commits, zero `BLOCKING`. Either the codebase is clean of temporal and structural regressions in that window, or nothing tripped the pinned properties. No accidental fire has been caught yet — and the series won't pretend otherwise.
 
 That closes the loop the series opened: tests sample instances; these models exhaust shapes and interleavings; findings reproduce on real code or they don't ship; and the models stand guard afterwards. One post remains: [the landscape]({% post_url 2026-11-16-landscape %}) — where this all fits among Specula, vericoding, Axiom Math, Imandra, Qodo, Intent Lab, &Truth, Petra, SDD, and the tradition they share.
+
+{% include series.html %}

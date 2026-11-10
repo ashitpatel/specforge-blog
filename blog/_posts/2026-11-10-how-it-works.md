@@ -64,3 +64,5 @@ You can see the shape of this in the evidence: each benchmark run keeps its prer
 The boundary from part 1, sharpened: bounded scope, two defect families, a human in the loop. Add one more: the tool needs something to check against. For existing code it needs the code; for a new system it needs your answers — the interview in part 3 is not ceremony, it's where the spec's content comes from. A vague requirement gets a question, not a guess presented as fact. (Where the tool does draft a guess, it labels it one and asks for approval.)
 
 Enough machinery. [Part 3]({% post_url 2026-11-11-greenfield-pool %}) starts from five lines of prose and ends with a checked spec.
+
+{% include series.html %}

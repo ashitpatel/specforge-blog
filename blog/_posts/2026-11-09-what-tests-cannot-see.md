@@ -38,3 +38,5 @@ Three limits, stated up front because the rest of the series assumes them:
 3. **A human stays in the loop.** The tool asks questions when requirements are ambiguous, and a person accepts the scenarios that become the contract. The models are precise; deciding what they should say is judgment.
 
 With that said: the bugs in this series are real, the verdicts are the checkers' own, and where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so. On to the machinery.
+
+{% include series.html %}

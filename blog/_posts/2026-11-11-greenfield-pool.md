@@ -75,3 +75,5 @@ Everything above re-verifies end to end. `replay.py` copies the folder to a temp
 Five lines of prose in, a checked spec out: 9 numbered requirements, a 31,332-state behavioral check with no errors, a full-size capacity proof, and 9 acceptance scenarios. Nothing in the folder is hand-written to look good; the replay is the receipt.
 
 [Part 4]({% post_url 2026-11-12-feature-log4j %}) turns the tool on a real feature commit — one that shipped, and that users hit within a week.
+
+{% include series.html %}

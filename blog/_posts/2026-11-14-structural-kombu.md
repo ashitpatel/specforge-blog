@@ -49,3 +49,5 @@ Honestly assessed in the pilot's own record: for these slices, Alloy found nothi
 2. **An independent second checker.** The pilot's stop rule: where both checkers speak, they must agree, and a disagreement is itself a finding about the models. The regeneration reproduces the agreement exactly — counterexample where the race is, holds where the code is clean.
 
 The repaired model is now committed where the pilot's wasn't, which sets up the final post. A model that holds is a tripwire waiting for a change — and [part 7]({% post_url 2026-11-15-drift-kombu-hikari %}) springs two of them.
+
+{% include series.html %}
