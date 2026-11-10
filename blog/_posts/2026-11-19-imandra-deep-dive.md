@@ -39,8 +39,8 @@ Use Imandra before the change ("what does this actually do?") and specforge acro
 
 Imandra's exhibit: across tested models, LLM-only reasoning about program logic fails exactly where exhaustiveness matters — edge cases, decision boundaries, state coverage — and formal augmentation recovers 41–47 points of accuracy. The gap is the product: it measures exactly what statistical guessing can't do.
 
-Specforge's mirror exhibit is the stomp lost wake-up ([part 5]({% post_url 2026-11-13-temporal-stomp %})): an LLM reading `__notify` would likely call it correct — notify, release, record, all present. The defect isn't in any line; it's in the interleaving *between* lines 666 and 668, which only exhaustive state exploration finds and only a forced-schedule replay demonstrates (10 hangs in 3,000 unforced trials). An LLM asked "is this correct?" says yes with high confidence. A checker asked "show me every interleaving" hands over the hang.
+Specforge's mirror exhibit is the lost wake-up found in the `stomp` messaging library ([part 5]({% post_url 2026-11-13-temporal-stomp %})): an LLM reading `__notify` would likely call it correct — notify, release, record, all present. The defect isn't in any line; it's in the interleaving *between* lines 666 and 668, which only exhaustive state exploration finds and only a forced-schedule replay demonstrates (10 hangs in 3,000 unforced trials). An LLM asked "is this correct?" says yes with high confidence. A checker asked "show me every interleaving" hands over the hang.
 
-Same moral, both directions: the model proposes, the solver judges — Imandra recovering what guessing misses in logic space, specforge recovering what it misses in interleaving space. Ask the logician to understand; set the tripwire to enforce.
+Same moral, both directions: the model proposes, the solver judges — Imandra recovering what guessing misses across program logic, specforge recovering what it misses in interleaving and shape space. Ask the logician to understand; set the tripwire to enforce.
 
 {% include series.html %}
