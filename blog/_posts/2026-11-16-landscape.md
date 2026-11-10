@@ -10,7 +10,17 @@ date: 2026-11-16
 
 *Level L2 · Needs: parts 1–2. Ten neighbors, one map.*
 
-Everyone in this post agrees on the premise: AI now writes code faster than humans can check it, and "trust me, the AI wrote it" is not a verification strategy. They differ on what checking means. That difference is the landscape.
+Everyone in this post agrees on the premise: AI now writes code faster than humans can check it, and "trust me, the AI wrote it" is not a verification strategy. They differ on what checking means. That difference is the landscape. But first, where the landscape came from.
+
+## Origins: two machines, one marriage
+
+In 1936, two men answered the same question — what is mechanically computable? — and gave opposite answers that turned out equivalent. Alonzo Church's lambda calculus says computation is functions-as-values: apply, substitute, reduce. Alan Turing's machine says computation is state-and-transition: read, write, move, repeat. Same power (the Church–Turing thesis), opposite engineering instincts — and Hilbert's Entscheidungsproblem got its negative answer along the way: no general procedure decides all truths. That "no" still bounds everything below.
+
+The field inherited both bloodlines. The **Church side** — logic, types, proof — became proof assistants (Coq, Lean) and contract verifiers (Dafny, Verus): vericoding and Axiom Math live here, proving functions correct. The **Turing side** — states, transitions, explicit exploration — became model checking: TLC walks machine configurations the way Turing walked tape; bounded scope is the halting lesson internalized (can't decide in general, so exhaust small scope and name the bound). Alloy straddles the line: relational logic with Church's precision, SAT-backed bounded search with Turing's honesty about limits.
+
+The **neurosymbolic marriage** is younger: neural nets propose (fluent, statistical, unsound) and symbolic systems dispose (exact, exhaustive or proven). The pendulum swung GOFAI → connectionism → this; it became economical only when LLMs learned to write formal artifacts cheaply. Its clearest enterprise statement comes from Dr. Ashwin Rao (o9 Solutions' AI strategy & R&D — not the red-teaming or RL-finance Raos), whose 10-80-10 model flips typical agent architecture: *"The LLM plays a focused role at the interface, while grounded enterprise reasoning carries the majority of the workload"* — neural first and last mile, symbolic middle mile of plans, constraints, and decisions. Specforge is that shape applied to code: interview and scenarios as the neural miles, TLC/Alloy plus falsification gates as the symbolic middle. Imandra, Bedrock's Automated Reasoning, even Harness²'s enforce-instead-of-ask middleware are the same marriage with different vows.
+
+Where specforge stands, then: a Turing-side engine, Church-side discipline (specs as precise terms, composition through interfaces as modular reasoning), and a neurosymbolic loop on top. The falsification rule — mutants must violate, controls must pass, unrefuted properties ship nothing — is the meeting point both traditions agree on: neither trusts an unverified artifact.
 
 ## Specula: the closest neighbor
 
@@ -93,21 +103,21 @@ One picture for the whole landscape. The rows are what each neighbor contributes
 
 | | proves what? | from what? | ends in what? |
 |---|---|---|---|
-| Specula | concurrency bugs | code → TLA+ | reproduced bugs |
-| Harness² | agent performance | tasks + scores | better harnesses |
-| Vericoding | functional correctness | formal specs | proven code |
-| Axiom Math | functional correctness | specs → Lean | checked proofs |
-| Lightweight methods | scoped properties | engineer-written models | counterexamples |
-| SDD (Spec Kit, Kiro) | nothing (steers) | prose specs | agent-built code |
-| Imandra | program-logic questions | code → formal models | answers + proofs |
-| Qodo | standards, review coverage | PRs + repo knowledge | governed merges |
-| Intent Lab | infra correctness | intent → systems | verified systems |
-| &Truth | everything (aspirational) | any code | checkable proofs |
-| Petra | agent + code reliability | agent workflows | guarded agents |
-| Bedrock AR | output/policy compliance | NL policies | valid/invalid |
-| **specforge** | temporal + structural | prose *or* code | demonstrated bugs + tripwires |
+| Specula (model checking) | concurrency bugs | code → TLA+ | reproduced bugs |
+| Harness² (neurosymbolic loop) | agent performance | tasks + scores | better harnesses |
+| Vericoding (deductive) | functional correctness | formal specs | proven code |
+| Axiom Math (deductive) | functional correctness | specs → Lean | checked proofs |
+| Lightweight methods (both) | scoped properties | engineer-written models | counterexamples |
+| SDD (neither: prompts) | nothing (steers) | prose specs | agent-built code |
+| Imandra (neurosymbolic) | program-logic questions | code → formal models | answers + proofs |
+| Qodo (review) | standards, review coverage | PRs + repo knowledge | governed merges |
+| Intent Lab (model checking) | infra correctness | intent → systems | verified systems |
+| &Truth (deductive, aspirational) | everything | any code | checkable proofs |
+| Petra (neurosymbolic) | agent + code reliability | agent workflows | guarded agents |
+| Bedrock AR (neurosymbolic) | output/policy compliance | NL policies | valid/invalid |
+| **specforge (model checking + neurosymbolic loop)** | temporal + structural | prose *or* code | demonstrated bugs + tripwires |
 
-The last row is this series' claim to a seat: the only entry that starts from plain prose or from existing code alike, demonstrates its findings on real code, and then stands guard over every later change. The neighbors each do something it doesn't; it does something none of them do.
+The last row is this series' claim to a seat: the only entry that starts from plain prose or from existing code alike, demonstrates its findings on real code, and then stands guard over every later change. The neighbors each do something it doesn't; it does something none of them do. By bloodline: the deductive half proves functions; the model-checking half exhausts behaviors; the neurosymbolic entries — Imandra, Petra, Bedrock, Harness², and this tool — all marry a proposer to a judge.
 
 One post remains: [slices]({% post_url 2026-11-17-slices %}) — what gets checked, what might not, and how to watch the gaps.
 
