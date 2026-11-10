@@ -1,6 +1,6 @@
 ---
 title: "The landscape: where specforge fits"
-description: "Specforge against its neighbors: vericoding's proven code, the lightweight formal-methods tradition, Imandra's neurosymbolic reasoning, Qodo's review governance, Intent Lab's verified fleet, &Truth's moonshot — and one unrelated Axiom."
+description: "Specforge against its neighbors: Specula's bug-hunting agents, vericoding's proven code, Axiom Math's Lean proofs, Imandra's neurosymbolic reasoning, Qodo's review governance, and more."
 layout: post
 series: specforge
 date: 2026-11-16
@@ -9,6 +9,17 @@ date: 2026-11-16
 *Part 8 of 8 in a series on [specforge](https://github.com/ashitpatel/specforge). The previous seven posts built the case from the inside: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), and five worked examples. This one steps outside and places the tool among its neighbors — all characterizations as of November 2026, from the linked sources.*
 
 Everyone in this post agrees on the premise: AI now writes code faster than humans can check it, and "trust me, the AI wrote it" is not a verification strategy. They differ on what checking means. That difference is the landscape.
+
+## Specula: the closest neighbor
+
+[Specula](https://www.aiinsiders.net/article/speculas-bug-hunting-agent-impresses-a-reviewer-but-not) (August 2026) is the nearest thing to specforge's from-code door: an agentic system that writes TLA+ specifications from code, validates them against observed traces, model-checks for concurrency bugs, and reproduces every confirmed bug as a timed integration test. Applied to slices of 48 concurrent and distributed systems — MongoDB, etcd, SONiC, libgomp among them — it surfaced 249 bugs, 207 previously unknown, across seven languages, at a median $57 in tokens per system.
+
+Same core loop, same checker, same reproduce-or-it-doesn't-count rule. The informative part is where the two designs diverge, because reviewer Murat Demirbas's objections to Specula read like specforge's requirements list:
+
+- *Circularity.* 87% of Specula's invariants come from the implementation code and its comments, risking encoding an existing bug as intended behavior. Specforge's greenfield door answers by deriving specs from prose plus interview — independent of any code — and its from-code door adds falsification controls (mutants that must violate, controls that must pass) so a vacuous model can't survive.
+- *Composition.* Specula builds one model per module and mocks the interactions rather than reasoning about the whole system. Specforge composes module specs through published, version-pinned interfaces, re-checking clients when an interface changes.
+
+Specula proves the from-code loop works at scale; specforge's wager is that the loop needs the two things Specula skips — independent requirements and composition — plus a second checker (Alloy) and tripwires afterwards. Closest kin, honest differences.
 
 ## Vericoding: proven code from specs
 
@@ -46,9 +57,21 @@ This is convergent evolution, and the series takes it as corroboration: a fronti
 
 Take the mission statement at face value and specforge is the scoped-down version that works today: not any language (Python and Java), not any property (temporal and structural), not proof (bounded checking), and a human still in the loop. If &Truth is the moonshot, specforge is the base camp that already returns samples — real races demonstrated, real regressions blocked. The moonshot's success would subsume the base camp; until then, bounded and working beats universal and pending. The series' wager is that the base camp teaches the moonshot something about which properties matter.
 
-## Axiom: the honest non-entry
+## Axiom Math: proofs at startup scale
 
-[axiom.ai](https://axiom.ai/) is browser automation and web scraping — no-code bots, a Chrome extension, RPA-style orchestration. It has no meaningful relation to specforge, formal methods, or verification; it appears here only because it was on the list, and the series' rule is that a looked-but-unrelated verdict gets stated, not silently dropped. If you meant a different Axiom, say which.
+[Axiom Math](https://menlovc.com/perspective/ai-will-write-all-the-code-mathematics-will-prove-it-works/) (Palo Alto, founded March 2025) raised a $200M Series A led by Menlo Ventures at a $1.6B valuation to do with Lean what vericoding does in the lab: its AxiomProver system and AXLE API generate machine-checkable proofs that software performs as specified. In November 2026 it announced the formalization of the 7,654-page Stacks Project — roughly 16 million lines of checked Lean, described as the largest integrated body of formalized mathematics ever built — though one analysis notes ~97% of it sits in an AI-written tier still awaiting human review.
+
+Mapping: same premise, different method family. Axiom does *deductive* verification — proofs of functional correctness, all inputs, one function at a time. Specforge does *model checking* — bounded-exhaustive temporal and structural properties, all interleavings, whole-system slices. A proof says the sort sorts; a model check says no schedule loses the wake-up. A mature pipeline wants both, and neither subsumes the other.
+
+(A note for the careful: axiom.ai, a browser-automation product, is an unrelated company with a similar name. This section is about Axiom Math.)
+
+## Petra: guardrails over MCP
+
+[Petra](https://www.petracode.co.uk/) is worth watching for its delivery bet: verified code generation plus "solver proofs and state-space guardrails" served through an MCP server into Claude, Cursor, Copilot, and autonomous agents — the same shape as specforge's own MCP tools. Petra's emphasis is agent containment and reliability for mission-critical systems (including, per the literature, the first deductive verification of an agentic framework itself, PocketFlow in Dafny). The split: Petra guards the *agents*; specforge guards the *code* — temporal and structural properties of the software being built, whatever built it.
+
+## Bedrock Automated Reasoning: the pattern at hyperscale
+
+Amazon Bedrock's [Automated Reasoning checks](https://aws.amazon.com/about-aws/whats-new/2026/06/amazon-bedrock-guardrails-sydney/) (GA since August 2025, from the AWS Automated Reasoning Group) compile natural-language policies into formal logic and check model outputs against them with SMT solvers — LLM proposes, solver disposes, with AWS quoting up to 99% accuracy on grounded content. The method is the same neurosymbolic pattern this series runs on; the target differs (output/policy compliance rather than code properties). Its existence at hyperscaler scale is corroboration that the pattern, not just the premise, has arrived.
 
 ## The map
 
@@ -56,12 +79,16 @@ One picture for the whole landscape. The rows are what each neighbor contributes
 
 | | proves what? | from what? | ends in what? |
 |---|---|---|---|
+| Specula | concurrency bugs | code → TLA+ | reproduced bugs |
 | Vericoding | functional correctness | formal specs | proven code |
+| Axiom Math | functional correctness | specs → Lean | checked proofs |
 | Lightweight methods | scoped properties | engineer-written models | counterexamples |
 | Imandra | program-logic questions | code → formal models | answers + proofs |
 | Qodo | standards, review coverage | PRs + repo knowledge | governed merges |
 | Intent Lab | infra correctness | intent → systems | verified systems |
 | &Truth | everything (aspirational) | any code | checkable proofs |
+| Petra | agent + code reliability | agent workflows | guarded agents |
+| Bedrock AR | output/policy compliance | NL policies | valid/invalid |
 | **specforge** | temporal + structural | prose *or* code | demonstrated bugs + tripwires |
 
 The last row is this series' claim to a seat: the only entry that starts from plain prose or from existing code alike, demonstrates its findings on real code, and then stands guard over every later change. The neighbors each do something it doesn't; it does something none of them do.
