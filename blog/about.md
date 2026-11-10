@@ -14,6 +14,7 @@ This series walks through the idea and five worked examples:
 5. The lost wake-up — a latent race in stomp, found blind and demonstrated.
 6. The pool that overfilled — the same defect as a structural counterexample in kombu.
 7. The guard that fires — catching drift during a change, twice.
+8. The landscape — where specforge fits among its neighbors.
 
 The evidence beside each claim lives in this repository under `evidence/`: specs, checker logs, review verdicts, and the benchmark records each story is built on. Where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so.
 

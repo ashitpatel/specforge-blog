@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-12
 ---
 
-*Part 4 of 7 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 3]({% post_url 2026-11-11-greenfield-pool %}) specified a system before it existed. This post guards a feature commit to a system with millions of users. Evidence: [`evidence/log4j/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/log4j) and [`evidence/rounds/2026-11-02-MR1-manifestation-reading.md`](https://github.com/ashitpatel/specforge-blog/blob/main/evidence/rounds/2026-11-02-MR1-manifestation-reading.md).*
+*Part 4 of 8 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 3]({% post_url 2026-11-11-greenfield-pool %}) specified a system before it existed. This post guards a feature commit to a system with millions of users. Evidence: [`evidence/log4j/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/log4j) and [`evidence/rounds/2026-11-02-MR1-manifestation-reading.md`](https://github.com/ashitpatel/specforge-blog/blob/main/evidence/rounds/2026-11-02-MR1-manifestation-reading.md).*
 
 On November 18, 2024, a Log4j commit titled "Removes weak references from `LoggerRepository`" (`a1dfa853c9`) added a new method, `InternalLoggerRegistry.getLoggers()`. It returned a lazy stream — one that escaped the read lock. The change shipped in 2.24.2, and within a week users were filing `ConcurrentModificationException` reports: `Configurator.setLevel` racing logger creation at application start ([issue #3234](https://github.com/apache/logging-log4j2/issues/3234), then [#3283](https://github.com/apache/logging-log4j2/issues/3283), "was just about to report this"). Report to fix: three weeks.
 
