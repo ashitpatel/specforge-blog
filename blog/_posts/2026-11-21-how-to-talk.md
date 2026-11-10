@@ -48,6 +48,6 @@ The general version, worth memorizing: an `@req` gap means a requirement is mode
 
 ## The series, in one paragraph
 
-Twelve posts showed the machinery, the examples, the neighbors, and the trust point. This one showed the conversation. The whole series reduces to a loop you can run Monday morning: describe the system badly, answer short rounds honestly, override defaults freely, push back on the interaction, read the scenarios before signing, and let the models stand guard afterwards. Don't trust it. Check it. Corrections welcome as issues — this post's own fixes started exactly that way.
+Twelve posts showed the machinery, the examples, the neighbors, and the trust point. This one showed the conversation. The whole series reduces to a loop you can pilot Monday morning — a pilot, with a pilot's rough edges: describe the system badly, answer short rounds honestly, override defaults freely, push back on the interaction, read the scenarios before signing, and let the models stand guard afterwards. Don't trust it. Check it. Corrections welcome as issues — this post's own fixes started exactly that way.
 
 {% include series.html %}

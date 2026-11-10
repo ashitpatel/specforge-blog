@@ -10,7 +10,7 @@ date: 2026-11-09
 
 *Level L1 · Needs: nothing. The idea in plain words.*
 
-A test suite can pass three thousand times and still miss the bug. In one case this series walks through, a messaging library's `send()` hung forever — but only when two threads interleaved inside a five-line window, which happened in 10 trials out of 3,000. The suite was green. The bug was real, and a user staring at a frozen connection would not have been comforted by the coverage number.
+A test suite can pass three thousand times and still miss the bug. In one case below, a messaging library's `send()` hung — but only when two threads interleaved inside a five-line window, which happened in 10 trials out of 3,000. The suite was green. The bug was real. The coverage number is no comfort to a user staring at a frozen connection.
 
 That is the gap this series is about. Tests check *instances*: this input, this timing, this interleaving. Two large families of defect live outside any instance you thought to construct:
 
@@ -26,18 +26,21 @@ Five worked examples follow, each with its evidence in this repository:
 - [A pool, specified before it exists]({% post_url 2026-11-11-greenfield-pool %}) — five lines of prose in, a checked spec out: the greenfield run, including the questions the tool asked and the acceptance scenarios the user signed.
 - [The commit that Log4j would have flagged]({% post_url 2026-11-12-feature-log4j %}) — a real feature commit, run through the change guard: 40 touched symbols, 31 flags, the bug's flag first. It shipped, and users hit it within a week.
 - [The lost wake-up]({% post_url 2026-11-13-temporal-stomp %}) — a latent race in a messaging library, found by a tester who knew nothing about it, matched exactly to the upstream fix, and demonstrated hanging on real code.
-- [The pool that overfilled]({% post_url 2026-11-14-structural-kombu %}) — the same defect through the structural lens: an Alloy counterexample you can read as a snapshot instead of a trace.
+- [The pool that overfilled]({% post_url 2026-11-14-structural-kombu %}) — a race through the structural lens: an Alloy counterexample you can read as a snapshot instead of a trace.
 - [The guard that fires]({% post_url 2026-11-15-drift-kombu-hikari %}) — two changes that break guarded properties, one temporal and one structural, both caught at review time.
 
-Before those, the next post walks through [how the tool works]({% post_url 2026-11-10-how-it-works %}): the two checkers, the loop around them, and the methodology that keeps the tool honest — blinded testers, preregistered predictions, and a rule that nothing is called a bug until it reproduces on real code. And after the examples, [the landscape]({% post_url 2026-11-16-landscape %}) places the tool among its neighbors: Specula, vericoding, Axiom Math, Imandra, Qodo, Intent Lab, &Truth, Petra, SDD, and the formal-methods tradition they share. The finale arc covers the trust point and the closest neighbors: [slices]({% post_url 2026-11-17-slices %}) (what gets checked, how ranking misses, how to watch the gaps), then deep comparisons with [Specula]({% post_url 2026-11-18-specula-deep-dive %}), [Imandra]({% post_url 2026-11-19-imandra-deep-dive %}), and [Harness²]({% post_url 2026-11-20-harness-deep-dive %}), closing with [how to talk to the tool]({% post_url 2026-11-21-how-to-talk %}).
+Before those, the next post walks through [how the tool works]({% post_url 2026-11-10-how-it-works %}): the two checkers, the loop around them, and the methodology that keeps the tool honest — blinded testers, preregistered predictions, and a rule that nothing is called a bug until it reproduces on real code. And after the examples, [the landscape]({% post_url 2026-11-16-landscape %}) places the tool among its neighbors: Specula, vericoding, Axiom Math, Imandra, Qodo, Intent Lab, &Truth, Petra, SDD, and the formal-methods tradition they share.
+
+The finale arc covers the trust point and the closest neighbors: [slices]({% post_url 2026-11-17-slices %}) (what gets checked, how ranking misses, how to watch the gaps), then deep comparisons with [Specula]({% post_url 2026-11-18-specula-deep-dive %}), [Imandra]({% post_url 2026-11-19-imandra-deep-dive %}), and [Harness²]({% post_url 2026-11-20-harness-deep-dive %}), closing with [how to talk to the tool]({% post_url 2026-11-21-how-to-talk %}).
 
 ## The honest boundaries
 
-Three limits, stated up front because the rest of the series assumes them:
+Four limits, stated up front because the rest of the series assumes them:
 
-1. **Bounded, not proven.** The checkers exhaust a small scope — two threads, two connections — not production size. The bet, and it is an explicit bet, is that interleaving bugs manifest at tiny scope. Each worked example states what its verdict rests on — the bound, the control, the caveats.
+1. **Bounded, not proven.** The checkers exhaust a small scope — two threads, two connections — not production size. The explicit bet is that interleaving bugs manifest at tiny scope. Each worked example states what its verdict rests on — the bound, the control, the caveats.
 2. **Two defect families.** Temporal and structural. The tool has nothing to say about wrong business logic, bad UX, or slow queries; it checks shapes and interleavings.
 3. **A human stays in the loop.** The tool asks questions when requirements are ambiguous, and a person accepts the scenarios that become the contract. The models are precise; deciding what they should say is judgment.
+4. **A pilot, not a product.** The tool has not been deployed to any production system. Everything this series shows comes from benchmark runs on open-source code, one constructed greenfield run, and the tool guarding its own repository — 259 commits, no accidental fire yet. Read every "does" below as "did, in these runs."
 
 With that said: the bugs in this series are real, the verdicts are the checkers' own, and where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so. On to the machinery.
 

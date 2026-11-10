@@ -10,7 +10,7 @@ date: 2026-11-11
 
 *Level L1 · Needs: part 1. A story with explained excerpts.*
 
-The input is all of it — five lines of prose:
+The entire input is five lines of prose:
 
 > Connection pool for a Java service. The pool holds up to 32 database connections. Threads call acquire() to get a connection and release() to return it. If no connection is free, acquire() waits until one is returned. Idle connections past 5 minutes are closed and replaced. The pool shuts down cleanly, waiting for checked-out connections to come back.
 
@@ -18,7 +18,7 @@ Read that again and count what it doesn't say. How long does `acquire()` wait �
 
 ## The interview
 
-The tool's first act is to number the requirements (R0–R5) and ask about what numbering exposes, three questions at a time, each with a recommended default. Six rounds settled the design:
+The tool's first act is to number the requirements (R0–R5) and ask about what the numbering exposes — three questions at a time, each with a recommended default. Six rounds settled the design:
 
 - **Waits are indefinite** — `acquire()` blocks until a connection returns; shutdown likewise waits indefinitely for checked-out connections to come back.
 - **A freed connection goes to the longest waiter** (FIFO), not to whoever grabs first.
@@ -42,15 +42,15 @@ CONSTANT MaxTime = 3
 CONSTANT ReapAge = 2
 ```
 
-Two connections, two threads, time 0–3 — not 32 connections and hundreds of threads. TLC explores *every* reachable state at that scope: 31,332 states, five invariants (pool shape, waiter shape, idle freshness, clean shutdown, type correctness) and five temporal properties, including `WaiterResolves`: every waiter eventually leaves the queue, served or dropped.
+Two connections, two threads, time 0–3 — not 32 connections and hundreds of threads. TLC explores *every* reachable state at that scope: 31,332 states, five invariants (pool shape, waiter shape, idle freshness, clean shutdown, type correctness), and five temporal properties. One of them is `WaiterResolves`: every waiter eventually leaves the queue, served or dropped.
 
-That last property is where the run got interesting. It holds only under **strong fairness** on releases and on each waiter's take — strong, not weak, because freed slots appear intermittently rather than continuously, and a thread can be barged past forever by better-timed rivals. Two threads already exhibit the barging interleaving that makes per-thread fairness necessary; more threads add states, not shapes. Two things the run tried and backed out of are left visible in the folder: weak fairness (verified by counterexample to impose nothing here) and thread symmetry (sound for safety, but produces a *spurious* liveness counterexample — verified both ways, so the config omits it with the reason stated inline).
+That last property is where the run got interesting. It holds only under **strong fairness** on releases and on each waiter's take — strong, not weak, because freed slots appear intermittently rather than continuously, and a thread can be barged past forever by better-timed rivals. Two threads already exhibit the barging interleaving that makes per-thread fairness necessary; more threads add states, not shapes. Two backed-out attempts are left visible in the folder. Weak fairness was verified by counterexample to impose nothing here. Thread symmetry is sound for safety but produces a *spurious* liveness counterexample — verified both ways, so the config omits it with the reason stated inline.
 
-**Structure** is an Alloy model of the pool's shape, and it carries what TLA+ can't afford: the 32-boundary, proved at full size (scope 33). TLA+ carries behavior, Alloy carries size; neither covers everything, and together they cover the requirements.
+**Structure** is an Alloy model of the pool's shape, and it carries what TLA+ can't afford: the 32-boundary, checked at full size (scope 33). TLA+ carries behavior, Alloy carries size; neither covers everything, and together they cover the requirements.
 
 ## The contract
 
-The run's last artifact is the one the user actually signs: nine acceptance scenarios in plain English, one per requirement-carrying action, each the shortest behavior that ends with it:
+The run's last artifact is the one the user actually signs: nine acceptance scenarios in plain English, one per requirement-carrying action, each the shortest behavior ending in it:
 
 ```gherkin
 @R1 @R3
@@ -64,7 +64,7 @@ Scenario: S1 AcquireCreate (R1, R3)
     And held = {<<1, "t1">>}
 ```
 
-The scenarios are generated *from the checked model*, not handwritten — so they can't promise what the spec doesn't do. Accepting them is recorded by digest: the gate re-verifies that the accepted scenarios still match the model, and a model edit that silently changes behavior fails the gate until the scenarios are re-accepted. The English contract and the formal model can't drift apart unnoticed.
+The scenarios are generated *from the checked model*, not handwritten — so they can't promise what the spec doesn't do. Accepting them is recorded by digest. The gate re-verifies that the accepted scenarios still match the model, and a model edit that silently changes behavior fails the gate until the scenarios are re-accepted. The English contract and the formal model can't drift apart without failing the gate.
 
 ## The replay
 
@@ -74,7 +74,7 @@ Everything above re-verifies end to end. `replay.py` copies the folder to a temp
 # replay GREEN
 ```
 
-Five lines of prose in, a checked spec out: 9 numbered requirements, a 31,332-state behavioral check with no errors, a full-size capacity proof, and 9 acceptance scenarios. Nothing in the folder is hand-written to look good; the replay is the receipt.
+Five lines of prose in, a checked spec out: 9 numbered requirements, a 31,332-state behavioral check with no errors, a full-size capacity check, and 9 acceptance scenarios. Nothing in the folder is hand-written to look good; the replay is the receipt.
 
 [Part 4]({% post_url 2026-11-12-feature-log4j %}) turns the tool on a real feature commit — one that shipped, and that users hit within a week.
 

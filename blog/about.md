@@ -3,7 +3,9 @@ layout: page
 title: About
 ---
 
-[specforge](https://github.com/ashitpatel/specforge) is a tool that turns requirements or existing code into Alloy and TLA+ models, checks them exhaustively at small scope, reproduces what it finds on the real code, and then guards every later change against the models. It works on two kinds of defect: temporal (races, deadlocks, lost wake-ups, ordering violations) and structural (broken shape invariants in data and APIs).
+[specforge](https://github.com/ashitpatel/specforge) is a tool that turns requirements or existing code into Alloy and TLA+ models, checks them exhaustively at small scope, reproduces what it finds on the real code, and then guards later changes against the models. It works on two kinds of defect: temporal (races, deadlocks, lost wake-ups, ordering violations) and structural (broken shape invariants in data and APIs).
+
+Stage: proof of concept / pilot. The tool has not been deployed to any production system; the evidence in this series comes from benchmark runs on open-source code, a constructed greenfield run, and the tool guarding its own repository.
 
 This series walks through the idea and five worked examples:
 
