@@ -8,6 +8,8 @@ date: 2026-11-18
 
 *Part 10 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) named Specula the closest neighbor. This post earns that claim line by line.*
 
+*Level L2 · Needs: part 8 or 9. The closest-neighbor comparison.*
+
 ## What Specula is
 
 [Specula](https://www.aiinsiders.net/article/speculas-bug-hunting-agent-impresses-a-reviewer-but-not) (August 2026) is an agentic system for one job: find concurrency bugs in existing code. It writes a TLA+ specification from the code, validates the spec against observed traces, model-checks it, and reproduces every confirmed bug as a timed integration test. Across 48 concurrent and distributed systems in seven languages it surfaced 249 bugs, 207 previously unknown, at a median $57 in tokens per system. Two opposing checks drive it: trace validation pulls the spec toward the code, model checking pushes back when the spec gets too permissive to catch anything.

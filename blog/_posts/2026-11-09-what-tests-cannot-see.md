@@ -8,6 +8,8 @@ date: 2026-11-09
 
 *Part 1 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge), a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
 
+*Level L1 · Needs: nothing. The idea in plain words.*
+
 A test suite can pass three thousand times and still miss the bug. In one case this series walks through, a messaging library's `send()` hung forever — but only when two threads interleaved inside a five-line window, which happened in 10 trials out of 3,000. The suite was green. The bug was real, and a user staring at a frozen connection would not have been comforted by the coverage number.
 
 That is the gap this series is about. Tests check *instances*: this input, this timing, this interleaving. Two large families of defect live outside any instance you thought to construct:

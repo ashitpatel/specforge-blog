@@ -8,6 +8,8 @@ date: 2026-11-14
 
 *Part 6 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 5]({% post_url 2026-11-13-temporal-stomp %}) traced a race through time. This post reads one as a snapshot. Evidence: [`evidence/kombu/Resource-full.als`](https://github.com/ashitpatel/specforge-blog/blob/main/evidence/kombu/Resource-full.als) and its [run log](https://github.com/ashitpatel/specforge-blog/blob/main/evidence/kombu/Resource-full.run.log).*
 
+*Level L2 · Needs: part 5 or equal comfort with code. Snapshots, not traces.*
+
 The defect starts forty lines apart in kombu's `Resource`, a generic pool behind Celery's connections. `_add_when_empty` tests the limit (`resource.py:59`):
 
 ```python

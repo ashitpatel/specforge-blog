@@ -8,6 +8,8 @@ date: 2026-11-11
 
 *Part 3 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 2]({% post_url 2026-11-10-how-it-works %}) toured the machinery. This post runs it from scratch. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*
 
+*Level L1 · Needs: part 1. A story with explained excerpts.*
+
 The input is all of it — five lines of prose:
 
 > Connection pool for a Java service. The pool holds up to 32 database connections. Threads call acquire() to get a connection and release() to return it. If no connection is free, acquire() waits until one is returned. Idle connections past 5 minutes are closed and replaced. The pool shuts down cleanly, waiting for checked-out connections to come back.

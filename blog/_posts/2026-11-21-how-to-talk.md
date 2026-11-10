@@ -8,6 +8,8 @@ date: 2026-11-21
 
 *Part 13 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The finale isn't a verdict — it's the conversation that produces one, reconstructed from the pool run's real record. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*
 
+*Level L1 · Needs: nothing. The conversation, reconstructed.*
+
 [Part 3]({% post_url 2026-11-11-greenfield-pool %}) showed what came out of the pool run. This post shows what went in: the actual questions, the answers, the moments the user pushed back — and what they teach about talking to the tool.
 
 ## Five lines in, six rounds out

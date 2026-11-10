@@ -8,6 +8,8 @@ date: 2026-11-19
 
 *Part 11 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) called Imandra the closest kin. This post draws the fork precisely.*
 
+*Level L2 · Needs: part 8. Answers versus verdicts.*
+
 ## What Imandra is
 
 [Imandra](https://www.imandra.ai/) builds neurosymbolic reasoning: its CodeLogician agent has LLMs construct explicit formal models of software, and its ImandraX engine — deployed in financial markets and safety-critical systems — reasons over them to answer rich semantic questions about program logic: state spaces, control flow, decision boundaries, edge cases. Their [paper](https://arxiv.org/abs/2601.11840) introduces code-logic-bench and reports that formal augmentation closes a 41–47 percentage-point accuracy gap over LLM-only reasoning. Their framing is blunt: LLMs "fundamentally lack the ability to perform precise, exhaustive mathematical reasoning about program behavior."

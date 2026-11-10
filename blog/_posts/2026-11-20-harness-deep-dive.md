@@ -8,6 +8,8 @@ date: 2026-11-20
 
 *Part 12 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) placed Harness² as kin with a fork. This is the finale: the fork, drawn all the way.*
 
+*Level L2 · Needs: part 8. Who grades the grader.*
+
 ## What Harness² is
 
 [Google's Harness²](https://github.com/google-research/harness2) (October 2026, Apache 2.0, [paper](https://arxiv.org/abs/2610.14224)) starts from Agent = Model + Harness: freeze the weights, rewrite everything else — system prompt, guardrails, memory, skills, tool guidance, scripts, subagents, plugins — per task, in a Propose–Probe–Compose loop. Propose harness edits, probe them by running the task, compose what scores into the saved harness plus the lessons behind it. Single-step gains run large: +11.8pp on the LAB legal benchmark, +11.5 on WorkBuddy-Bench, +4.5 on JobBench. Research code (v0.1.0), honest about its edges: every gain is paid for in extra executions, and the numbers come from the authors alone.

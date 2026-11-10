@@ -8,6 +8,8 @@ date: 2026-11-15
 
 *Part 7 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The series so far: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), [greenfield]({% post_url 2026-11-11-greenfield-pool %}), [a guarded feature]({% post_url 2026-11-12-feature-log4j %}), [a temporal catch]({% post_url 2026-11-13-temporal-stomp %}), [a structural catch]({% post_url 2026-11-14-structural-kombu %}). This post closes the loop: what happens when a change breaks a guarded property.*
 
+*Level L2 · Needs: parts 2 and 6 (goldens, the kombu model). Two gate firings.*
+
 A spec that nothing re-checks is documentation with delusions. The tool pins every property that held as a *golden*: a later change that flips one from holding to broken is a regression, and the gate says so — `BLOCKING`, with the property named. This post shows the gate firing twice: once temporal, once structural. Both demonstrations are constructed — a deliberate probe, a hand-authored regression — and this post labels them as such, because the mechanism is what's on trial here, and the mechanism either fires or it doesn't.
 
 ## Temporal: un-fixing HikariCP #591
