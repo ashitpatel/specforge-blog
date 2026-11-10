@@ -28,7 +28,7 @@ date: 2026-11-19
 
 ## How to use each
 
-- *Imandra:* sign up for Universe, point CodeLogician at a codebase, and ask semantic questions — what this function does at edge inputs, where a decision boundary lies, whether two regions overlap. Best for: understanding complex logic before changing it.
+- *Imandra:* sign up for Imandra Universe (their platform, at universe.imandra.ai), point CodeLogician at a codebase, and ask semantic questions — what this function does at edge inputs, where a decision boundary lies, whether two regions overlap. Best for: understanding complex logic before changing it.
 - *specforge:* install the wheel, open an agent session, and run verify-then-guard: model the slice, reproduce the finding, pin the property. Best for: proving a property holds and keeping it held.
 
 Use Imandra before the change ("what does this actually do?") and specforge across it ("prove it still holds, then guard it").
