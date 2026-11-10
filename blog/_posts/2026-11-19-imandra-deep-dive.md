@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-19
 ---
 
-*Part 11 of 12 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) called Imandra the closest kin. This post draws the fork precisely.*
+*Part 11 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) called Imandra the closest kin. This post draws the fork precisely.*
 
 ## What Imandra is
 

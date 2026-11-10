@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-18
 ---
 
-*Part 10 of 12 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) named Specula the closest neighbor. This post earns that claim line by line.*
+*Part 10 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) named Specula the closest neighbor. This post earns that claim line by line.*
 
 ## What Specula is
 

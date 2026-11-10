@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-20
 ---
 
-*Part 12 of 12 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) placed Harness² as kin with a fork. This is the finale: the fork, drawn all the way.*
+*Part 12 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) placed Harness² as kin with a fork. This is the finale: the fork, drawn all the way.*
 
 ## What Harness² is
 
@@ -39,6 +39,6 @@ The exhibit both sides share comes from Specula's runs (see [part 10]({% post_ur
 
 That outside-the-optimization check is specforge's entire architecture. Its falsification gates — this mutant must violate, this control must pass, this property must be shown able to fail — are not proposals the loop can trade away for a greener board; they are refusals the loop cannot override. Where Harness² asks "what harness scores highest?", specforge asks "what verdict survives every attempt to break it?" — and the Kudu-Raft guard is the parable for why both questions need different machinery.
 
-That is the series, all twelve parts: tests sample instances; these models exhaust shapes and interleavings of the slices worth checking; findings reproduce on real code or they don't ship; the models stand guard afterwards; you know what decides the slices and where that stands among the neighbors — and now, for the three closest neighbors, exactly where the kinship ends. Don't trust any of it. Check it. Corrections welcome as issues.
+That covers the three closest neighbors. One post remains: [how to talk to the tool]({% post_url 2026-11-21-how-to-talk %}) — the conversation behind the verdicts, reconstructed from the pool run's real record.
 
 {% include series.html %}

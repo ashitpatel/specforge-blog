@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-09
 ---
 
-*Part 1 of 12 in a series on [specforge](https://github.com/ashitpatel/specforge), a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
+*Part 1 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge), a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
 
 A test suite can pass three thousand times and still miss the bug. In one case this series walks through, a messaging library's `send()` hung forever — but only when two threads interleaved inside a five-line window, which happened in 10 trials out of 3,000. The suite was green. The bug was real, and a user staring at a frozen connection would not have been comforted by the coverage number.
 
@@ -27,7 +27,7 @@ Five worked examples follow, each with its evidence in this repository:
 - [The pool that overfilled]({% post_url 2026-11-14-structural-kombu %}) — the same defect through the structural lens: an Alloy counterexample you can read as a snapshot instead of a trace.
 - [The guard that fires]({% post_url 2026-11-15-drift-kombu-hikari %}) — two changes that break guarded properties, one temporal and one structural, both caught at review time.
 
-Before those, the next post walks through [how the tool works]({% post_url 2026-11-10-how-it-works %}): the two checkers, the loop around them, and the methodology that keeps the tool honest — blinded testers, preregistered predictions, and a rule that nothing is called a bug until it reproduces on real code. And after the examples, [the landscape]({% post_url 2026-11-16-landscape %}) places the tool among its neighbors: Specula, vericoding, Axiom Math, Imandra, Qodo, Intent Lab, &Truth, Petra, SDD, and the formal-methods tradition they share. The finale arc covers the trust point and the closest neighbors: [slices]({% post_url 2026-11-17-slices %}) (what gets checked, how ranking misses, how to watch the gaps), then deep comparisons with [Specula]({% post_url 2026-11-18-specula-deep-dive %}), [Imandra]({% post_url 2026-11-19-imandra-deep-dive %}), and [Harness²]({% post_url 2026-11-20-harness-deep-dive %}).
+Before those, the next post walks through [how the tool works]({% post_url 2026-11-10-how-it-works %}): the two checkers, the loop around them, and the methodology that keeps the tool honest — blinded testers, preregistered predictions, and a rule that nothing is called a bug until it reproduces on real code. And after the examples, [the landscape]({% post_url 2026-11-16-landscape %}) places the tool among its neighbors: Specula, vericoding, Axiom Math, Imandra, Qodo, Intent Lab, &Truth, Petra, SDD, and the formal-methods tradition they share. The finale arc covers the trust point and the closest neighbors: [slices]({% post_url 2026-11-17-slices %}) (what gets checked, how ranking misses, how to watch the gaps), then deep comparisons with [Specula]({% post_url 2026-11-18-specula-deep-dive %}), [Imandra]({% post_url 2026-11-19-imandra-deep-dive %}), and [Harness²]({% post_url 2026-11-20-harness-deep-dive %}), closing with [how to talk to the tool]({% post_url 2026-11-21-how-to-talk %}).
 
 ## The honest boundaries
 

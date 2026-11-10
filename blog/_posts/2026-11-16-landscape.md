@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-16
 ---
 
-*Part 8 of 12 in a series on [specforge](https://github.com/ashitpatel/specforge). The previous seven posts built the case from the inside: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), and five worked examples. This one steps outside and places the tool among its neighbors — all characterizations as of November 2026, from the linked sources.*
+*Part 8 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The previous seven posts built the case from the inside: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), and five worked examples. This one steps outside and places the tool among its neighbors — all characterizations as of November 2026, from the linked sources.*
 
 Everyone in this post agrees on the premise: AI now writes code faster than humans can check it, and "trust me, the AI wrote it" is not a verification strategy. They differ on what checking means. That difference is the landscape.
 
