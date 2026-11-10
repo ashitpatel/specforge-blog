@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-13
 ---
 
-*Part 5 of 8 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 4]({% post_url 2026-11-12-feature-log4j %}) flagged a bug at introduction. This one was already there — sitting in dormant code since 2013. Evidence: [`evidence/stomp/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/stomp).*
+*Part 5 of 9 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 4]({% post_url 2026-11-12-feature-log4j %}) flagged a bug at introduction. This one was already there — sitting in dormant code since 2013. Evidence: [`evidence/stomp/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/stomp).*
 
 The tester knew nothing. That is the protocol: a blinded agent receives a tree of the `stomp` messaging library from 2013, before the fix, with no labels and no hints, and is asked to model the riskiest slice and report what the checkers find. Its first finding read, in full:
 

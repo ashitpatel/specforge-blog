@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-16
 ---
 
-*Part 8 of 8 in a series on [specforge](https://github.com/ashitpatel/specforge). The previous seven posts built the case from the inside: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), and five worked examples. This one steps outside and places the tool among its neighbors — all characterizations as of November 2026, from the linked sources.*
+*Part 8 of 9 in a series on [specforge](https://github.com/ashitpatel/specforge). The previous seven posts built the case from the inside: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), and five worked examples. This one steps outside and places the tool among its neighbors — all characterizations as of November 2026, from the linked sources.*
 
 Everyone in this post agrees on the premise: AI now writes code faster than humans can check it, and "trust me, the AI wrote it" is not a verification strategy. They differ on what checking means. That difference is the landscape.
 
@@ -102,6 +102,6 @@ One picture for the whole landscape. The rows are what each neighbor contributes
 
 The last row is this series' claim to a seat: the only entry that starts from plain prose or from existing code alike, demonstrates its findings on real code, and then stands guard over every later change. The neighbors each do something it doesn't; it does something none of them do.
 
-That is the series. Tests sample instances; these models exhaust shapes and interleavings; findings reproduce on real code or they don't ship; the models stand guard afterwards — and now you know where that stands among the people solving the same problem. Corrections welcome as issues; a series about falsification takes its own medicine.
+One post remains: [slices]({% post_url 2026-11-17-slices %}) — what gets checked, what might not, and how to watch the gaps.
 
 {% include series.html %}

@@ -15,6 +15,7 @@ This series walks through the idea and five worked examples:
 6. The pool that overfilled — the same defect as a structural counterexample in kombu.
 7. The guard that fires — catching drift during a change, twice.
 8. The landscape — where specforge fits among its neighbors.
+9. Slices — what gets checked, what might not, and how to watch the gaps.
 
 The evidence beside each claim lives in this repository under `evidence/`: specs, checker logs, review verdicts, and the benchmark records each story is built on. Where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so.
 
