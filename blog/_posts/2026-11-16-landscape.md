@@ -33,6 +33,14 @@ A [1998 CMU survey](https://users.ece.cmu.edu/~koopman/des_s99/formal_methods/) 
 
 Specforge is that route, 28 years later, with one change the survey couldn't foresee: the models are now written by agents, not by engineers trained in type theory. Alloy is the canonical lightweight method (small scopes, automatic counterexamples); TLA+ is its pragmatic sibling (engineers at AWS and elsewhere check real designs with it). The series' honesty section in part 1 — bounded scope, two defect families, verification *complementing* testing rather than replacing it — is the 1998 conclusion restated as a feature list. The bet is the same; the labor economics finally work.
 
+## Spec-driven development: specs as prompts
+
+[Spec-driven development](https://www.stride.page/learn/ai-coding-agents/spec-driven-development) is the dominant AI-coding methodology of 2026: GitHub's Spec Kit (open source, 139,000 stars, v1.0 in August 2026), AWS's Kiro IDE (July 2025, now the Q Developer successor), OpenSpec, Tessl. The workflow runs spec → plan → tasks → implement, with the spec as source of truth. The movement's own summary phrase is "the spec is the prompt."
+
+That phrase marks the boundary. SDD specs are prose or structured markdown written to be *consumed by an LLM* — they steer generation. Nothing checks them exhaustively; a contradictory or incomplete spec steers the agent into building the wrong thing confidently. Specforge specs are formal models written to be *consumed by solvers* — they verify behavior. SDD answers "what should the agent build?"; specforge answers "does what was planned or built actually hold, in every interleaving and every state?"
+
+They stack rather than compete: SDD upstream (intent → plan → code), specforge as the verification stage and the guardrails afterward. The narrow overlap sits inside Kiro itself, whose workflow includes an automated-reasoning pass checking plans for contradictions and gaps, plus generated property-based tests — consistency-checking a plan, adjacent to but far short of exhaustive property verification with demonstrated reproductions. Same "specs as artifacts" lineage, opposite ends of the rigor spectrum.
+
 ## Imandra: the closest kin
 
 [Imandra's CodeLogician](https://www.imandra.ai/) is the nearest neighbor — same neurosymbolic shape: LLMs construct explicit formal models of software, and an automated reasoning engine (ImandraX, deployed in financial markets and safety-critical systems) judges them. Their [paper](https://arxiv.org/abs/2601.11840) reports that formal augmentation closes a 41–47 percentage-point accuracy gap over LLM-only reasoning about program logic, and pointedly frames it as prerequisite, not optimization: LLMs "fundamentally lack the ability to perform precise, exhaustive mathematical reasoning about program behavior."
@@ -83,6 +91,7 @@ One picture for the whole landscape. The rows are what each neighbor contributes
 | Vericoding | functional correctness | formal specs | proven code |
 | Axiom Math | functional correctness | specs → Lean | checked proofs |
 | Lightweight methods | scoped properties | engineer-written models | counterexamples |
+| SDD (Spec Kit, Kiro) | nothing (steers) | prose specs | agent-built code |
 | Imandra | program-logic questions | code → formal models | answers + proofs |
 | Qodo | standards, review coverage | PRs + repo knowledge | governed merges |
 | Intent Lab | infra correctness | intent → systems | verified systems |
