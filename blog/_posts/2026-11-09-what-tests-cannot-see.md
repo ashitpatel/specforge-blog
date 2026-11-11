@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-09
 ---
 
-*Part 1 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge), a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
+*Part 1 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge), a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
 
 *Level L1 · Needs: nothing. The idea in plain words.*
 
@@ -31,7 +31,7 @@ Five worked examples follow, each with its evidence in this repository:
 
 Before those, the next post walks through [how the tool works]({% post_url 2026-11-10-how-it-works %}): the two checkers, the loop around them, and the methodology that keeps the tool honest — blinded testers, preregistered predictions, and a rule that nothing is called a bug until it reproduces on real code. And after the examples, [the landscape]({% post_url 2026-11-16-landscape %}) places the tool among its neighbors: Specula, vericoding, Axiom Math, Imandra, Qodo, Intent Lab, &Truth, Petra, SDD, and the formal-methods tradition they share.
 
-The finale arc covers the trust point and the closest neighbors: [slices]({% post_url 2026-11-17-slices %}) (what gets checked, how ranking misses, how to watch the gaps), then deep comparisons with [Specula]({% post_url 2026-11-18-specula-deep-dive %}), [Imandra]({% post_url 2026-11-19-imandra-deep-dive %}), and [Harness²]({% post_url 2026-11-20-harness-deep-dive %}), closing with [how to talk to the tool]({% post_url 2026-11-21-how-to-talk %}).
+The finale arc covers the trust point and the closest neighbors: [slices]({% post_url 2026-11-17-slices %}) (what gets checked, how ranking misses, how to watch the gaps), then deep comparisons with [Specula]({% post_url 2026-11-18-specula-deep-dive %}), [Imandra]({% post_url 2026-11-19-imandra-deep-dive %}), and [Harness²]({% post_url 2026-11-20-harness-deep-dive %}), closing with [how to talk to the tool]({% post_url 2026-11-21-how-to-talk %}). Past the finale, an evidence arc opens the file drawer: [the overview]({% post_url 2026-11-22-evidence-overview %}) (every run, calibrated), then deep-dives on [sshd]({% post_url 2026-11-23-sshd-deep-dive %}) (Java) and [celery]({% post_url 2026-11-24-celery-deep-dive %}) (Python).
 
 ## The honest boundaries
 
@@ -40,7 +40,7 @@ Four limits, stated up front because the rest of the series assumes them:
 1. **Bounded, not proven.** The checkers exhaust a small scope — two threads, two connections — not production size. The explicit bet is that interleaving bugs manifest at tiny scope. Each worked example states what its verdict rests on — the bound, the control, the caveats.
 2. **Two defect families.** Temporal and structural. The tool has nothing to say about wrong business logic, bad UX, or slow queries; it checks shapes and interleavings.
 3. **A human stays in the loop.** The tool asks questions when requirements are ambiguous, and a person accepts the scenarios that become the contract. The models are precise; deciding what they should say is judgment.
-4. **A pilot, not a product.** The tool has not been deployed to any production system. Everything this series shows comes from benchmark runs on open-source code, one constructed greenfield run, and the tool guarding its own repository — 259 commits, no accidental fire yet. Read every "does" below as "did, in these runs."
+4. **A pilot, not a product.** The tool has not been deployed to any production system. Everything this series shows comes from benchmark runs on open-source code, one constructed greenfield run, and the tool guarding its own repository — 283 commits, no accidental fire yet. Read every "does" below as "did, in these runs."
 
 With that said: the bugs in this series are real, the verdicts are the checkers' own, and where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so. On to the machinery.
 

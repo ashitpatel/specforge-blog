@@ -1,0 +1,223 @@
+{
+ "sshd-fr2/pkt-a": {
+  "open": [],
+  "own": {
+   "findings": [],
+   "fix": "7849e4875d",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 7849e4875d: when both peers initiate KEX near-simultaneously, a received KEX message is passed to kex.next() in handleKexMessage() before the sending thread's performKexNegotiation() has run kex.init(), failing with IllegalStateException; fix defers kex.next() on a new kexPreparedFuture fulfilled after kex.init(). Quoting the diff message: \"This peer receives this first KEX message and passes it to the KeyExchange. However, the performKexNegotiation() running in a sending thread has not yet initialized the KeyExchange.\" No finding mentions KEX, key exchange, handleKexMessage, or kex.init: findings cover ChannelSession commandInstance start-vs-close races (0, 1), pumper/factory/async-stream close-vs-open strands (2, 3, 5), null factory return (4), stale idle/auth timeout clocks (6, 7), heartbeat send-after-stop (8), and setOut-vs-write races (9, 10)."
+  }
+ },
+ "sshd-fr2/pkt-b": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "7849e4875d",
+    "match": "none",
+    "reason": "Fix 7849e4875d: KEX message passed to kex.next() before kex.init() completes (\"has not yet initialized the KeyExchange. The KEX fails with an IllegalStateException: not initialized\"). No finding mentions KEX or key exchange; findings cover AgentImpl CME/add-after-close (0, 1), factory leak (2), and ChannelSession NPE/start-after-destroy/resurrect (3, 4, 5)."
+   },
+   {
+    "findings": [],
+    "fix": "c1f31ee7c9",
+    "match": "none",
+    "reason": "Fix c1f31ee7c9: session-timeout task cancellation racing across close paths with concurrent access to non-volatile fields (\"Cancellation of a session timeout task may occur asynchronously ... Use AtomicReference\"). No finding mentions the session-timeout listener/task; findings cover AgentImpl (0, 1), ioServiceFactory (2), and ChannelSession commandInstance (3, 4, 5)."
+   },
+   {
+    "findings": [],
+    "fix": "9b9109c233",
+    "match": "none",
+    "reason": "Fix 9b9109c233: doCloseImmediately() fulfilled the close future before setting state to Closed (\"Set the state to 'closed' before fulfilling the closeFuture\"). No finding mentions AbstractCloseable, closeFuture/state ordering, or isClosed(); findings cover AgentImpl (0, 1), factory (2), and ChannelSession (3, 4, 5)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "0fed512b02",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 0fed512b02: asynchronously created IoSessions could register on an already-closed IoConnector and then never be closed (\"a newly created session registered on an already closed IoConnector, and then would never be closed\"); fix refuses/closes late registrations via a noMoreSessions guard. Finding 2 \"Lazy getIoServiceFactory racing close leaks a factory (use-after-close)\" is a different defect in a different component (AbstractFactoryManager.ioServiceFactory, not IoSession registration on Nio2/Mina/Netty connectors) and never mentions connectors or sessions registering after close. Other findings cover AgentImpl CME/add-after-close (0, 1) and ChannelSession NPE/start-after-destroy/resurrect (3, 4, 5). None describes a leaked never-closed IoSession."
+  }
+ },
+ "sshd-fr2/pkt-c": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "7849e4875d",
+    "match": "none",
+    "reason": "Fix 7849e4875d: KEX message passed to kex.next() before kex.init() completes (\"has not yet initialized the KeyExchange. The KEX fails with an IllegalStateException\"). No finding mentions KEX, key exchange, handleKexMessage, or kex.init; findings cover SshClient connect/start (0, 1), ChannelSession (2, 3), Sftp streams (4, 5), pumper (6, 7), stale timeout clocks (8, 9), factory/executor/task lifecycle (10-14), auth NPE (15), acceptor (16, 17), and AgentImpl (18, 19)."
+   },
+   {
+    "findings": [
+     13,
+     14
+    ],
+    "fix": "c1f31ee7c9",
+    "match": "partial",
+    "reason": "Fix c1f31ee7c9: the session-timeout task's cancellation may run asynchronously across close paths with concurrent access to non-volatile fields (\"Cancellation of a session timeout task may occur asynchronously on closing sessions and on closing the client. Use AtomicReference\"), fixed with AtomicReferences plus an isOpen() scheduling guard (\"if (isOpen() && timeoutListenerFuture.get() == null)\"). Finding 13 \"Concurrent start/stop leaks the session-timeout task\" and finding 14 \"stop() cancels a timeout task scheduled after stop began\" overlap the fix's session-timeout schedule-vs-cancel race under start/stop (same area, same lifecycle-race family, matching the isOpen-guarded scheduling aspect), but neither describes the concurrent-cancel/non-volatile-field race the AtomicReference change targets, so partial."
+   },
+   {
+    "findings": [],
+    "fix": "9b9109c233",
+    "match": "none",
+    "reason": "Fix 9b9109c233: doCloseImmediately() fulfilled the close future before setting state to Closed (\"Set the state to 'closed' before fulfilling the closeFuture\"). No finding mentions AbstractCloseable, closeFuture/state ordering, or isClosed(); findings cover SshClient, ChannelSession, Sftp, pumper, timeouts, factory, executor, auth, acceptor, and AgentImpl (0-19)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "0fed512b02",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 0fed512b02: asynchronously created IoSessions could register on an already-closed IoConnector and then never be closed (\"a newly created session registered on an already closed IoConnector, and then would never be closed\"). Finding 0 \"SshClient.connect races stop: NPE or use of a closed connector\" describes an NPE/use-after-close at connect time, not a session that registers after close and escapes closing; it never mentions leaked or never-closed sessions, IoSession registration, or the connector session map. Other findings cover SshClient.start, ChannelSession, Sftp, pumper, timeouts, factory, executor, auth, acceptor, and AgentImpl (1-19). None describes the fix's never-closed-session defect."
+  }
+ },
+ "sshd-fr2/pkt-d": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "7849e4875d",
+    "match": "none",
+    "reason": "Fix 7849e4875d: KEX message passed to kex.next() before kex.init() completes (\"has not yet initialized the KeyExchange. The KEX fails with an IllegalStateException\"). No finding mentions KEX or key exchange; findings cover AgentImpl lost-add/resurrect (0, 1), null factory return (2), stream orphans (3, 4), setOut discard (5), and lock-object double-create, refuted (6)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "c1f31ee7c9",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix c1f31ee7c9: session-timeout task cancellation racing across close paths with concurrent access to non-volatile sessionTimeoutListener/timeoutListenerFuture fields (\"Cancellation of a session timeout task may occur asynchronously ... Use AtomicReference\"). No finding mentions the session-timeout listener or task; findings cover AgentImpl lost-add/resurrect (0, 1), getIoServiceFactory null (2), sync/async stream orphans (3, 4), doOpen discarding setOut (5), and setter lock-object double-create, refuted (6)."
+  }
+ },
+ "sshd-fr2/pkt-e": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "7849e4875d",
+    "match": "none",
+    "reason": "Fix 7849e4875d: KEX message passed to kex.next() before kex.init() completes (\"has not yet initialized the KeyExchange. The KEX fails with an IllegalStateException\"). No finding mentions KEX or key exchange; findings cover AgentImpl add-after-close/CME (0, 1), ChannelSession NPE/close-miss/resurrect (2, 3, 4), and client-channel async-stream leak (5)."
+   },
+   {
+    "findings": [],
+    "fix": "c1f31ee7c9",
+    "match": "none",
+    "reason": "Fix c1f31ee7c9: session-timeout task cancellation racing across close paths with concurrent access to non-volatile fields (\"Cancellation of a session timeout task may occur asynchronously ... Use AtomicReference\"). No finding mentions the session-timeout listener or task; findings cover AgentImpl (0, 1), ChannelSession (2, 3, 4), and client-channel streams (5)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "9b9109c233",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 9b9109c233: doCloseImmediately() fulfilled the close future before setting state to Closed (\"Set the state to 'closed' before fulfilling the closeFuture\"), plus ClientSessionImpl switching from closeFuture.isClosed() to isClosed(). No finding mentions AbstractCloseable, closeFuture/state ordering, or isClosed(); findings cover AgentImpl add-after-close/CME (0, 1), ChannelSession NPE/close-miss/resurrect+start (2, 3, 4), and client-channel async-stream snapshot leak (5)."
+  }
+ },
+ "sshd-fr2/pkt-f": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "7849e4875d",
+    "match": "none",
+    "reason": "Fix 7849e4875d: KEX message passed to kex.next() in handleKexMessage() before kex.init() completes (\"has not yet initialized the KeyExchange. The KEX fails with an IllegalStateException\"). No finding describes KEX initialization: finding 9 \"Rekey installs the output suite field-by-field while createBuffer sizes from a mix\" is a torn cipher-suite read, and findings 10-12 cover stale auth packets during re-auth, all different defects from driving kex.next() before kex.init(). Other findings cover session-timeout/acceptor (0, 1, 2, 13), ChannelSession/destroy (3, 4, 5, 6), heartbeat scheduler (7), and AgentImpl (8)."
+   }
+  ],
+  "own": {
+   "findings": [
+    0
+   ],
+   "fix": "c1f31ee7c9",
+   "is_concurrency": true,
+   "match": "partial",
+   "reason": "Fix c1f31ee7c9: the session-timeout task's cancellation may run asynchronously across close paths with concurrent access to non-volatile fields (\"Cancellation of a session timeout task may occur asynchronously on closing sessions and on closing the client. Use AtomicReference\"), fixed with AtomicReferences plus an isOpen() scheduling guard (\"if (isOpen() && timeoutListenerFuture.get() == null)\"). Finding 0 \"Session-timeout reschedule after stop throws NPE on the IO thread\" overlaps the fix's session-timeout schedule-vs-stop race (same area and lifecycle-race family, matching the isOpen-guarded scheduling aspect), but does not describe the concurrent async cancellation / non-volatile field race the AtomicReference change targets, so partial."
+  }
+ },
+ "sshd-fr2/pkt-g": {
+  "open": [
+   {
+    "findings": [
+     11
+    ],
+    "fix": "7849e4875d",
+    "match": "exact",
+    "reason": "Fix 7849e4875d: a received KEX message is passed to the KeyExchange before the sending thread has initialized it (\"This peer receives this first KEX message and passes it to the KeyExchange. However, the performKexNegotiation() running in a sending thread has not yet initialized the KeyExchange. The KEX fails with an IllegalStateException: not initialized\"), fixed by running kex.next() only after kex.init() via kexPreparedFuture. Finding 11 \"KEX exchange driven before assignment completes. doKexNegotiation CASes state to RUN, but kex is assigned+initialized later ... A pipelined peer KEX message in between passes RUN validation and drives a null/uninitialized exchange (handleKexMessage:771)\" describes the same defect and mechanism: handleKexMessage driving an uninitialized kex due to async completion racing message handling. Same bug, wording differs: exact."
+   },
+   {
+    "findings": [],
+    "fix": "c1f31ee7c9",
+    "match": "none",
+    "reason": "Fix c1f31ee7c9: session-timeout task cancellation racing across close paths with concurrent access to non-volatile fields (\"Cancellation of a session timeout task may occur asynchronously ... Use AtomicReference\"). No finding mentions the session-timeout listener or task; findings cover ChannelSession (0, 1, 2), AgentImpl (3, 4), SshClient/factory/SshServer (5, 6, 7), ProcessShell (8, 9), rekey torn read (10), and KEX-before-assignment (11)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "9b9109c233",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 9b9109c233: doCloseImmediately() fulfilled the close future before setting state to Closed (\"Set the state to 'closed' before fulfilling the closeFuture\"), plus ClientSessionImpl switching from closeFuture.isClosed() to isClosed(). No finding mentions AbstractCloseable, closeFuture/state ordering, or isClosed(); findings cover ChannelSession NPE/leak/stream races (0, 1, 2), AgentImpl CME/add-after-close (3, 4), SshClient stop-vs-connect and factory resurrection (5, 6), SshServer start-vs-close (7), ProcessShell destroy-vs-start and stream wiring (8, 9), rekey torn read (10), and KEX-before-assignment (11)."
+  }
+ },
+ "sshd-fr2/pkt-h": {
+  "open": [],
+  "own": {
+   "findings": [],
+   "fix": "7849e4875d",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 7849e4875d: a received KEX message is passed to kex.next() in handleKexMessage() before the sending thread's performKexNegotiation() has run kex.init() (\"has not yet initialized the KeyExchange. The KEX fails with an IllegalStateException: not initialized\"). No finding mentions KEX, key exchange, handleKexMessage, or kex.init: findings cover client-channel close missing out/invertedIn (0, 1), destroy wiping cmdFuture without cancelling (2), start-after-destroy (3), and AgentImpl torn iteration/resurrect (4, 5)."
+  }
+ },
+ "sshd-fr3/pkt-a": {
+  "open": [],
+  "own": {
+   "findings": [],
+   "fix": "ba82c13247",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix ba82c13247 ('GH-263: Fix race condition in BufferedIoOutputStream'): 'Don't try to write a future that's already done in startWrite()' \u2014 a stale peek re-sends an already-completed write future (plus a ChannelAsyncOutputStream partial-send buffer-copy fix). No finding mentions BufferedIoOutputStream, startWriting/write futures, re-sending a completed write, or ChannelAsyncOutputStream partial sends; the 19 findings cover ChannelSession command start/destroy races, client-auth races, channel close leaks, IoServiceFactory/executor races, async streams, pumper, SshClient.start task/factory leaks, openFuture reads, pubkey algo loss, AgentImpl races, and command-runner cancel races."
+  }
+ },
+ "sshd-fr3/pkt-b": {
+  "open": [],
+  "own": {
+   "findings": [],
+   "fix": "ba82c13247",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix ba82c13247 ('GH-263: Fix race condition in BufferedIoOutputStream'): 'Don't try to write a future that's already done in startWrite().' No finding mentions BufferedIoOutputStream, write futures, or re-sending a completed write; the 7 findings cover heartbeat resurrect/leak, AgentImpl post-close add/concurrent modification, ChannelSession NPE on start, command start-after-destroy, and wiped command futures."
+  }
+ },
+ "sshd-fr3/pkt-c": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "ba82c13247",
+    "match": "none",
+    "reason": "Fix ba82c13247 ('GH-263: Fix race condition in BufferedIoOutputStream'): 'Don't try to write a future that's already done in startWrite().' No finding describes re-sending an already-completed write future; the closest buffer findings (ChannelSession stderr/async-stderr stream leaks, receiverBuffer/extendedDataBuffer take-vs-append) are leaks and take/append races in channel stream buffers, a different area and mechanism."
+   }
+  ],
+  "own": {
+   "findings": [
+    4
+   ],
+   "fix": "c425ac53e8",
+   "is_concurrency": true,
+   "match": "partial",
+   "reason": "Fix c425ac53e8 ('[SSHD-1197] Fix race condition in KEX'): 'a window in AbstractSession.requestNewKeyExchange() during which the KEX state was set already to INIT, but the caller's proposal not set yet ... the peer's KEX_INIT message arrived and was handled in that window and then proceeded with wrong or uninitialized data.' Finding 4 ('Rekey-vs-encode torn read') is in the same area (concurrent rekey/KEX state) and the same mechanism family (race on KEX state during rekey), but as titled it describes a torn read on the encode path rather than negotiation proceeding on a missing/uninitialized local proposal, so it overlaps without matching the same defect; no other finding mentions KEX, proposals, or KEX_INIT handling."
+  }
+ },
+ "sshd-fr3/pkt-d": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "ba82c13247",
+    "match": "none",
+    "reason": "Fix ba82c13247 ('GH-263: Fix race condition in BufferedIoOutputStream'): 'Don't try to write a future that's already done in startWrite().' No finding mentions BufferedIoOutputStream, write futures, or re-sending a completed write; the 6 findings cover client-auth races (serverMethods NPE, use-after-destroy), AgentImpl CME/resurrection, ChannelSession start-after-destroy, and missed command cancel."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "c425ac53e8",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix c425ac53e8 ('[SSHD-1197] Fix race condition in KEX'): 'a window ... during which the KEX state was set already to INIT, but the caller's proposal not set yet ... proceeded with wrong or uninitialized data.' No finding mentions KEX, key exchange, proposals, or KEX_INIT handling; the 6 findings cover client-auth races, AgentImpl CME/resurrection, ChannelSession start-after-destroy, and missed command cancel."
+  }
+ }
+}

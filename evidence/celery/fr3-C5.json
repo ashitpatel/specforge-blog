@@ -1,0 +1,11 @@
+{"claim": "C5",
+ "subclaims": [
+  {"claim": "C5a", "verdict": "real", "kind": "race", "gil": "reachable", "demonstrated": false,
+   "script": null,
+   "reason": "flush snapshots celery/events/dispatcher.py:204 buf=list(self._outbound_buffer) then clears at :205, both before acquiring self.mutex at :206. A concurrent send/publish whose broker publish raises appends to _outbound_buffer at :162 while holding the mutex (:138-140), so it can interleave freely between :204 and :205. An event appended after the snapshot is wiped by clear() unpublished and never retried. The window spans two separate calls, so a normal GIL thread switch between bytecodes suffices.",
+   "caveats": ["Requires one EventDispatcher shared by two threads at once (e.g. a thread calling flush on reconnect per celery/worker/consumer/events.py:50 or celery/worker/consumer/consumer.py:624-626, while another thread publishes events that fail and buffer); library multi-threaded sharing is unconfirmed.", "Requires broker publish failures so the buffer path at celery/events/dispatcher.py:159-162 is active."]},
+  {"claim": "C5b", "verdict": "real", "kind": "race", "gil": "reachable", "demonstrated": false,
+   "script": null,
+   "reason": "flush snapshots celery/events/dispatcher.py:204 buf=list(self._outbound_buffer) then clears at :205, both before acquiring self.mutex at :206. A concurrent send/publish whose broker publish raises appends to _outbound_buffer at :162 while holding the mutex (:138-140), so it can interleave freely between :204 and :205. An event appended after the snapshot is wiped by clear() unpublished and never retried. The window spans two separate calls, so a normal GIL thread switch between bytecodes suffices.",
+   "caveats": ["Requires one EventDispatcher shared by two threads at once (e.g. a thread calling flush on reconnect per celery/worker/consumer/events.py:50 or celery/worker/consumer/consumer.py:624-626, while another thread publishes events that fail and buffer); library multi-threaded sharing is unconfirmed.", "Requires broker publish failures so the buffer path at celery/events/dispatcher.py:159-162 is active."]}
+ ]}

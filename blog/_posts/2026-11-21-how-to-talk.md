@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-21
 ---
 
-*Part 13 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). The finale isn't a verdict — it's the conversation that produces one, reconstructed from the pool run's real record. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*
+*Part 13 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The finale isn't a verdict — it's the conversation that produces one, reconstructed from the pool run's real record. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*
 
 *Level L1 · Needs: nothing. The conversation behind the verdicts.*
 
@@ -51,5 +51,7 @@ The general version, worth memorizing: an `@req` gap means a requirement is mode
 ## The series, in one paragraph
 
 Twelve posts showed the machinery, the examples, the neighbors, and the trust point. This one showed the conversation. The whole series reduces to a loop you can pilot Monday morning — a pilot, with a pilot's rough edges: describe the system badly, answer short rounds honestly, override defaults freely, push back on the interaction, read the scenarios before signing, and let the models stand guard afterwards. Don't trust it. Check it. Corrections welcome as issues — this post's own fixes started exactly that way.
+
+The series continues past its finale into evidence: [the overview]({% post_url 2026-11-22-evidence-overview %}) calibrates every claim against its run, and the [sshd]({% post_url 2026-11-23-sshd-deep-dive %}) and [celery]({% post_url 2026-11-24-celery-deep-dive %}) deep-dives read two projects file by file — fixed matches, live potentials, and misses, with the code beside them.
 
 {% include series.html %}

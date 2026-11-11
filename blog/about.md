@@ -22,6 +22,9 @@ This series walks through the idea and five worked examples:
 11. Imandra vs specforge — ask the logician, or set the tripwire.
 12. Harness² vs specforge — improve the agent, or check the work.
 13. How to talk to the tool — the conversation behind the verdicts.
+14. The evidence file — every run behind the claims, calibrated.
+15. sshd, examined — a KEX race matched, an agent left racy (Java).
+16. celery, examined — the flush defect, found unlabelled, then matched (Python).
 
 The evidence beside each claim lives in this repository under `evidence/`: specs, checker logs, review verdicts, and the benchmark records each story is built on. Where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so.
 

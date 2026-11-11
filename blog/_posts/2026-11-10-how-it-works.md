@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-10
 ---
 
-*Part 2 of 13 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 1]({% post_url 2026-11-09-what-tests-cannot-see %}) named the gap: tests sample instances, while concurrency and structure bugs hide in interleavings and shapes no test constructs.*
+*Part 2 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 1]({% post_url 2026-11-09-what-tests-cannot-see %}) named the gap: tests sample instances, while concurrency and structure bugs hide in interleavings and shapes no test constructs.*
 
 *Level L1 · Needs: part 1 (or nothing, at a skim). The machinery tour.*
 
@@ -50,7 +50,7 @@ That fourth step is the one that matters most. Demonstrated-or-it-didn't-happen 
 A spec written once and never re-checked is documentation with delusions. So every model the tool keeps becomes a tripwire:
 
 - **Change review.** Given the trees before and after a change, the tool diffs the specs in plain words ("changed pred Op_release"), re-checks both sides, and reports what the change *restores* (broken before, holds now — the fix, confirmed) and what it *breaks* (held before, fails now — the regression, caught). [Part 7]({% post_url 2026-11-15-drift-kombu-hikari %}) shows the breaks direction firing twice: once temporal, once structural.
-- **Golden properties.** Properties that held are pinned. A later change that violates one blocks — the gate's verdict is `BLOCKING`, with the property named. A post-commit hook runs the same guard on the tool's own repository: 259 guarded commits so far, none blocking. Part 7 tells that half honestly.
+- **Golden properties.** Properties that held are pinned. A later change that violates one blocks — the gate's verdict is `BLOCKING`, with the property named. A post-commit hook runs the same guard on the tool's own repository: 283 guarded commits so far, none blocking. Part 7 tells that half honestly.
 
 ## The methodology that keeps the tool honest
 

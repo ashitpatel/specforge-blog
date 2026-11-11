@@ -1,0 +1,220 @@
+{
+ "celery-fr2/pkt-a": {
+  "open": [],
+  "own": {
+   "findings": [],
+   "fix": "f7cbeadd4a",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix f7cbeadd4a: worker Consumer.on_send_event_buffered() added the flush directly to hub._ready, skipping call_soon()'s lock so it races the loop thread and never wakes the loop; fix routes through hub.call_soon() with a reused promise. Quoting the diff message: \"it added the flush to hub._ready directly. That skips the lock call_soon() takes, so it races with the loop thread taking the set over, and it never wakes the loop.\" Finding 0 \"EventDispatcher.flush loses events appended between its copy and clear\" is the dispatcher's buffer copy-clear race (celery/events/dispatcher.py), a different defect in a different file from the hub._ready scheduling race (celery/worker/consumer/consumer.py). Other findings cover RPC consume_from/_reconnect subscription loss (1), Disabled Gossip crash (2), revoked-set crash (3), BufferMap drift (4), ack-vs-reject double publish (5), pool_restart drop (6), frozen-signature handle (7), and SessionManager engine issues (8, 9). None describes hub._ready/call_soon."
+  }
+ },
+ "celery-fr2/pkt-b": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "f7cbeadd4a",
+    "match": "none",
+    "reason": "Fix f7cbeadd4a: hub._ready unlocked-add/missed-wakeup race in worker Consumer.on_send_event_buffered() (\"it added the flush to hub._ready directly. That skips the lock call_soon() takes\"). Finding 2 \"EventDispatcher.flush loses concurrent events\" (celery/events/dispatcher.py:203) is the dispatcher's buffer race, not the hub scheduling race. Findings 0-1 cover Timer double-start and Request double-ack."
+   },
+   {
+    "findings": [],
+    "fix": "30402bd05d",
+    "match": "none",
+    "reason": "Fix 30402bd05d: cyclic GC finalizing an AsyncResult mid-SUBSCRIBE/UNSUBSCRIBE re-enters the shared Redis PubSub connection via cancel_for and wedges the protocol (\"nested cancel_for calls are queued and drained after the outer subscribe/unsubscribe completes\"). No finding mentions redis, pubsub, or cancel_for; findings cover Timer double-start (0), Request double-ack (1), and EventDispatcher.flush loss (2)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "308386415c",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 308386415c: Redis drain_events() held _pubsub_lock while blocking in get_message(), starving consume_from()/cancel_for() so result.get() hangs under gevent; fix waits on the socket outside the lock. Quoting the diff message: \"drain_events() held _pubsub_lock while blocking in get_message(timeout=1)\" so \"consume_from() and cancel_for() in other greenlets never get it.\" No finding mentions redis, pubsub, drain_events, consume_from, or cancel_for; findings cover Timer double-start (0), Request double-ack (1), and EventDispatcher.flush loss (2)."
+  }
+ },
+ "celery-fr2/pkt-c": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "f7cbeadd4a",
+    "match": "none",
+    "reason": "Fix f7cbeadd4a: hub._ready unlocked-add/missed-wakeup in worker Consumer.on_send_event_buffered(). No finding mentions hub._ready, call_soon, or the consumer flush path; findings cover Timer double-start (0), duplicate Celery.pool (1), forget-vs-get_task_meta (2), worker attr update loss (3), RPC consumer double-start (4), AsynPool over-provision (5), lost counters (6, 7), LimitedSet refresh crash (8), and signal stale-cache send (9)."
+   },
+   {
+    "findings": [],
+    "fix": "30402bd05d",
+    "match": "none",
+    "reason": "Fix 30402bd05d: GC-driven re-entrant redis cancel_for deadlock on the shared PubSub connection (\"nested cancel_for calls are queued and drained after the outer subscribe/unsubscribe completes\"). No finding mentions redis, pubsub, or cancel_for; findings cover Timer/pool/forget/state/RPC-consumer/AsynPool/BufferMap/LimitedSet/signal races (0-9)."
+   },
+   {
+    "findings": [],
+    "fix": "308386415c",
+    "match": "none",
+    "reason": "Fix 308386415c: Redis drain_events() held _pubsub_lock while blocking in get_message(), starving other greenlets. No finding mentions redis, pubsub, drain_events, or result.get() hangs; findings cover Timer/pool/forget/state/RPC-consumer/AsynPool/BufferMap/LimitedSet/signal races (0-9)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "91696a3d61",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 91696a3d61: autoscale grow/shrink left Celery's pool limit and the gevent/eventlet green-pool capacity out of sync and never woke tasks blocked in spawn; fix syncs limit/size, releases semaphore slots on grow, and reports limit from num_processes (\"wake spawn waiters when autoscale grows the pool instead of only changing semaphore counters\"). Finding 5 \"Concurrent pool grows over-provision AsynPool queue sets\" concerns AsynPool (celery/concurrency/asynpool.py, the prefork pool), not the gevent/eventlet green pools the fix touches, and describes over-provisioning rather than missed waiter wakeup/capacity desync. Other findings cover Timer, Celery.pool, forget, worker state, RPC consumer, counters, LimitedSet, and signals. None describes green-pool grow/shrink."
+  }
+ },
+ "celery-fr2/pkt-d": {
+  "open": [],
+  "own": {
+   "findings": [],
+   "fix": "f7cbeadd4a",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix f7cbeadd4a: worker Consumer.on_send_event_buffered() added the flush to hub._ready directly, skipping the lock and never waking the loop (\"That skips the lock call_soon() takes, so it races with the loop thread taking the set over, and it never wakes the loop\"). Findings 0 \"EventDispatcher.flush loses events appended during copy-clear\" and 1 \"concurrent EventDispatcher.flush publishes events twice\" are EventDispatcher buffer races (copy-clear loss, double publish), different defects from the hub._ready scheduling race. Findings 2-3 cover Request double-ack and gPidbox stop loss. None describes hub._ready/call_soon."
+  }
+ },
+ "celery-fr2/pkt-e": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "f7cbeadd4a",
+    "match": "none",
+    "reason": "Fix f7cbeadd4a: hub._ready unlocked-add/missed-wakeup in worker Consumer.on_send_event_buffered(). Finding 4 \"flush() loses events appended between its snapshot and clear\" (celery/events/dispatcher.py:162,204) is the dispatcher's buffer snapshot-clear race, not the hub scheduling race. Other findings cover app.conf swap (0), task aliasing (1), producer_pool double-build (2), forget resurrection (3), result waiter miss (5), LimitedSet issues (6, 7, 10), clear_tasks crash (8), and pidbox orphan (9)."
+   },
+   {
+    "findings": [],
+    "fix": "30402bd05d",
+    "match": "none",
+    "reason": "Fix 30402bd05d: GC-driven re-entrant redis cancel_for deadlock on the shared PubSub connection. No finding mentions redis, pubsub, or cancel_for; findings cover app.conf, task state, producer pool, forget, flush, result waiter, LimitedSet, clear_tasks, pidbox, and purge (0-10)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "308386415c",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 308386415c: Redis drain_events() held _pubsub_lock while blocking in get_message(), starving consume_from()/cancel_for() (\"result.get() on a monkey-patched client hangs and ignores its timeout\"). No finding mentions redis, pubsub, drain_events, consume_from, or cancel_for; findings cover app.conf swap wipe (0), task aliasing (1), producer_pool double-build (2), forget resurrection (3), flush loss (4), result waiter miss (5), LimitedSet issues (6, 7, 10), clear_tasks crash (8), and pidbox orphan (9)."
+  }
+ },
+ "celery-fr2/pkt-f": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "f7cbeadd4a",
+    "match": "none",
+    "reason": "Fix f7cbeadd4a: hub._ready unlocked-add/missed-wakeup in worker Consumer.on_send_event_buffered(). Finding 0 \"EventDispatcher.flush loses events buffered during the flush\" (celery/events/dispatcher.py:204) is the dispatcher's buffer race, not the hub scheduling race. Findings 1-2 cover Timer double-start and pidbox stop-vs-reset."
+   },
+   {
+    "findings": [],
+    "fix": "30402bd05d",
+    "match": "none",
+    "reason": "Fix 30402bd05d: GC-driven re-entrant redis cancel_for deadlock on the shared PubSub connection. No finding mentions redis, pubsub, or cancel_for; findings cover flush loss (0), Timer double-start (1), and pidbox stop-vs-reset (2)."
+   },
+   {
+    "findings": [],
+    "fix": "308386415c",
+    "match": "none",
+    "reason": "Fix 308386415c: Redis drain_events() held _pubsub_lock while blocking in get_message(), starving other greenlets. No finding mentions redis, pubsub, or drain_events; findings cover flush loss (0), Timer double-start (1), and pidbox stop-vs-reset (2)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "91696a3d61",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 91696a3d61: gevent/eventlet autoscale grow/shrink capacity sync plus waking blocked spawn waiters (\"wake spawn waiters when autoscale grows the pool instead of only changing semaphore counters\") and gevent num_processes reporting limit. No finding mentions pools, autoscale, grow/shrink, or greenlets; findings cover EventDispatcher.flush loss (0), Timer double-start (1), and pidbox stop-vs-reset (2)."
+  }
+ },
+ "celery-fr2/pkt-g": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "f7cbeadd4a",
+    "match": "none",
+    "reason": "Fix f7cbeadd4a: worker Consumer.on_send_event_buffered() added the flush to hub._ready directly, skipping call_soon()'s lock and never waking the loop. Finding 0 \"flush() drops events appended during its unlocked snapshot+clear\" has subject EventDispatcher._outbound_buffer: the dispatcher's buffer snapshot-clear race, a different unlocked structure from hub._ready. Other findings cover Timer double-start/stale-flag (1, 2) and gPidbox stop (3, 4)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "30402bd05d",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 30402bd05d: cyclic GC finalizing an AsyncResult mid-SUBSCRIBE/UNSUBSCRIBE re-enters the shared Redis PubSub connection via cancel_for and wedges the protocol; fix defers nested cancels with a thread-local depth guard (\"nested cancel_for calls are queued and drained after the outer subscribe/unsubscribe completes\"). No finding mentions redis, pubsub, cancel_for, or GC finalizers; findings cover EventDispatcher.flush loss (0), Timer double-start and stale-flag no-op (1, 2), and gPidbox stop missing unstarted loops / pre-consumer return (3, 4). The pidbox stop findings concern celery.worker.pidbox consumer startup, not redis ResultConsumer.cancel_for re-entrancy."
+  }
+ },
+ "celery-fr2/pkt-h": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "f7cbeadd4a",
+    "match": "none",
+    "reason": "Fix f7cbeadd4a: worker Consumer.on_send_event_buffered() added the flush to hub._ready directly, skipping call_soon()'s lock and never waking the loop. Finding 5 \"EventDispatcher.flush drops events appended during the flush\" has subject EventDispatcher._outbound_buffer: the dispatcher's buffer race, not the hub._ready scheduling race. Other findings cover double-ack (0), producer pool double-build (1), Timer races (2, 3, 4), Worker aliasing (6), revoked stamps (7), gossip election (8), LimitedSet races (9, 10), forget resurrection (11), and Celery.pool None (12)."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "30402bd05d",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 30402bd05d: cyclic GC finalizing an AsyncResult mid-SUBSCRIBE/UNSUBSCRIBE re-enters the shared Redis PubSub connection via cancel_for and wedges the protocol; fix defers nested cancels with a thread-local depth guard. No finding mentions redis, pubsub, cancel_for, or GC finalizers; findings cover double-ack, producer pool, Timer, flush, Worker aliasing, revoked stamps, gossip, LimitedSet, forget, and Celery.pool (0-12)."
+  }
+ },
+ "celery-fr3/pkt-a": {
+  "open": [],
+  "own": {
+   "findings": [
+    4
+   ],
+   "fix": "f85031f612",
+   "is_concurrency": true,
+   "match": "exact",
+   "reason": "Fix f85031f612 ('don't drop buffered events appended during publish'): 'flush() published a detached copy ... but then cleared the live list with events[:] = [] ... events appended by other threads during the publish were in neither the payload just sent nor the buffer afterwards.' Finding 4 ('EventDispatcher lost events: append between flush snapshot and clear is wiped unpublished', subject EventDispatcher._outbound_buffer, NoLostEvents) describes exactly this defect and mechanism."
+  }
+ },
+ "celery-fr3/pkt-b": {
+  "open": [
+   {
+    "findings": [
+     3
+    ],
+    "fix": "f85031f612",
+    "match": "exact",
+    "reason": "Fix f85031f612 ('don't drop buffered events appended during publish'): 'events appended by other threads during the publish were ... destroyed silently.' Finding 3 ('(index 3): EventDispatcher flush drops events appended concurrently', subject EventDispatcher.flush, NoEventLoss) describes exactly this defect and mechanism."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "6804ea8615",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 6804ea8615 ('prevent celery from hanging due to spawned greenlet errors in greenlet drainers'): greenletDrainer.run swallowed drainer exceptions so waiters hung; it adds cross-greenlet exception propagation ('propagate event drainer errors to prevent infinite loop', '_shutdown event acts as synchronization'). No finding mentions greenlet/eventlet/gevent drainers, drain_events, or a hang on spawned greenlet errors; the 9 findings cover Timer double-start/stale-fire, Request double-ack/double-announce, EventDispatcher flush loss, RPCBackend poller miss, task-counter loss, Blueprint double stop, and LimitedSet pop."
+  }
+ },
+ "celery-fr3/pkt-c": {
+  "open": [],
+  "own": {
+   "findings": [
+    0
+   ],
+   "fix": "f85031f612",
+   "is_concurrency": true,
+   "match": "exact",
+   "reason": "Fix f85031f612 ('don't drop buffered events appended during publish'): 'flush() published a detached copy ... but then cleared the live list ... events appended by other threads during the publish were ... destroyed silently.' Finding 0 ('EventDispatcher.flush loses events appended between snapshot and clear', race) describes exactly this defect and mechanism."
+  }
+ },
+ "celery-fr3/pkt-d": {
+  "open": [
+   {
+    "findings": [],
+    "fix": "f85031f612",
+    "match": "none",
+    "reason": "Fix f85031f612 ('don't drop buffered events appended during publish'): 'events appended by other threads during the publish were ... destroyed silently.' No finding mentions EventDispatcher, flush, or event loss; the 8 findings cover Timer (double-start, stop-before-start, clear-during-iterate), gPidbox on_stop/start, Pidbox shutdown-vs-create, and Request double-ack/ack-plus-reject."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "6804ea8615",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix 6804ea8615 ('prevent celery from hanging due to spawned greenlet errors in greenlet drainers'): greenletDrainer.run swallowed drainer exceptions so waiters hung; it adds cross-greenlet exception propagation ('propagate event drainer errors to prevent infinite loop'). No finding mentions greenlet/eventlet/gevent drainers, drain_events, or a hang on spawned greenlet errors; the 8 findings cover Timer, gPidbox, Pidbox consumer, and Request acknowledge/reject races."
+  }
+ }
+}
