@@ -7,6 +7,11 @@ code (`demonstrated: false` in every verdict file). The deployment models
 are UNCONFIRMED, so multi-threaded sharing is assumed where the verdicts
 say so. The post states both limits; this folder lets you check them.
 
+Names: FR2/FR3 are the two cleanroom experiments (16/8 packets on
+sshd+celery); a packet is one tester's sealed session on one tree; arms
+A/B are the top-50 screen vs the full read; a claim file (`fr2-S43.json`
+style) holds one finding-cluster with its blind verdict.
+
 ## Runs
 
 - **FR2** (16 packets, sshd × celery, 4 fixes each, arms A/B), engine

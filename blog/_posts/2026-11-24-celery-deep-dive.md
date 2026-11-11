@@ -1,6 +1,6 @@
 ---
 title: "celery, examined: the flush defect, found unlabelled, then matched"
-description: "Twelve blind first-looks at celery: an event-loss race found in ten packets across two runs, matched exactly to its upstream fix, plus a timer race and a structural LimitedSet catch still present at HEAD."
+description: "Twelve blind first-looks at celery: an event-loss race found by ten testers across two runs, matched exactly to its upstream fix, plus a timer race and a structural LimitedSet catch still present at HEAD."
 layout: post
 series: specforge
 date: 2026-11-11
@@ -10,11 +10,11 @@ date: 2026-11-11
 
 *Level L2 · Needs: comfort reading short Python excerpts. One project, file by file.*
 
-Celery is a Python task queue: workers, timers, event dispatch, result backends. The tool looked at it twelve times — eight packets in FR2, four in FR3 — each blinded, each on a tree fixed before any tester ran, each under a static-only evidence policy. The sshd post's bounds apply unchanged: statically confirmed plus blind-adjudicated, never demonstrated, sharing assumed where the verdicts say so. The headline here is the arc across the two runs: a race the tool found seven times before it was a label, then matched exactly three times once it was.
+Celery is a Python task queue: workers, timers, event dispatch, result backends. The tool looked at it twelve times. FR2 and FR3 are two cleanroom experiments that set blinded testers on unlabelled code trees; each tester session — a packet — gets one tree, the engine, and the brief. Eight packets in FR2, four in FR3: each blinded, each on a tree fixed before any tester ran, each working static-only — reading code, never running it. Same bounds as the sshd post: statically confirmed plus blind-adjudicated, never demonstrated, sharing assumed where the verdicts say so. The headline here is the arc across the two runs: a race the tool found seven times before it was a label, then matched exactly three times once it was.
 
 ## Found seven times, unlabelled
 
-FR2's four celery fixes were a hub-scheduling race, two Redis races, and an autoscale desync. None of them was the event-dispatcher flush. Seven of the eight testers found the flush loss anyway — pkt-a, b, d, e, f, g, h — and all seven subclaims adjudicated real and GIL-reachable. The mechanism, identical in every packet:
+FR2's four celery fixes were a hub-scheduling race, two Redis races, and an autoscale desync. None of them was the event-dispatcher flush. Seven of the eight testers found the flush loss anyway — packets pkt-a, pkt-b, pkt-d, pkt-e, pkt-f, pkt-g and pkt-h — and all seven verdicts came back real, each reachable under CPython's GIL (an ordinary thread switch fits the window). The mechanism, identical in every packet:
 
 ```python
 def flush(self, errors=True, groups=True):
@@ -27,11 +27,11 @@ def flush(self, errors=True, groups=True):
                 self._publish(event, self.producer, routing_key)
 ```
 
-while a concurrent publish whose broker write fails appends under the mutex (`_publish`, line 162) — free to land between lines 204 and 205, where the event is in neither the snapshot nor the buffer afterwards. Silently dropped. (Line numbers from the FR3 pkt-a tree; the FR2 September trees carry identical numbers per the C1 verdict.)
+while a concurrent publish whose broker write fails appends under the mutex (`_publish`, line 162) — free to land between lines 204 and 205, where the event is in neither the snapshot nor the buffer afterwards. Silently dropped. (Line numbers from the FR3 pkt-a tree; the FR2 September trees carry identical numbers per the [FR2 flush verdict file](https://github.com/ashitpatel/specforge-blog/blob/main/evidence/celery/fr2-C1.json).)
 
 ## Matched three times, exactly
 
-FR3 selected a new fix: `f85031f612` ("don't drop buffered events appended during publish", #10435, July 2026). Its message could be the finding's twin: *"events appended by other threads during the publish were in neither the payload just sent nor the buffer afterwards. They were destroyed silently."* Three packets matched it exactly — pkt-a and pkt-c on the fix's own parent tree (four days before the fix), pkt-b on a tree eleven months older, where the defect was already present. Both reading arms found it independently: arm A through its screen (rank 10), arm B through judgement order (place 9 of 50). The depth story is the catalogue entry for the method: `NoLostEvents` violated at Threads=2 (bound+1 stable), kind race via the whole-call re-check, a merged snapshot-and-clear control that holds — and an open sharing question (Q55) carried as a dependency, not assumed away.
+FR3 selected a new fix: [`f85031f612`](https://github.com/celery/celery/commit/f85031f61247dae1dcf19ca88cc057edba1534ee) ("don't drop buffered events appended during publish", #10435, July 2026). Its message could be the finding's twin: *"events appended by other threads during the publish were in neither the payload just sent nor the buffer afterwards. They were destroyed silently."* Three packets matched it exactly — pkt-a and pkt-c on the fix's own parent tree (four days before the fix), pkt-b on a tree eleven months older, where the defect was already present. Both reading arms found it independently — arm A, which reads the top-50 ranked suggestions, through its screen (rank 10); arm B, which reads everything, through judgement order (place 9 of 50). The depth story is the method working as designed: `NoLostEvents` violated at Threads=2 — and identically with one more event allowed, so the verdict doesn't hang on the bound — confirmed as a race that needs a thread switch inside a call (whole calls in sequence don't fail), with a merged snapshot-and-clear control that holds. One sharing question stayed open — is one EventDispatcher shared across threads? — and was carried as a dependency, not assumed away.
 
 Now the wrinkle, stated plainly because "exact" needs it. The testers found the **errors-buffer** instance (`_outbound_buffer`, above); the upstream fix repaired the sibling **group-buffer** instance:
 
@@ -42,7 +42,7 @@ Now the wrinkle, stated plainly because "exact" needs it. The testers found the 
 +                    del events[:len(batch)]
 ```
 
-Same defect, same mechanism, adjacent lines — the blind matcher's "exact" is on defect+mechanism, and the post claims exactly that, no more. (A later upstream rework, the shutdown-synchronization era, has since moved the errors path under the mutex too; the record doesn't say the race was the reason.) The same window also yields the mirror image — two threads flushing concurrently publish everything twice — adjudicated real alongside the loss.
+Same defect, same mechanism, adjacent lines — the blind matcher's "exact" verdict is on defect+mechanism (it sees findings and fixes, never the trees), and the post claims exactly that, no more. (A later upstream rework, the shutdown-synchronization era, has since moved the errors path under the mutex too; the record doesn't say the race was the reason.) The same window also yields the mirror image — two threads flushing concurrently publish everything twice — adjudicated real alongside the loss.
 
 ## Potential issues, still present at HEAD
 
@@ -81,7 +81,7 @@ A stale expired entry therefore triggers the eviction of a live unexpired item �
 
 ## The misses on the same trees
 
-Celery blanked FR2's fix-matching entirely (sshd's mirror image): the hub unlocked-add, both Redis defects, and the autoscale desync matched nowhere in eight packets. FR3's greenlet-drainer hang went 0 for 4. The pattern is systematic, and it matches run 15's recall-zero autopsy: broker-bound state the proposer never surfaces, event-loop and greenlet shapes it frames as threads, a GC-finalizer re-entrancy no detector covers. Two near-misses sharpen the other edge: an arm-A tester skipped the rank-2 own slice as weaker, and an arm-B own survivor sat at judgement place 41 of 77, below the bar. Kept but unmodelled — the bar buries keeps, and the record keeps the burials.
+Celery blanked FR2's fix-matching entirely (sshd's mirror image): the hub unlocked-add, both Redis defects, and the autoscale desync matched nowhere in eight packets. FR3's greenlet-drainer hang went 0 for 4. The pattern is systematic, and it matches the kombu/huey run's recall-zero autopsy (run 15): broker-bound state the ranking step never surfaces, event-loop and greenlet shapes it frames as threads, a GC-finalizer re-entrancy no detector covers. Two near-misses sharpen the other edge: a top-50 tester skipped the rank-2 slice covering its labelled fix as weaker, and a full-read survivor covering its labelled fix sat at judgement place 41 of 77, below the bar. Kept but unmodelled — the bar buries keeps, and the record keeps the burials.
 
 ## The series, filed
 
