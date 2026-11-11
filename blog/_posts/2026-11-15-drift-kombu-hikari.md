@@ -3,7 +3,7 @@ title: "The guard that fires"
 description: "Two changes that break guarded properties: a probe that un-fixes HikariCP issue #591 trips the temporal gate with BLOCKING, and a rework of kombu's release breaks the structural golden. Both caught at review time."
 layout: post
 series: specforge
-date: 2026-11-15
+date: 2026-11-11
 ---
 
 *Part 7 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The series so far: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), [greenfield]({% post_url 2026-11-11-greenfield-pool %}), [a guarded feature]({% post_url 2026-11-12-feature-log4j %}), [a temporal catch]({% post_url 2026-11-13-temporal-stomp %}), [a structural catch]({% post_url 2026-11-14-structural-kombu %}). This post closes the loop: what happens when a change breaks a guarded property.*

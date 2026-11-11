@@ -3,7 +3,7 @@ title: "How to talk to the tool"
 description: "Prompt craft from a real run: five lines of pool prose, six elicitation rounds, one overridden recommendation, two user pushbacks that changed the product — and how to read what comes back."
 layout: post
 series: specforge
-date: 2026-11-21
+date: 2026-11-11
 ---
 
 *Part 13 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The finale isn't a verdict — it's the conversation that produces one, reconstructed from the pool run's real record. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*

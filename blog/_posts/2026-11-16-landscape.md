@@ -3,7 +3,7 @@ title: "The landscape: where specforge fits"
 description: "Specforge against its neighbors: Specula's bug-hunting agents, vericoding's proven code, Axiom Math's Lean proofs, Imandra's neurosymbolic reasoning, Qodo's review governance, and more."
 layout: post
 series: specforge
-date: 2026-11-16
+date: 2026-11-11
 ---
 
 *Part 8 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The previous seven posts built the case from the inside: [the gap]({% post_url 2026-11-09-what-tests-cannot-see %}), [the machinery]({% post_url 2026-11-10-how-it-works %}), and five worked examples. This one steps outside and places the tool among its neighbors — all characterizations as of November 2026, from the linked sources.*

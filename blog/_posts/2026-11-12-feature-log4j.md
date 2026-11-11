@@ -3,7 +3,7 @@ title: "The commit that Log4j would have flagged"
 description: "A real feature commit — 'Removes weak references from LoggerRepository' — run through the change guard: 40 touched symbols, 31 flags, the bug's flag first. It shipped in 2.24.2; users hit it within a week."
 layout: post
 series: specforge
-date: 2026-11-12
+date: 2026-11-11
 ---
 
 *Part 4 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 3]({% post_url 2026-11-11-greenfield-pool %}) specified a system before it existed. This post guards a feature commit to a system with millions of users. Evidence: [`evidence/log4j/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/log4j) and [`evidence/rounds/2026-11-02-MR1-manifestation-reading.md`](https://github.com/ashitpatel/specforge-blog/blob/main/evidence/rounds/2026-11-02-MR1-manifestation-reading.md).*

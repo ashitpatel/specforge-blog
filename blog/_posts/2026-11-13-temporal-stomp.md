@@ -3,7 +3,7 @@ title: "The lost wake-up"
 description: "A latent race in the stomp messaging library, found blind from a 2013 tree, matched exactly to the upstream fix, and demonstrated hanging real code — forced, and 10 times in 3,000 unforced trials."
 layout: post
 series: specforge
-date: 2026-11-13
+date: 2026-11-11
 ---
 
 *Part 5 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 4]({% post_url 2026-11-12-feature-log4j %}) flagged a bug at introduction. This one was already there — sitting in dormant code since 2013. Evidence: [`evidence/stomp/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/stomp).*

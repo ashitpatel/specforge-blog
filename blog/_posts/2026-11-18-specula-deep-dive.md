@@ -3,7 +3,7 @@ title: "Specula vs specforge: the same loop, different answers to its critics"
 description: "A deep comparison with the closest neighbor: shared TLA+ core and reproduce-or-it-doesn't-count rule, and how each side handles circularity, composition, and what happens after the bug."
 layout: post
 series: specforge
-date: 2026-11-18
+date: 2026-11-11
 ---
 
 *Part 10 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) named Specula the closest neighbor. This post earns that claim line by line.*

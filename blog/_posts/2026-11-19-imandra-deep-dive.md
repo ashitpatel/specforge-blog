@@ -3,7 +3,7 @@ title: "Imandra vs specforge: ask the logician, or set the tripwire"
 description: "A deep comparison with the neurosymbolic kin: shared LLM-proposes-solver-judges shape, and the fork between answering semantic questions and shipping blocking verdicts."
 layout: post
 series: specforge
-date: 2026-11-19
+date: 2026-11-11
 ---
 
 *Part 11 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) called Imandra the neurosymbolic kin. This post draws the fork precisely.*

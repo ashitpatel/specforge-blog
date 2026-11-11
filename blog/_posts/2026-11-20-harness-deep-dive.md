@@ -3,7 +3,7 @@ title: "Harness² vs specforge: improve the agent, or check the work"
 description: "A deep comparison with Google's self-improving harness: shared loop shape and enforcement instinct, and the fork between rewriting your own guardrails and refusing to."
 layout: post
 series: specforge
-date: 2026-11-20
+date: 2026-11-11
 ---
 
 *Part 12 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) placed Harness² as kin with a fork. This is the finale: the fork, drawn all the way.*

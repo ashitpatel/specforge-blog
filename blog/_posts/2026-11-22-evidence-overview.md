@@ -3,7 +3,7 @@ title: "The evidence file: what the runs actually showed"
 description: "Every number behind the series' claims, in one place: blinded cleanroom runs on Java and Python projects, what matched upstream fixes, what stayed potential, and what the tool demonstrably misses."
 layout: post
 series: specforge
-date: 2026-11-22
+date: 2026-11-11
 ---
 
 *Part 14 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The first thirteen posts told stories. This one opens the file drawer: every run behind them, with the numbers that keep the stories honest. Evidence: [`evidence/overview/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/overview), [`evidence/sshd/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/sshd), [`evidence/celery/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/celery).*

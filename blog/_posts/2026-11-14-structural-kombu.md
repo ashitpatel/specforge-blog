@@ -3,7 +3,7 @@ title: "The pool that overfilled"
 description: "Kombu's resource pool through the structural lens: a limit check at line 59, the add at line 99, no lock between — and an Alloy counterexample that reads as five snapshots ending in #dirty = 2 > limit 1."
 layout: post
 series: specforge
-date: 2026-11-14
+date: 2026-11-11
 ---
 
 *Part 6 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 5]({% post_url 2026-11-13-temporal-stomp %}) traced a race through time. This post reads one as a snapshot. Evidence: [`evidence/kombu/Resource-full.als`](https://github.com/ashitpatel/specforge-blog/blob/main/evidence/kombu/Resource-full.als) and its [run log](https://github.com/ashitpatel/specforge-blog/blob/main/evidence/kombu/Resource-full.run.log).*
