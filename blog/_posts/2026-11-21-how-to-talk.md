@@ -44,6 +44,8 @@ Both fixes shipped the same week. The meta-lesson: when the interaction feels wr
 
 The run's reports each end in an action, and the pool run hit the classic arc. First `forge_done` reported "9 scenario(s) not yet accepted" — everything else green, the contract unsigned. The user read all nine scenarios, accepted them via the answers file, and the gate closed: `done: true`. The order matters: the tool never signs on your behalf, and the gate never passes unsigned.
 
+The same rule applies when the one answering is a bot. In a bot team, a driver bot supplies the requirements and dev bots build, and a dev bot can write any file the driver can, the answers file included. So the driver's answers come in a signed envelope instead, and the engine checks the signature before it reads a word. A relayed "accept" from a dev bot is refused while the envelope covers that decision. This prevents forgery only when the orchestrator hosts the server; when a dev bot starts its own server, the key ids in every record give tamper-evidence, not proof. The setup is in the [bot-teams guide](https://github.com/ashitpatel/specforge/blob/main/docs/user-manual/bot-teams.md).
+
 The general version, worth memorizing: an `@req` gap means a requirement is modeled nowhere — point at its behavior. A `breaks:` verdict means read the counterexample before touching code. Owed debt is named, not hidden. And "no open questions" is a gate, not a suggestion — skipped questions return, they don't evaporate.
 
 ## The series, in one paragraph
