@@ -10,7 +10,7 @@ date: 2026-11-11
 
 *Level L2 · Needs: comfort reading short Python excerpts. One project, file by file.*
 
-Celery is a Python task queue: workers, timers, event dispatch, result backends. The tool looked at it twelve times. FR2 and FR3 are two cleanroom experiments that set blinded testers on unlabelled code trees; each tester session — a packet — gets one tree, the engine, and the brief. Eight packets in FR2, four in FR3: each blinded, each on a tree fixed before any tester ran, each working static-only — reading code, never running it. Same bounds as the sshd post: statically confirmed plus blind-adjudicated, never demonstrated, sharing assumed where the verdicts say so. The headline here is the arc across the two runs: a race the tool found seven times before it was a label, then matched exactly three times once it was.
+Celery is a Python task queue: workers, timers, event dispatch, result backends. The tool looked at it twelve times. FR2 and FR3 (FR = full read) are two cleanroom experiments that set blinded testers on unlabelled code trees; each tester session — a packet — gets one tree, the engine, and the brief. Eight packets in FR2, four in FR3: each blinded, each on a tree fixed before any tester ran, each working static-only — reading code, never running it. Same bounds as the sshd post: statically confirmed plus blind-adjudicated, never demonstrated, sharing assumed where the verdicts say so. The headline here is the arc across the two runs: a race the tool found seven times before it was a label, then matched exactly three times once it was.
 
 ## Found seven times, unlabelled
 
