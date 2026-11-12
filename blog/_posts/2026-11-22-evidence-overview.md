@@ -32,7 +32,7 @@ Three sentences hold the calibration, and everything below is the receipt:
 
 ## The extent: 46 projects, one table
 
-Breadth first, as a count: 39 real-world projects across 30 blinded cleanroom runs (run 22's two packets are constructed, not real-world), 227 packets, 1,084 findings filed — plus 7 projects in the benchmark families below, 46 in all. Every row is one preregistered run; every count is from its frozen score file.
+Breadth first, as a count: 39 real-world projects across 30 blinded cleanroom runs (run 22's two packets are constructed, not real-world), 227 packets, 1,084 findings filed — plus 7 projects in the benchmark families below, 46 in all. Every row is one preregistered run; every count is from its frozen score file. Projects are Python unless marked (Java).
 
 | run | projects | packets | findings | fix matches |
 |---|---|---|---|---|
@@ -62,10 +62,10 @@ Breadth first, as a count: 39 real-world projects across 30 blinded cleanroom ru
 | 29 | [gevent](https://github.com/gevent/gevent) | 8 | 32 | 0 |
 | 30 | [trio](https://github.com/python-trio/trio), [prompt_toolkit](https://github.com/prompt-toolkit/python-prompt-toolkit) | 8 | 23 | 1 |
 | 31 | [ansible-core](https://github.com/ansible/ansible) | 8 | 34 | 5 |
-| 32 | [Quartz](https://github.com/quartz-scheduler/quartz), [Ehcache 3](https://github.com/ehcache/ehcache3) | 8 | 30 | 2 |
-| 33 | [Log4j 2](https://github.com/apache/logging-log4j2) | 8 | 37 | 0 |
-| FR2 | [MINA SSHD](https://github.com/apache/mina-sshd), [celery](https://github.com/celery/celery) | 16 | 141 | 3 pairs* |
-| FR3 | [MINA SSHD](https://github.com/apache/mina-sshd), [celery](https://github.com/celery/celery) | 8 | 94 | 4 pairs* |
+| 32 | [Quartz](https://github.com/quartz-scheduler/quartz) (Java), [Ehcache 3](https://github.com/ehcache/ehcache3) (Java) | 8 | 30 | 2 |
+| 33 | [Log4j 2](https://github.com/apache/logging-log4j2) (Java) | 8 | 37 | 0 |
+| FR2 | [MINA SSHD](https://github.com/apache/mina-sshd) (Java), [celery](https://github.com/celery/celery) | 16 | 141 | 3 pairs* |
+| FR3 | [MINA SSHD](https://github.com/apache/mina-sshd) (Java), [celery](https://github.com/celery/celery) | 8 | 94 | 4 pairs* |
 
 Three footnotes, all load-bearing. (†) Runs 6–10, 12–13 predate the blind label matcher — the independent pass that judges whether a finding describes a labelled fix. Their "matches" count findings that merely touch the fix's code, an earlier, looser methodology; run 11's single partial is already a matcher verdict. (—) "Findings" are findings filed, deduplicated where the run deduplicated; adjudicated precision varies by run and lives in each run's analysis, not this table. (*) FR2/FR3 matches are matcher verdicts on fix-and-packet pairs (3 of 34, 4 of 12), a stricter denominator than the per-packet recall above.
 
