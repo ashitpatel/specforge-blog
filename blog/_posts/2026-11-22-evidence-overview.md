@@ -32,40 +32,40 @@ Three sentences hold the calibration, and everything below is the receipt:
 
 ## The extent: 46 projects, one table
 
-Breadth first, as a count: 39 real-world projects across 30 blinded cleanroom runs (run 22's two packets are constructed, not real-world), 227 packets, 1,084 findings filed — plus 7 projects in the benchmark families below, 46 in all. Every row is one preregistered run; every count is from its frozen score file. Projects are Python unless marked (Java).
+Breadth first, as a count: 39 real-world projects across 30 blinded cleanroom runs (run 22's two packets are constructed, not real-world), 227 packets, 1,084 findings filed — plus 7 projects in the benchmark families below, 46 in all. Every row is one preregistered run; every count is from its frozen score file.
 
-| run | projects | packets | findings | fix matches |
-|---|---|---|---|---|
-| 6 | [cheroot](https://github.com/cherrypy/cheroot), [pykka](https://github.com/jodal/pykka) | 6 | 44 | 24† |
-| 7 | [rpyc](https://github.com/tomerfiliba-org/rpyc) | 8 | 35 | 9† |
-| 8 | [tqdm](https://github.com/tqdm/tqdm) | 8 | 32 | 12† |
-| 9 | [loguru](https://github.com/Delgan/loguru) | 8 | 40 | 15† |
-| 10 | [websockets](https://github.com/python-websockets/websockets) | 6 | 16 | 5† |
-| 11 | [python-engineio](https://github.com/miguelgrinberg/python-engineio), [aiokafka](https://github.com/aio-libs/aiokafka) | 8 | 42 | 1 partial |
-| 12 | [asyncssh](https://github.com/ronf/asyncssh) | 8 | 27 | 4† |
-| 13 | [aiohttp](https://github.com/aio-libs/aiohttp) | 8 | 32 | 5† |
-| 14 | [aiormq](https://github.com/mosquito/aiormq), [aio-pika](https://github.com/mosquito/aio-pika) | 8 | 31 | 5 |
-| 15 | [kombu](https://github.com/celery/kombu), [huey](https://github.com/coleifer/huey) | 8 | 33 | 0 |
-| 16 | [tornado](https://github.com/tornadoweb/tornado) | 8 | 24 | 3 |
-| 17 | [waitress](https://github.com/Pylons/waitress), [gunicorn](https://github.com/benoitc/gunicorn) | 8 | 29 | 5 |
-| 18 | [dramatiq](https://github.com/Bogdanp/dramatiq) | 7 | 29 | 1 |
-| 19 | [stomp.py](https://github.com/jasonrbriggs/stomp.py), [Pyro5](https://github.com/irmen/Pyro5) | 5 | 23 | 4 |
-| 20 | [pyftpdlib](https://github.com/giampaolo/pyftpdlib), [urwid](https://github.com/urwid/urwid) | 5 | 16 | 3 |
-| 21 | [pebble](https://github.com/noxdafox/pebble) | 8 | 31 | 3 |
-| 22 | constructed ×2 (not real-world) | 2 | 10 | 2 |
-| 23 | [loky](https://github.com/joblib/loky) | 8 | 31 | 7 |
-| 24 | [circuits](https://github.com/circuits/circuits) | 8 | 34 | 5 |
-| 25 | [klipper](https://github.com/Klipper3d/klipper) | 6 | 25 | 0 |
-| 26 | [parsl](https://github.com/Parsl/parsl) | 8 | 44 | 1 |
-| 27 | [frigate](https://github.com/blakeblackshear/frigate) | 8 | 36 | 1 |
-| 28 | [rich](https://github.com/Textualize/rich), [redis-py](https://github.com/redis/redis-py) | 8 | 39 | 4 |
-| 29 | [gevent](https://github.com/gevent/gevent) | 8 | 32 | 0 |
-| 30 | [trio](https://github.com/python-trio/trio), [prompt_toolkit](https://github.com/prompt-toolkit/python-prompt-toolkit) | 8 | 23 | 1 |
-| 31 | [ansible-core](https://github.com/ansible/ansible) | 8 | 34 | 5 |
-| 32 | [Quartz](https://github.com/quartz-scheduler/quartz) (Java), [Ehcache 3](https://github.com/ehcache/ehcache3) (Java) | 8 | 30 | 2 |
-| 33 | [Log4j 2](https://github.com/apache/logging-log4j2) (Java) | 8 | 37 | 0 |
-| FR2 | [MINA SSHD](https://github.com/apache/mina-sshd) (Java), [celery](https://github.com/celery/celery) | 16 | 141 | 3 pairs* |
-| FR3 | [MINA SSHD](https://github.com/apache/mina-sshd) (Java), [celery](https://github.com/celery/celery) | 8 | 94 | 4 pairs* |
+| run | projects | language | packets | findings | fix matches |
+|---|---|---|---|---|---|
+| 6 | [cheroot](https://github.com/cherrypy/cheroot), [pykka](https://github.com/jodal/pykka) | Python | 6 | 44 | 24† |
+| 7 | [rpyc](https://github.com/tomerfiliba-org/rpyc) | Python | 8 | 35 | 9† |
+| 8 | [tqdm](https://github.com/tqdm/tqdm) | Python | 8 | 32 | 12† |
+| 9 | [loguru](https://github.com/Delgan/loguru) | Python | 8 | 40 | 15† |
+| 10 | [websockets](https://github.com/python-websockets/websockets) | Python | 6 | 16 | 5† |
+| 11 | [python-engineio](https://github.com/miguelgrinberg/python-engineio), [aiokafka](https://github.com/aio-libs/aiokafka) | Python | 8 | 42 | 1 partial |
+| 12 | [asyncssh](https://github.com/ronf/asyncssh) | Python | 8 | 27 | 4† |
+| 13 | [aiohttp](https://github.com/aio-libs/aiohttp) | Python | 8 | 32 | 5† |
+| 14 | [aiormq](https://github.com/mosquito/aiormq), [aio-pika](https://github.com/mosquito/aio-pika) | Python | 8 | 31 | 5 |
+| 15 | [kombu](https://github.com/celery/kombu), [huey](https://github.com/coleifer/huey) | Python | 8 | 33 | 0 |
+| 16 | [tornado](https://github.com/tornadoweb/tornado) | Python | 8 | 24 | 3 |
+| 17 | [waitress](https://github.com/Pylons/waitress), [gunicorn](https://github.com/benoitc/gunicorn) | Python | 8 | 29 | 5 |
+| 18 | [dramatiq](https://github.com/Bogdanp/dramatiq) | Python | 7 | 29 | 1 |
+| 19 | [stomp.py](https://github.com/jasonrbriggs/stomp.py), [Pyro5](https://github.com/irmen/Pyro5) | Python | 5 | 23 | 4 |
+| 20 | [pyftpdlib](https://github.com/giampaolo/pyftpdlib), [urwid](https://github.com/urwid/urwid) | Python | 5 | 16 | 3 |
+| 21 | [pebble](https://github.com/noxdafox/pebble) | Python | 8 | 31 | 3 |
+| 22 | constructed ×2 (not real-world) | Python | 2 | 10 | 2 |
+| 23 | [loky](https://github.com/joblib/loky) | Python | 8 | 31 | 7 |
+| 24 | [circuits](https://github.com/circuits/circuits) | Python | 8 | 34 | 5 |
+| 25 | [klipper](https://github.com/Klipper3d/klipper) | Python | 6 | 25 | 0 |
+| 26 | [parsl](https://github.com/Parsl/parsl) | Python | 8 | 44 | 1 |
+| 27 | [frigate](https://github.com/blakeblackshear/frigate) | Python | 8 | 36 | 1 |
+| 28 | [rich](https://github.com/Textualize/rich), [redis-py](https://github.com/redis/redis-py) | Python | 8 | 39 | 4 |
+| 29 | [gevent](https://github.com/gevent/gevent) | Python | 8 | 32 | 0 |
+| 30 | [trio](https://github.com/python-trio/trio), [prompt_toolkit](https://github.com/prompt-toolkit/python-prompt-toolkit) | Python | 8 | 23 | 1 |
+| 31 | [ansible-core](https://github.com/ansible/ansible) | Python | 8 | 34 | 5 |
+| 32 | [Quartz](https://github.com/quartz-scheduler/quartz), [Ehcache 3](https://github.com/ehcache/ehcache3) | Java | 8 | 30 | 2 |
+| 33 | [Log4j 2](https://github.com/apache/logging-log4j2) | Java | 8 | 37 | 0 |
+| FR2 | [MINA SSHD](https://github.com/apache/mina-sshd), [celery](https://github.com/celery/celery) | Java, Python | 16 | 141 | 3 pairs* |
+| FR3 | [MINA SSHD](https://github.com/apache/mina-sshd), [celery](https://github.com/celery/celery) | Java, Python | 8 | 94 | 4 pairs* |
 
 Three footnotes, all load-bearing. (†) Runs 6–10, 12–13 predate the blind label matcher — the independent pass that judges whether a finding describes a labelled fix. Their "matches" count findings that merely touch the fix's code, an earlier, looser methodology; run 11's single partial is already a matcher verdict. (—) "Findings" are findings filed, deduplicated where the run deduplicated; adjudicated precision varies by run and lives in each run's analysis, not this table. (*) FR2/FR3 matches are matcher verdicts on fix-and-packet pairs (3 of 34, 4 of 12), a stricter denominator than the per-packet recall above.
 
