@@ -41,4 +41,6 @@ Specula's own paper supplies the exhibit both sides share (§3.3.1, Figure 6). O
 
 Specforge's mirror image is the kombu control: the race verdict stands because the atomic-acquire control is TLC-clean *and* a defect-injected variant violates in two steps. Same moral from the other side — a clean means nothing without the demonstration that the check can fail. Both systems learned, independently, that a verifier needs an adversary, and both built the adversary in: Specula as opposing checks, specforge as falsification-first gates. The difference is what happens next — Specula files the test; specforge also pins the property, so the guard can't be quietly loosened without failing the gate.
 
+Next: [Imandra vs specforge]({% post_url 2026-11-19-imandra-deep-dive %}) — ask the logician, or set the tripwire.
+
 {% include series.html %}

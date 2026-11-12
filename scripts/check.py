@@ -35,6 +35,15 @@ for p in POSTS:
         if ref not in names:
             fail(f"{p.name}: post_url {ref} resolves to nothing")
 
+for i, p in enumerate(POSTS, start=1):
+    if f"Part {i} of {len(POSTS)}" not in p.read_text():
+        fail(f"{p.name}: header is not 'Part {i} of {len(POSTS)}' for its filename order")
+
+nav = (ROOT / "blog" / "_includes" / "series.html").read_text()
+if 'sort: "path"' not in nav:
+    fail("series.html: nav must sort by path (front-matter dates are backdated,"
+         " so date order is not series order)")
+
 for p in POSTS:
     for m in re.findall(r"specforge-blog/(?:tree|blob)/main/([^)]*)", p.read_text()):
         if not (ROOT / m).exists():

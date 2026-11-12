@@ -4,7 +4,7 @@ A sixteen-part blog series on [specforge](https://github.com/ashitpatel/specforg
 
 ## Layout
 
-- `blog/` — the Jekyll site (minima theme, `series` navigation). Posts in `_posts/`, dated 2026-11-09 to 2026-11-24.
+- `blog/` — the Jekyll site (minima theme, `series` navigation). Posts in `_posts/`, in series order, all published as of 2026-11-11.
 - `evidence/` — the primary sources each post cites, vendored so the series stands alone:
   - `pool/` — the greenfield worked example: settled requirements, `Pool.tla`/`Pool.cfg`, `pool.als`, acceptance scenarios, answers file, `replay.py`.
   - `log4j/` — the change-guard data for the two Log4j introducing commits (`intro-c.json`, `intro-d.json`).

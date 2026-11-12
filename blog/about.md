@@ -7,7 +7,7 @@ title: About
 
 Stage: proof of concept / pilot. The tool has not been deployed to any production system; the evidence in this series comes from benchmark runs on open-source code, a constructed greenfield run, and the tool guarding its own repository.
 
-This series walks through the idea and five worked examples:
+This series walks through the idea, five worked examples, the landscape, the trust point, three deep comparisons, the conversation, and the evidence arc:
 
 1. What tests cannot see — the gap the tool fills.
 2. How it works — the two checkers and the loop around them.

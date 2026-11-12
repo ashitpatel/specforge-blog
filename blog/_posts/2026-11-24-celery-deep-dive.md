@@ -85,6 +85,6 @@ Celery blanked FR2's fix-matching entirely (sshd's mirror image): the hub unlock
 
 ## The series, filed
 
-Sixteen posts: the gap, the machinery, five worked examples, the neighbors, the trust point, three deep comparisons, the conversation — and now the file drawer, an overview, and two projects read end to end. The three sentences from part 14 still hold: precise at depth, noisy at the surface, demonstrated at the core. Everything above is checkable from the evidence folders beside the posts. Don't trust it. Check it.
+Sixteen posts: the gap, the machinery, five worked examples, the neighbors, the trust point, three deep comparisons, the conversation — and now the evidence arc: an overview and two projects read end to end. The three sentences from part 14 still hold: precise at depth, noisy at the surface, demonstrated at the core. Everything above is checkable from the evidence folders beside the posts. Don't trust it. Check it.
 
 {% include series.html %}

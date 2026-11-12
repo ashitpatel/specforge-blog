@@ -42,6 +42,6 @@ Four limits, stated up front because the rest of the series assumes them:
 3. **A human stays in the loop.** The tool asks questions when requirements are ambiguous, and a person accepts the scenarios that become the contract. The models are precise; deciding what they should say is judgment.
 4. **A pilot, not a product.** The tool has not been deployed to any production system. Everything this series shows comes from benchmark runs on open-source code, one constructed greenfield run, and the tool guarding its own repository — 283 commits, no accidental fire yet. Read every "does" below as "did, in these runs."
 
-With that said: the bugs in this series are real, the verdicts are the checkers' own, and where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so. On to the machinery.
+With that said: the bugs in this series are real, the verdicts are the checkers' own, and where a demonstration is constructed rather than found — a deliberate probe, a hand-authored regression — the post says so. On to [the machinery]({% post_url 2026-11-10-how-it-works %}).
 
 {% include series.html %}

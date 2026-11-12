@@ -43,4 +43,6 @@ Specforge's mirror exhibit is the lost wake-up found in the `stomp` messaging li
 
 Same moral, both directions: the model proposes, the solver judges — Imandra recovering what guessing misses across program logic, specforge recovering what it misses in interleaving and shape space. Ask the logician to understand; set the tripwire to enforce.
 
+Next: [Harness² vs specforge]({% post_url 2026-11-20-harness-deep-dive %}) — improve the agent, or check the work.
+
 {% include series.html %}

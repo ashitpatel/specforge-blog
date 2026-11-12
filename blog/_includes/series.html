@@ -1,4 +1,4 @@
-{%- assign parts = site.posts | where: "series", "specforge" | sort: "date" -%}
+{%- assign parts = site.posts | where: "series", "specforge" | sort: "path" -%}
 {%- if parts.size > 1 -%}
 <nav class="series" aria-label="Series">
   <p><strong>The series</strong></p>
