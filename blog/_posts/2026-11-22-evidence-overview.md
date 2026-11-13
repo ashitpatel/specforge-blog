@@ -70,7 +70,19 @@ Breadth first, as a count: 40 real-world projects across 31 blinded cleanroom ru
 
 Three footnotes, all load-bearing. (†) Runs 6–10, 12–13 predate the blind label matcher — the independent pass that judges whether a finding describes a labelled fix. Their "matches" count findings that merely touch the fix's code, an earlier, looser methodology; run 11's single partial is already a matcher verdict. (—) "Findings" are findings filed, deduplicated where the run deduplicated; adjudicated precision varies by run and lives in each run's analysis, not this table. (*) FR2/FR3 matches are matcher verdicts on fix-and-packet pairs (3 of 34, 4 of 12), a stricter denominator than the per-packet recall above. Run 34's single partial is likewise one open-pair match in 26; its own-fix recall is 0 of 8.
 
-Beyond the cleanroom, 7 more projects: [kazoo](https://github.com/python-zk/kazoo) (6 of 10 reverted fixes caught with directed authors and 0 false positives; 3 of 10 unhinted plus 4 still-open bugs; change review named 6 of 6 restored properties), [procrastinate](https://github.com/procrastinate-org/procrastinate) (data-model door: the 2020 defect found pre-fix, nothing after the fix or at HEAD, 2 planted defects, 1 control), [asyncpg](https://github.com/MagicStack/asyncpg) (6 temporal fixes, per-fix specs caught 6 of 6), and four directed Java end-to-end runs — [commons-pool](https://github.com/apache/commons-pool) (confirmed), [curator](https://github.com/apache/curator) (uncertain), [resilience4j](https://github.com/resilience4j/resilience4j) (confirmed), [HikariCP](https://github.com/brettwooldridge/HikariCP) (the #591 run behind part 7's probe). Directed waves and instrument variants revisit projects already counted. That is the extent: 47 projects, two languages, every one named.
+Beyond the cleanroom, 7 more projects:
+
+| project | method | outcome |
+|---|---|---|
+| [kazoo](https://github.com/python-zk/kazoo) | directed authoring; change review | 6/10 reverted fixes, 0 FP; 3/10 unhinted + 4 open bugs; 6/6 restores named |
+| [procrastinate](https://github.com/procrastinate-org/procrastinate) | data-model door | 2020 defect pre-fix; clean after fix + at HEAD; 2 planted, 1 control |
+| [asyncpg](https://github.com/MagicStack/asyncpg) | per-fix specs | 6/6 temporal fixes caught |
+| [commons-pool](https://github.com/apache/commons-pool) | directed Java end-to-end (J3a) | confirmed |
+| [curator](https://github.com/apache/curator) | directed Java end-to-end (J3b) | uncertain |
+| [resilience4j](https://github.com/resilience4j/resilience4j) | directed Java end-to-end (J3c) | confirmed |
+| [HikariCP](https://github.com/brettwooldridge/HikariCP) | directed Java end-to-end + golden gate (H) | fix #591 pinned; removal probe blocked |
+
+Directed waves and instrument variants revisit projects already counted. That is the extent: 47 projects, two languages, every one named.
 
 ## The funnel: where precision actually lives
 
