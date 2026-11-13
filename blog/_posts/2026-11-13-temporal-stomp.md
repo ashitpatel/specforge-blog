@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-11
 ---
 
-*Part 5 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 4]({% post_url 2026-11-12-feature-log4j %}) flagged a bug at introduction. This one was already there — sitting in dormant code since 2013. Evidence: [`evidence/stomp/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/stomp).*
+*Part 5 of 17 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 4]({% post_url 2026-11-12-feature-log4j %}) flagged a bug at introduction. This one was already there — sitting in dormant code since 2013. Evidence: [`evidence/stomp/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/stomp).*
 
 *Level L2 · Needs: comfort reading short code excerpts. The race, line by line.*
 

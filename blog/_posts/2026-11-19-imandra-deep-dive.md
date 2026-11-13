@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-11
 ---
 
-*Part 11 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) called Imandra the neurosymbolic kin. This post draws the fork precisely.*
+*Part 11 of 17 in a series on [specforge](https://github.com/ashitpatel/specforge). The [landscape]({% post_url 2026-11-16-landscape %}) called Imandra the neurosymbolic kin. This post draws the fork precisely.*
 
 *Level L2 · Needs: part 8. Answers versus verdicts.*
 

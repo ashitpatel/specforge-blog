@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-11
 ---
 
-*Part 16 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 15]({% post_url 2026-11-23-sshd-deep-dive %}) read the Java drawer. This post reads the Python one — and closes the series. Evidence: [`evidence/celery/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/celery).*
+*Part 16 of 17 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 15]({% post_url 2026-11-23-sshd-deep-dive %}) read the Java drawer. This post reads the Python one — and closes the series. Evidence: [`evidence/celery/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/celery).*
 
 *Level L2 · Needs: comfort reading short Python excerpts. One project, file by file.*
 
@@ -86,5 +86,7 @@ Celery blanked FR2's fix-matching entirely (sshd's mirror image): the hub unlock
 ## The series, filed
 
 Sixteen posts: the gap, the machinery, five worked examples, the neighbors, the trust point, three deep comparisons, the conversation — and now the evidence arc: an overview and two projects read end to end. The three sentences from part 14 still hold: precise at depth, noisy at the surface, demonstrated at the core. Everything above is checkable from the evidence folders beside the posts. Don't trust it. Check it.
+
+*Series note (2026-11-13): the series has since continued with [Part 17]({% post_url 2026-11-25-reactor-deep-dive %}), which reopens the drawer for one adversarial project.*
 
 {% include series.html %}

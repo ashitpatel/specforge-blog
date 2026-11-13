@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-09
 ---
 
-*Part 1 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge), a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
+*Part 1 of 17 in a series on [specforge](https://github.com/ashitpatel/specforge), a tool that turns requirements or code into checkable Alloy and TLA+ guardrails. Every example links to its evidence.*
 
 *Level L1 · Needs: nothing. The idea in plain words.*
 

@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-11
 ---
 
-*Part 13 of 16 in a series on [specforge](https://github.com/ashitpatel/specforge). The finale isn't a verdict — it's the conversation that produces one, reconstructed from the pool run's real record. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*
+*Part 13 of 17 in a series on [specforge](https://github.com/ashitpatel/specforge). The finale isn't a verdict — it's the conversation that produces one, reconstructed from the pool run's real record. Evidence: [`evidence/pool/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/pool).*
 
 *Level L1 · Needs: nothing. The conversation behind the verdicts.*
 

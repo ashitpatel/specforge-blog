@@ -1,10 +1,10 @@
 # specforge-blog
 
-A sixteen-part blog series on [specforge](https://github.com/ashitpatel/specforge): what it is, why exhaustive checking earns its keep next to testing, five worked examples, the landscape and trust point, three deep comparisons, the conversation — and an evidence arc (overview + sshd + celery deep-dives) with the file drawer open. Written in the style of the author's [ai4sgfinder](https://ashitpatel.github.io/ai4sgfinder/) and [lesson-scaffold-builder](https://ashitpatel.github.io/lesson-scaffold-builder/) series.
+A seventeen-part blog series on [specforge](https://github.com/ashitpatel/specforge): what it is, why exhaustive checking earns its keep next to testing, five worked examples, the landscape and trust point, three deep comparisons, the conversation — and an evidence arc (overview + sshd + celery deep-dives) with the file drawer open, plus one adversarial drawer (reactor-core). Written in the style of the author's [ai4sgfinder](https://ashitpatel.github.io/ai4sgfinder/) and [lesson-scaffold-builder](https://ashitpatel.github.io/lesson-scaffold-builder/) series.
 
 ## Layout
 
-- `blog/` — the Jekyll site (minima theme, `series` navigation). Posts in `_posts/`, in series order, all published as of 2026-11-11.
+- `blog/` — the Jekyll site (minima theme, `series` navigation). Posts in `_posts/`, in series order, parts 1–16 published as of 2026-11-11, part 17 on 2026-11-13.
 - `evidence/` — the primary sources each post cites, vendored so the series stands alone:
   - `pool/` — the greenfield worked example: settled requirements, `Pool.tla`/`Pool.cfg`, `pool.als`, acceptance scenarios, answers file, `replay.py`.
   - `log4j/` — the change-guard data for the two Log4j introducing commits (`intro-c.json`, `intro-d.json`).
@@ -15,6 +15,7 @@ A sixteen-part blog series on [specforge](https://github.com/ashitpatel/specforg
   - `overview/` — the source ledger for part 14's claims (`SOURCES.md`).
   - `sshd/` — the Java deep-dive: FR2/FR3 match rows, adjudications (KEX, timeout cluster, agent, process), pkt-g report + pkt-f excerpt.
   - `celery/` — the Python deep-dive: FR2/FR3 match rows, adjudications (flush ×5 groups, Timer ×3, LimitedSet), pkt-a report excerpt.
+  - `reactor/` — the adversarial drawer: run34 match rows, adjudications (unicast NPE ×2 groups, MonoSubscriber double-discard, EmitterProcessor), pkt-a report + pkt-h excerpt.
 
 ## Preview
 
