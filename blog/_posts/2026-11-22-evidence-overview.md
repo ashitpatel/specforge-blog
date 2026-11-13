@@ -82,7 +82,7 @@ The misses are records, not conjectures. Labelled-fix recall at depth runs from 
 
 ## Smaller runs, same discipline
 
-Two instrument experiments on the same sshd/celery trees: prompt+gate authoring held 2 of 2 filed, both judged real blind, and the severity-reserve slot engaged friction-free but picked at 2/4 precision, so it stays opt-in. The tool's own repository guard stands at 283 post-commit reviews with zero `BLOCKING` — and three runs that errored instead of verdicting, counted here, not hidden.
+Two instrument experiments on the same sshd/celery trees: prompt+gate authoring held 2 of 2 filed, both judged real blind, and the severity-reserve slot engaged friction-free but picked at 2/4 precision, so it stays opt-in. The tool's own repository guard stands at 300 post-commit reviews with zero `BLOCKING` as of 2026-11-13 — and three runs that errored instead of verdicting, counted here, not hidden.
 
 ## How to read the next two posts
 

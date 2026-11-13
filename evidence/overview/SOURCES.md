@@ -52,7 +52,7 @@ repository.
 | Full reading lost twice; screen-50 stays default | FR2/FR3 results records above |
 | I2H prompt+gate 2/2 filed, 2/2 blind-real | `specforge:docs/project/rounds/2026-11-08-depth-I2H-results.md` |
 | Q5 reserve slot 2/4 precision, stays opt-in | `specforge:docs/project/rounds/2026-11-08-depth-Q5-results.md` |
-| Own-repo guard: 283 reviews, 0 BLOCKING, 3 errored runs (2026-11-11) | Local `.git/specforge-guard/` log (not in version control; counted, not quoted) |
+| Own-repo guard: 300 reviews, 0 BLOCKING, 3 errored runs (2026-11-13) | Local `.git/specforge-guard/` log (not in version control; counted, not quoted) |
 
 ## Extent table (part 14, "47 projects")
 
