@@ -1,6 +1,6 @@
 ---
 title: "The landscape: where specforge fits"
-description: "Specforge against its neighbors: Specula's bug-hunting agents, vericoding's proven code, Axiom Math's Lean proofs, Imandra's neurosymbolic reasoning, Qodo's review governance, and more."
+description: "Specforge against its neighbors: Specula's bug-hunting agents, vericoding's proven code, Axiom Math's Lean proofs, Imandra's neurosymbolic reasoning, AI code review (Qodo, CodeRabbit, Claude Code Review), and more."
 layout: post
 series: specforge
 date: 2026-11-11
@@ -59,11 +59,19 @@ They stack rather than compete: SDD upstream (intent → plan → code), specfor
 
 The differences are scope and endpoint. Imandra reasons about program logic broadly — state spaces, control flow, decision boundaries of the code as written — and answers rich semantic questions. Specforge specializes: temporal properties (interleavings) and structural properties (shapes), with the loop terminating not in answers but in *verdicts* — demonstrated bugs, pinned goldens, blocking gates. If CodeLogician is a logician you consult, specforge is a tripwire you install. The two agree on the deep point: the LLM proposes, the solver judges.
 
-## Qodo: governance for the other 95%
+## AI code review: governance for the other 95%
 
 [Qodo](https://www.qodo.ai/) attacks the same bottleneck — review capacity — from the governance side: multi-agent code review on every pull request, organizational standards enforced automatically, codebase knowledge brought into the agentic SDLC. "Code review for agents. Governance for humans."
 
-This is the complementary layer, not a competitor. AI review judges what reviewers judge — standards, coverage, blast radius, suspicious patterns — at machine speed. Exhausting interleavings isn't its job — review judges the change, it doesn't enumerate schedules; no reviewer, human or artificial, can eyeball whether a freed slot reaches the longest waiter under every schedule. The honest stack is both: Qodo-style governance on every PR for the things judgment covers, specforge-style exhaustive checking for the properties judgment can't see. Part 4's Log4j story is the boundary case: a review agent might flag the escaping stream, but only the model says which interleavings break.
+Two more reviewers fill out that layer.
+- **[CodeRabbit](https://www.coderabbit.ai/)** is the broadest. It reviews pull requests on GitHub, GitLab, Azure DevOps and Bitbucket, and also runs in the IDE and from a CLI. Parallel agents explore a sandboxed clone of the repository, with the findings of 50-plus linters and scanners as hints. It posts summaries, inline comments, fixes and generated tests, learns from replies, and can block a merge on natural-language pre-merge checks.
+- **[Claude Code Review](https://code.claude.com/docs/en/code-review)** is the narrowest. Several agents read a GitHub pull request and the code around it, a verification pass filters their candidates, and what survives is posted by severity: important, nit, or pre-existing. It targets correctness bugs only, never runs the code, and never approves or blocks. Its review rules are read from the protected base branch, so a pull request cannot rewrite them.
+
+Neither documents model checking or a dedicated concurrency analysis. Both use races as examples of what they flag, and both decide by a model's reading. CodeRabbit publishes customer acceptance rates; Claude Code Review warns that a clean review is no proof of correct code. (Both were compared from their documentation, 2026-11-13, not from runs.)
+
+This is the complementary layer, not a competitor. AI review judges what reviewers judge — standards, coverage, blast radius, suspicious patterns — at machine speed. Exhausting interleavings isn't its job — review judges the change, it doesn't enumerate schedules; no reviewer, human or artificial, can eyeball whether a freed slot reaches the longest waiter under every schedule. The honest stack is both: an AI reviewer on every PR for the things judgment covers, specforge-style exhaustive checking for the properties judgment can't see. Part 4's Log4j story is the boundary case: a review agent might flag the escaping stream, but only the model says which interleavings break.
+
+The two layers also meet in the middle. When a reviewer writes "this races with logout", that sentence is a claim about interleavings. It is exactly what specforge's confirm path settles: model the slice, check it, replay the trace against the code. And they guard against the same thing: Claude Code Review reads its rules only from the base branch, for the same reason specforge's bot-team mode will not count answers the dev bot could have written. What judges a change must not be editable by the change. Specforge's own change review does not yet hold to that: it still reads the answers and screen records in the tree under review. The fix is planned ([RV1](https://github.com/ashitpatel/specforge/blob/main/docs/project/rounds/2026-11-13-RV1-plan.md)), borrowed from Claude Code Review's protected-branch rule.
 
 ## Intent Lab: fellow TLA+ travelers
 
