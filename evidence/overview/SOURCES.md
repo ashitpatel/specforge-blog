@@ -34,6 +34,7 @@ repository.
 |---|---|
 | MR1b: Log4j d 1st of 31, c 2nd of 3, visible ≤ 10 | `blog:evidence/rounds/2026-11-02-MR1-manifestation-reading.md` |
 | Java 4-bench recall @100: 10/17, 5/5, 3/17, 1/2 (frozen) | `specforge:docs/project/rounds/2026-11-07-M8-results.md` |
+| Go 3-bench recall @10: bbolt 2/4, grpc-go 2/23, etcd 1/25 | `specforge:evals/benchmarks/recall-go-bbolt/SELECTION.json`, `specforge:evals/benchmarks/recall-go-grpc/SELECTION.json`, `specforge:evals/benchmarks/recall-go-etcd/SELECTION.json` (items; ranks live in the local-only MANIFESTs, as Java's do), `specforge:docs/project/rounds/2026-11-13-G2-results.md`, `specforge:docs/project/rounds/2026-11-13-G3d-results.md` (rebless review with final ranks) |
 | FM83: 4 fn-name coincidences, covers v2 | `specforge:docs/project/rounds/2026-11-07-FM83-results.md` |
 | Proposer tail precision 3/40 (7.5%); miss autopsy 21 never-proposed + 1 ranked-out | `specforge:docs/project/rounds/2026-11-07-M8-results.md`, `specforge:docs/project/rounds/2026-11-07-M8-correction-1.md` |
 | recall-pilot: 14/20 covered, 0/20 in author reach | `specforge:evals/benchmarks/recall-pilot/RESULTS.md` |
@@ -54,7 +55,7 @@ repository.
 | Q5 reserve slot 2/4 precision, stays opt-in | `specforge:docs/project/rounds/2026-11-08-depth-Q5-results.md` |
 | Own-repo guard: 300 reviews, 0 BLOCKING, 3 errored runs (2026-11-13) | Local `.git/specforge-guard/` log (not in version control; counted, not quoted) |
 
-## Extent table (part 14, "47 projects")
+## Extent table (part 14, "50 projects")
 
 | claim | source |
 |---|---|
@@ -64,3 +65,5 @@ repository.
 | Repo URLs (40 installed clones) | `origin` remotes under `benchmarks/candidates/` and `benchmarks/java/` (local checkouts, not in version control) |
 | Repo URLs (rich, redis-py, gevent, trio, prompt_toolkit, ansible-core, asyncpg) | Verified to exist via `gh api repos/<org>/<name>` 2026-11-11 (no local clone) |
 | Beyond-cleanroom rows (kazoo, procrastinate, asyncpg, J3a/b/c + H) | Sources in the tables above; J-series verdicts from `blog:evidence/hikaricp/2026-10-29-J6c-java-golden-properties.md` |
+| Beyond-cleanroom rows (bbolt, grpc-go, etcd: G3c/G3d directed Go end-to-end) | `specforge:docs/project/rounds/2026-11-13-G3c-results.md`, `specforge:docs/project/rounds/2026-11-13-G3d-results.md` |
+| Repo URLs (bbolt, grpc-go, etcd) | `origin` remotes under `~/projects/benchmarks/` (local checkouts, not in version control) |

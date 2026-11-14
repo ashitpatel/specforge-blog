@@ -83,7 +83,7 @@ This is convergent evolution, and the series takes it as corroboration: a fronti
 
 [&Truth](https://andtruth.com/) states the maximal version of the premise: a "universal verification machine" that reads code in any language and mathematically proves it safe, secure, and correct, with independently checkable proofs. (Pre-release as of this writing; their roundtable includes the inventor of Lean.)
 
-Take the mission statement at face value and specforge is the scoped-down version that works today: not any language (Python and Java), not any property (temporal and structural), not proof (bounded checking), and a human still in the loop. If &Truth is the moonshot, specforge is the base camp that already returns samples — real races demonstrated, real regressions blocked. The moonshot's success would subsume the base camp; until then, scoped and working is what returns samples. The series' wager is that the base camp teaches the moonshot something about which properties matter.
+Take the mission statement at face value and specforge is the scoped-down version that works today: not any language (Python, Java and Go), not any property (temporal and structural), not proof (bounded checking), and a human still in the loop. If &Truth is the moonshot, specforge is the base camp that already returns samples — real races demonstrated, real regressions blocked. The moonshot's success would subsume the base camp; until then, scoped and working is what returns samples. The series' wager is that the base camp teaches the moonshot something about which properties matter.
 
 ## Axiom Math: proofs at startup scale
 

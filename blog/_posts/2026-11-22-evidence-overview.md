@@ -1,6 +1,6 @@
 ---
 title: "The evidence file: what the runs actually showed"
-description: "Every number behind the series' claims, in one place: blinded cleanroom runs on Java and Python projects, what matched upstream fixes, what stayed potential, and what the tool demonstrably misses."
+description: "Every number behind the series' claims, in one place: blinded cleanroom runs on Java and Python projects, directed runs on Go projects, what matched upstream fixes, what stayed potential, and what the tool demonstrably misses."
 layout: post
 series: specforge
 date: 2026-11-11
@@ -10,7 +10,7 @@ date: 2026-11-11
 
 *Level L1 · Needs: part 1. The calibrated whole.*
 
-The series has shown you a lost wake-up, an overfilled pool, and two gates that fire. A fair reader asks: how much testing stands behind those stories, and what did the runs show when nothing worked? This post answers with the runs themselves — over a dozen evaluations on real Java and Python projects. Names used below, in one place: a **run** is one preregistered evaluation; a **packet** is one tester's sealed session — one code tree, the engine, the brief, no labels. **FR2** ran 16 packets on sshd and celery; **FR3** ran 8 on the same projects with new fixes (FR = **full read**, the reading-mode experiment series). Each run tested two reading modes: arm A reads the top-50 ranked suggestions, arm B reads everything. **Depth** is the expensive end — modelling a slice, running the checkers, confirming against code; the **proposer** is the cheap ranking step that decides what reaches it. A **labelled** bug is one with a known upstream fix used as ground truth; a **match** (exact or partial) is the blind matcher's verdict that a finding describes it; **adjudicated** means judged real-or-not by an independent blind pass. **Cleanroom** is the methodology tying it together: blinded testers, preregistration, frozen scores, independent adjudication (part 2's methodology section).
+The series has shown you a lost wake-up, an overfilled pool, and two gates that fire. A fair reader asks: how much testing stands behind those stories, and what did the runs show when nothing worked? This post answers with the runs themselves — over a dozen evaluations on real Java, Python and Go projects. Names used below, in one place: a **run** is one preregistered evaluation; a **packet** is one tester's sealed session — one code tree, the engine, the brief, no labels. **FR2** ran 16 packets on sshd and celery; **FR3** ran 8 on the same projects with new fixes (FR = **full read**, the reading-mode experiment series). Each run tested two reading modes: arm A reads the top-50 ranked suggestions, arm B reads everything. **Depth** is the expensive end — modelling a slice, running the checkers, confirming against code; the **proposer** is the cheap ranking step that decides what reaches it. A **labelled** bug is one with a known upstream fix used as ground truth; a **match** (exact or partial) is the blind matcher's verdict that a finding describes it; **adjudicated** means judged real-or-not by an independent blind pass. **Cleanroom** is the methodology tying it together: blinded testers, preregistration, frozen scores, independent adjudication (part 2's methodology section).
 
 Three sentences hold the calibration, and everything below is the receipt:
 
@@ -30,9 +30,9 @@ Three sentences hold the calibration, and everything below is the receipt:
 
 **Structural.** The shape-invariant family is thinner and the post says so. A PostgreSQL task queue's real 2020 defect — a delete the database refuses — was found on the pre-fix commit by direct schema/code comparison, with nothing reported after the fix or at HEAD; planted defects came with Alloy counterexamples and a schema-enforced control stayed clean non-vacuously. A three-slice Alloy pilot mirrored three temporal verdicts exactly and found nothing new — agreement as evidence, not discovery. The structural catches in the new deep-dives: one real Alloy violation on celery (part 16) and verified-clean Alloy models on sshd (part 15). No structural catch on Java exists yet.
 
-## The extent: 47 projects, one table
+## The extent: 50 projects, one table plus one
 
-Breadth first, as a count: 40 real-world projects across 31 blinded cleanroom runs (run 22's two packets are constructed, not real-world), 235 packets, 1,118 findings filed — plus 7 projects in the benchmark families below, 47 in all. Every row is one preregistered run; every count is from its frozen score file.
+Breadth first, as a count: 40 real-world projects across 31 blinded cleanroom runs (run 22's two packets are constructed, not real-world), 235 packets, 1,118 findings filed — plus 10 projects below (7 benchmark-family, 3 Go end-to-end), 50 in all. Every cleanroom row is one preregistered run; every count is from its frozen score file.
 
 | run | projects | language | packets | findings | fix matches |
 |---|---|---|---|---|---|
@@ -70,7 +70,7 @@ Breadth first, as a count: 40 real-world projects across 31 blinded cleanroom ru
 
 Three footnotes, all load-bearing. (†) Runs 6–10, 12–13 predate the blind label matcher — the independent pass that judges whether a finding describes a labelled fix. Their "matches" count findings that merely touch the fix's code, an earlier, looser methodology; run 11's single partial is already a matcher verdict. (—) "Findings" are findings filed, deduplicated where the run deduplicated; adjudicated precision varies by run and lives in each run's analysis, not this table. (*) FR2/FR3 matches are matcher verdicts on fix-and-packet pairs (3 of 34, 4 of 12), a stricter denominator than the per-packet recall above. Run 34's single partial is likewise one open-pair match in 26; its own-fix recall is 0 of 8.
 
-Beyond the cleanroom, 7 more projects:
+Beyond the cleanroom, 10 more projects:
 
 | project | method | outcome |
 |---|---|---|
@@ -80,9 +80,12 @@ Beyond the cleanroom, 7 more projects:
 | [commons-pool](https://github.com/apache/commons-pool) | directed Java end-to-end (J3a) | confirmed |
 | [curator](https://github.com/apache/curator) | directed Java end-to-end (J3b) | uncertain |
 | [resilience4j](https://github.com/resilience4j/resilience4j) | directed Java end-to-end (J3c) | confirmed |
-| [HikariCP](https://github.com/brettwooldridge/HikariCP) | directed Java end-to-end + golden gate (H) | fix #591 pinned; removal probe blocked |
+| [HikariCP](https://github.com/brettwoolridge/HikariCP) | directed Java end-to-end + golden gate (H) | fix #591 pinned; removal probe blocked |
+| [bbolt](https://github.com/etcd-io/bbolt) | directed Go end-to-end (G3c) | uncertain (library sharing) |
+| [grpc-go](https://github.com/grpc/grpc-go) | directed Go end-to-end (G3c) | confirmed (data race) |
+| [etcd](https://github.com/etcd-io/etcd) | directed Go end-to-end (G3c+G3d) | refuted ×2 |
 
-Directed waves and instrument variants revisit projects already counted. That is the extent: 47 projects, two languages, every one named.
+Directed waves and instrument variants revisit projects already counted. That is the extent: 50 projects, three languages, every one named.
 
 ## The funnel: where precision actually lives
 
