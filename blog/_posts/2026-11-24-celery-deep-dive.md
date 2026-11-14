@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-11
 ---
 
-*Part 16 of 17 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 15]({% post_url 2026-11-23-sshd-deep-dive %}) read the Java drawer. This post reads the Python one — and closes the series. Evidence: [`evidence/celery/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/celery).*
+*Part 16 of 18 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 15]({% post_url 2026-11-23-sshd-deep-dive %}) read the Java drawer. This post reads the Python one — and closes the series. Evidence: [`evidence/celery/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/celery).*
 
 *Level L2 · Needs: comfort reading short Python excerpts. One project, file by file.*
 

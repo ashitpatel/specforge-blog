@@ -27,6 +27,7 @@ repository.
 | FR2: 134/141 real (95.0%), R1 A0/B1, R2 A2/5 B4/5, R3 A0/8 B3/8, R4 A2 B5, cost 1.66×/2.92×, adoption False | `specforge:evals/cleanroom/fr2/SCORES.json` (sha256 `70ee4d84…`), `specforge:evals/cleanroom/fr2/ANALYSIS.md`, `specforge:docs/project/rounds/2026-11-04-FR2-results.md` |
 | FR3: 84/94 real (89.4%), R1′ 1/4+1/4, R2′ 2/4+4/4, R3 A1/4 B3/4, R4′ A1/25 B5/69, cost 1.76×/3.20×, adoption False | `specforge:evals/cleanroom/fr3/SCORES.json` (sha256 `6282aa3d…`), `specforge:evals/cleanroom/fr3/ANALYSIS.md`, `specforge:docs/project/rounds/2026-11-04-FR3-results.md` |
 | run 34 (reactor-core): 31/34 real (91%), own 0/8, open 1/8, P1 7/8, P4 1/8, P3 2, P35 8/8, P22 8/8 | `specforge:evals/cleanroom/run34/SCORES.json` (sha256 `23f89243…`), `specforge:evals/cleanroom/run34/ANALYSIS.md` |
+| runs 35–37 (Go blind, 24 packets): 80/82 real (97.6%), 14 own + 7 open matches | `specforge:evals/cleanroom/run35/SCORES.json` (sha256 `01bb15f0…`), `specforge:evals/cleanroom/run36/SCORES.json` (sha256 `c075d729…`), `specforge:evals/cleanroom/run37/SCORES.json` (sha256 `fe21703e…`), run `ANALYSIS.md` files, `specforge:docs/project/rounds/2026-11-14-GRUN-results.md` |
 
 ## Guard, proposer, structural
 
@@ -48,21 +49,21 @@ repository.
 
 | claim | source |
 |---|---|
-| Labelled recall 0/8 (runs 15, 33, 34) to 4/5 (run 19); no own-slice authoring in 24 FR2/FR3 packets | run/FR `ANALYSIS.md` files above |
-| Wrong-direction: 1 (run 33), 7 (FR2), 6 (FR3), 2 (run 34); caller-threading/lock-identity backlog, +serialized-wrapper checks (run 34) | run/FR `ANALYSIS.md` files above |
+| Labelled recall 0/8 (runs 15, 33, 34) to 4/5 (run 19); no own-slice authoring in 24 FR2/FR3 packets; Go own-slice covers on 7 packets | run/FR `ANALYSIS.md` files above; `specforge:evals/cleanroom/run36/ANALYSIS.md`, `specforge:evals/cleanroom/run37/ANALYSIS.md` (P2 notes) |
+| Wrong-direction: 1 (run 33), 7 (FR2), 6 (FR3), 2 (run 34), 0 (runs 35, 36), 2 (run 37); caller-threading/lock-identity backlog, +serialized-wrapper checks (run 34), +same-word/guard checks (run 37) | run/FR `ANALYSIS.md` files above |
 | Full reading lost twice; screen-50 stays default | FR2/FR3 results records above |
 | I2H prompt+gate 2/2 filed, 2/2 blind-real | `specforge:docs/project/rounds/2026-11-08-depth-I2H-results.md` |
 | Q5 reserve slot 2/4 precision, stays opt-in | `specforge:docs/project/rounds/2026-11-08-depth-Q5-results.md` |
 | Own-repo guard: 300 reviews, 0 BLOCKING, 3 errored runs (2026-11-13) | Local `.git/specforge-guard/` log (not in version control; counted, not quoted) |
 
-## Extent table (part 14, "50 projects")
+## Extent table (part 14, "55 projects")
 
 | claim | source |
 |---|---|
-| Per-run packets / findings / matches (runs 6–34, FR2, FR3) | `specforge:evals/cleanroom/<run>/SCORES.json` (frozen; run 11's partial from its `ANALYSIS.md`, which has no `MATCHES.json`) |
+| Per-run packets / findings / matches (runs 6–37, FR2, FR3) | `specforge:evals/cleanroom/<run>/SCORES.json` (frozen; run 11's partial from its `ANALYSIS.md`, which has no `MATCHES.json`) |
 | Run codebases (prereg titles) | `specforge:evals/cleanroom/<run>/PREREGISTRATION.md` (run 22: constructed) |
-| Totals: 235 packets, 1,118 findings (run 22 excluded) | Summed from the frozen `SCORES.json` files above |
-| Repo URLs (40 installed clones) | `origin` remotes under `benchmarks/candidates/` and `benchmarks/java/` (local checkouts, not in version control) |
+| Totals: 259 packets, 1,199 findings (run 22 excluded) | Summed from the frozen `SCORES.json` files above |
+| Repo URLs (45 installed clones) | `origin` remotes under `benchmarks/candidates/` and `benchmarks/java/` (local checkouts, not in version control) |
 | Repo URLs (rich, redis-py, gevent, trio, prompt_toolkit, ansible-core, asyncpg) | Verified to exist via `gh api repos/<org>/<name>` 2026-11-11 (no local clone) |
 | Beyond-cleanroom rows (kazoo, procrastinate, asyncpg, J3a/b/c + H) | Sources in the tables above; J-series verdicts from `blog:evidence/hikaricp/2026-10-29-J6c-java-golden-properties.md` |
 | Beyond-cleanroom rows (bbolt, grpc-go, etcd: G3c/G3d directed Go end-to-end) | `specforge:docs/project/rounds/2026-11-13-G3c-results.md`, `specforge:docs/project/rounds/2026-11-13-G3d-results.md` |

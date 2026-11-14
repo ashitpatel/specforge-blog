@@ -1,0 +1,66 @@
+{
+ "caddy/pkt-a": {
+  "open": [],
+  "own": {
+   "findings": [
+    0
+   ],
+   "fix": "936ee918ee",
+   "is_concurrency": true,
+   "match": "exact",
+   "reason": "Fix moves passive health-check logger assignment from per-request provisionUpstream (concurrent requests race writing h.HealthChecks.Passive.logger) to one-time Provision. Finding 0 is that same shared-logger race: same variable, same cause, same effect."
+  }
+ },
+ "caddy/pkt-b": {
+  "open": [
+   {
+    "findings": [
+     1,
+     2
+    ],
+    "fix": "a10910f398",
+    "match": "exact",
+    "reason": "Fix adds serverMu around assignment/read of localAdminServer and remoteAdminServer globals because the Serve goroutine reads them while a concurrent reload writes them. Findings 1 and 2 describe that same unsynchronized access and its crossed-generation effect on the local and remote endpoints."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "e8ae80adca",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix removes the persisted browse template (per-request parse stored on shared FileServer struct) and fixes buffer use-after-put in fileserver. No finding touches fileserver browse/template/buffer code (STEK configs + admin Serve only)."
+  }
+ },
+ "caddy/pkt-c": {
+  "open": [
+   {
+    "findings": [
+     0,
+     1
+    ],
+    "fix": "a10910f398",
+    "match": "exact",
+    "reason": "Same as caddy/pkt-b: findings 0 and 1 describe a reload swapping the local/remote admin server under a running Serve goroutine, the unsynchronized global access that a10910f398 fixes with serverMu."
+   }
+  ],
+  "own": {
+   "findings": [],
+   "fix": "ce5a0934a8",
+   "is_concurrency": true,
+   "match": "none",
+   "reason": "Fix is the RoundRobinSelection torn read (atomic.Add then non-atomic read of r.robin) in reverseproxy. Both findings are admin-server swap model-level findings; neither touches selection policies."
+  }
+ },
+ "caddy/pkt-d": {
+  "open": [],
+  "own": {
+   "findings": [
+    0
+   ],
+   "fix": "a10910f398",
+   "is_concurrency": true,
+   "match": "exact",
+   "reason": "Fix synchronizes localAdminServer/remoteAdminServer globals with serverMu. Finding 0 (serve goroutine Serves a newer reload's server on its older listener) is that same unsynchronized read/write of localAdminServer across the reload boundary. Finding 1 (listener Close vs Listen reuse) is different code."
+  }
+ }
+}

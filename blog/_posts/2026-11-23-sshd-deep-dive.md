@@ -6,7 +6,7 @@ series: specforge
 date: 2026-11-11
 ---
 
-*Part 15 of 17 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 14]({% post_url 2026-11-22-evidence-overview %}) opened the file drawer. This post reads one drawer all the way through: the Java half. Evidence: [`evidence/sshd/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/sshd).*
+*Part 15 of 18 in a series on [specforge](https://github.com/ashitpatel/specforge). [Part 14]({% post_url 2026-11-22-evidence-overview %}) opened the file drawer. This post reads one drawer all the way through: the Java half. Evidence: [`evidence/sshd/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/sshd).*
 
 *Level L2 · Needs: comfort reading short Java excerpts. One project, file by file.*
 

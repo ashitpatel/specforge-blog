@@ -1,12 +1,12 @@
 ---
 title: "The evidence file: what the runs actually showed"
-description: "Every number behind the series' claims, in one place: blinded cleanroom runs on Java and Python projects, directed runs on Go projects, what matched upstream fixes, what stayed potential, and what the tool demonstrably misses."
+description: "Every number behind the series' claims, in one place: blinded cleanroom runs on Java, Python and Go projects, directed runs, what matched upstream fixes, what stayed potential, and what the tool demonstrably misses."
 layout: post
 series: specforge
 date: 2026-11-11
 ---
 
-*Part 14 of 17 in a series on [specforge](https://github.com/ashitpatel/specforge). The first thirteen posts told stories. This one opens the file drawer: every run behind them, with the numbers that keep the stories honest. Evidence: [`evidence/overview/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/overview), [`evidence/sshd/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/sshd), [`evidence/celery/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/celery).*
+*Part 14 of 18 in a series on [specforge](https://github.com/ashitpatel/specforge). The first thirteen posts told stories. This one opens the file drawer: every run behind them, with the numbers that keep the stories honest. Evidence: [`evidence/overview/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/overview), [`evidence/sshd/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/sshd), [`evidence/celery/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/celery), [`evidence/go/`](https://github.com/ashitpatel/specforge-blog/tree/main/evidence/go).*
 
 *Level L1 · Needs: part 1. The calibrated whole.*
 
@@ -22,7 +22,7 @@ Three sentences hold the calibration, and everything below is the receipt:
 
 **Demonstrated on real code.** Four evaluations had blinded testers whose findings were reproduced against the real code and matched against fixes they never saw. On kazoo (Python), authors told which file to examine caught 6 of 10 past fixes with 9 reproduced findings, 7 distinct bugs, and 0 false positives; authors given no hints caught 3 of 10 and 4 further bugs that still reproduced on that week's kazoo. On stomp.py and Pyro5 (run 19), all 23 adjudicated claims were real and 4 of 5 labelled fixes matched (three exact, one partial), with zero wrong-direction verdicts (verdicts the adjudicators overturned). On kombu and huey (run 15), all 33 claims were real and demonstrated — and recall was 0 of 8, because the labelled fixes sat in broker transports and an event loop the engine could not see. A five-slice directed wave went 5 for 5: one confirmed race reproduced, four honestly clean with controls. The stomp story in [part 5]({% post_url 2026-11-13-temporal-stomp %}) and the kombu story in [part 6]({% post_url 2026-11-14-structural-kombu %}) come from this rung.
 
-**Statically confirmed and blind-adjudicated.** Three larger runs never executed code — Java has no replay, and the Python packets ran static-only — so their verdicts rest on static confirmation plus independent blind adjudication, never demonstration. Say that plainly, because the counts are the series' largest: run 33 on Log4j 2 (8 testers, 8 trees) judged 36 of 37 claims real with 0 of 8 labelled fixes matched; FR2 on sshd and celery (16 packets) judged 134 of 141 real (95.0%); FR3 (8 packets, new fixes) judged 84 of 94 real (89.4%). High precision, low labelled recall, no executions: that is the rung, stated whole. The next two posts open two of these runs file by file: [sshd]({% post_url 2026-11-23-sshd-deep-dive %}) and [celery]({% post_url 2026-11-24-celery-deep-dive %}).
+**Statically confirmed and blind-adjudicated.** Six larger runs never executed code — Java and Go have no replay, and the Python packets ran static-only — so their verdicts rest on static confirmation plus independent blind adjudication, never demonstration. Say that plainly, because the counts are the series' largest: run 33 on Log4j 2 (8 testers, 8 trees) judged 36 of 37 claims real with 0 of 8 labelled fixes matched; FR2 on sshd and celery (16 packets) judged 134 of 141 real (95.0%); FR3 (8 packets, new fixes) judged 84 of 94 real (89.4%); and three Go blind runs (24 packets on nats-server, caddy, badger, go-redis and sarama) judged 80 of 82 real (97.6%) with 14 own and 7 open label matches. High precision, low-to-mid labelled recall, no executions: that is the rung, stated whole. The deep-dives open three of these runs file by file: [sshd]({% post_url 2026-11-23-sshd-deep-dive %}), [celery]({% post_url 2026-11-24-celery-deep-dive %}) and [Go]({% post_url 2026-11-26-go-deep-dive %}).
 
 **Flagged at introduction.** The change guard reviewed two Log4j feature commits blind and flagged both regressions in a visible place — 1st of 31 and 2nd of 3 — months before users manifested them ([part 4]({% post_url 2026-11-12-feature-log4j %})). Note the pairing the record insists on: run 33's depth missed those same two bugs' slices at ranks 106 and 385, below the examination cutoff. Change-triggered flags catch change-introduced bugs; they do nothing for latent races in dormant code. Neither half replaces the other. (Separately, change review on six kazoo fix diffs named the restored property 6 for 6, with no false restore on two controls — the review direction, measured on real fixes.)
 
@@ -30,9 +30,9 @@ Three sentences hold the calibration, and everything below is the receipt:
 
 **Structural.** The shape-invariant family is thinner and the post says so. A PostgreSQL task queue's real 2020 defect — a delete the database refuses — was found on the pre-fix commit by direct schema/code comparison, with nothing reported after the fix or at HEAD; planted defects came with Alloy counterexamples and a schema-enforced control stayed clean non-vacuously. A three-slice Alloy pilot mirrored three temporal verdicts exactly and found nothing new — agreement as evidence, not discovery. The structural catches in the new deep-dives: one real Alloy violation on celery (part 16) and verified-clean Alloy models on sshd (part 15). No structural catch on Java exists yet.
 
-## The extent: 50 projects, one table plus one
+## The extent: 55 projects, one table plus one
 
-Breadth first, as a count: 40 real-world projects across 31 blinded cleanroom runs (run 22's two packets are constructed, not real-world), 235 packets, 1,118 findings filed — plus 10 projects below (7 benchmark-family, 3 Go end-to-end), 50 in all. Every cleanroom row is one preregistered run; every count is from its frozen score file.
+Breadth first, as a count: 45 real-world projects across 34 blinded cleanroom runs (run 22's two packets are constructed, not real-world), 259 packets, 1,199 findings filed — plus 10 projects below (7 benchmark-family, 3 Go end-to-end), 55 in all. Every cleanroom row is one preregistered run; every count is from its frozen score file.
 
 | run | projects | language | packets | findings | fix matches |
 |---|---|---|---|---|---|
@@ -67,8 +67,11 @@ Breadth first, as a count: 40 real-world projects across 31 blinded cleanroom ru
 | FR2 | [MINA SSHD](https://github.com/apache/mina-sshd), [celery](https://github.com/celery/celery) | Java, Python | 16 | 141 | 3 pairs* |
 | FR3 | [MINA SSHD](https://github.com/apache/mina-sshd), [celery](https://github.com/celery/celery) | Java, Python | 8 | 94 | 4 pairs* |
 | 34 | [reactor-core](https://github.com/reactor/reactor-core) | Java | 8 | 34 | 1 partial (open) |
+| 35 | [nats-server](https://github.com/nats-io/nats-server), [caddy](https://github.com/caddyserver/caddy) | Go | 8 | 21 | 7 (4 own + 3 open) |
+| 36 | [badger](https://github.com/hypermodeinc/badger), [go-redis](https://github.com/redis/go-redis) | Go | 8 | 31 | 7 (5 own + 2 open) |
+| 37 | [sarama](https://github.com/IBM/sarama) | Go | 8 | 29 | 7 (5 own + 2 open) |
 
-Three footnotes, all load-bearing. (†) Runs 6–10, 12–13 predate the blind label matcher — the independent pass that judges whether a finding describes a labelled fix. Their "matches" count findings that merely touch the fix's code, an earlier, looser methodology; run 11's single partial is already a matcher verdict. (—) "Findings" are findings filed, deduplicated where the run deduplicated; adjudicated precision varies by run and lives in each run's analysis, not this table. (*) FR2/FR3 matches are matcher verdicts on fix-and-packet pairs (3 of 34, 4 of 12), a stricter denominator than the per-packet recall above. Run 34's single partial is likewise one open-pair match in 26; its own-fix recall is 0 of 8.
+Three footnotes, all load-bearing. (†) Runs 6–10, 12–13 predate the blind label matcher — the independent pass that judges whether a finding describes a labelled fix. Their "matches" count findings that merely touch the fix's code, an earlier, looser methodology; run 11's single partial is already a matcher verdict. (—) "Findings" are findings filed, deduplicated where the run deduplicated; adjudicated precision varies by run and lives in each run's analysis, not this table. (*) FR2/FR3 matches are matcher verdicts on fix-and-packet pairs (3 of 34, 4 of 12), a stricter denominator than the per-packet recall above. Run 34's single partial is likewise one open-pair match in 26; its own-fix recall is 0 of 8. Runs 35–37 likewise count pairs: run 35's 7 pairs sit on 7 packets, run 36's 7 on 7, run 37's 7 on 6 (pkt-h matched both its own fix and an open one).
 
 Beyond the cleanroom, 10 more projects:
 
@@ -85,7 +88,7 @@ Beyond the cleanroom, 10 more projects:
 | [grpc-go](https://github.com/grpc/grpc-go) | directed Go end-to-end (G3c) | confirmed (data race) |
 | [etcd](https://github.com/etcd-io/etcd) | directed Go end-to-end (G3c+G3d) | refuted ×2 |
 
-Directed waves and instrument variants revisit projects already counted. That is the extent: 50 projects, three languages, every one named.
+Directed waves and instrument variants revisit projects already counted. That is the extent: 55 projects, three languages, every one named.
 
 ## The funnel: where precision actually lives
 
@@ -93,14 +96,14 @@ Read the two precision numbers together, because either alone misleads. A blind 
 
 ## What the tool demonstrably misses
 
-The misses are records, not conjectures. Labelled-fix recall at depth runs from 0 of 8 (runs 15 and 33, kombu/huey and Log4j 2) to 4 of 5 (run 19, stomp.py/Pyro5): fixes the proposer never surfaces (broker-bound state, greenlet and event-loop shapes, GC finalizers, filesystem and JDK-internal state), fixes ranked below the examination cutoff or the depth bar, and fixes examined and wrongly falsified. Run 34 adds the mirror image at 0 of 8 own: the proposer saw seven own targets in its top 10 (five at rank 1), and the testers' depth still went elsewhere — the frontier moved from the proposer to depth choice. No tester in 24 packets across FR2 and FR3 ever authored the missing slice from scratch. Wrong-direction verdicts exist in every static run (1 in run 33, 7 in FR2, 6 in FR3) — caller-threading and lock-identity facts dominate the calibration backlog. And the full-reading question was tested twice and lost twice: reading everything finds ~2.5× the real bugs at comparable-or-lower precision, but the pre-registered adoption rules (finding the labelled fix at depth, zero overturned verdicts) failed both times, so the top-50 screen stays the default.
+The misses are records, not conjectures. Labelled-fix recall at depth runs from 0 of 8 (runs 15 and 33, kombu/huey and Log4j 2) to 4 of 5 (run 19, stomp.py/Pyro5), with the three Go blind runs mid-range at 4–5 of 8 own (7/8, 7/8, 6/8 own-or-open): fixes the proposer never surfaces (broker-bound state, greenlet and event-loop shapes, GC finalizers, filesystem and JDK-internal state), fixes ranked below the examination cutoff or the depth bar, and fixes examined and wrongly falsified. Run 34 adds the mirror image at 0 of 8 own: the proposer saw seven own targets in its top 10 (five at rank 1), and the testers' depth still went elsewhere — the frontier moved from the proposer to depth choice. No tester in 24 packets across FR2 and FR3 ever authored the missing slice from scratch; Go testers break that pattern, authoring own slices that covered labelled targets on 7 packets. Wrong-direction verdicts burden most static runs (1 in run 33, 7 in FR2, 6 in FR3, 2 in run 37) — caller-threading and lock-identity facts dominate the calibration backlog — but runs 35 and 36 went 53 for 53 with zero overturned. And the full-reading question was tested twice and lost twice: reading everything finds ~2.5× the real bugs at comparable-or-lower precision, but the pre-registered adoption rules (finding the labelled fix at depth, zero overturned verdicts) failed both times, so the top-50 screen stays the default.
 
 ## Smaller runs, same discipline
 
 Two instrument experiments on the same sshd/celery trees: prompt+gate authoring held 2 of 2 filed, both judged real blind, and the severity-reserve slot engaged friction-free but picked at 2/4 precision, so it stays opt-in. The tool's own repository guard stands at 300 post-commit reviews with zero `BLOCKING` as of 2026-11-13 — and three runs that errored instead of verdicting, counted here, not hidden.
 
-## How to read the next two posts
+## How to read the next posts
 
-Parts 15 and 16 are the deep-dives: one Java project, one Python project, each with a fixed issue the tool matched, potential issues it flagged with code, and the misses on the same trees. Read them as exhibits for this post's three sentences — precise at depth, noisy at the surface, demonstrated at the core — with the file drawer open beside them.
+Parts 15, 16 and 17 are the deep-dives: one Java project, one Python project, one reactive-Java project, each with a fixed issue the tool matched, potential issues it flagged with code, and the misses on the same trees. Part 18 does the same for the first Go project. Read them as exhibits for this post's three sentences — precise at depth, noisy at the surface, demonstrated at the core — with the file drawer open beside them.
 
 {% include series.html %}
